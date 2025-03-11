@@ -1,0 +1,12 @@
+root {
+  --primarybg: #111928;
+  --secondarybg: #34495e;
+  --button: #1abc9c;
+  --button-hover: #16a085;
+}
+
+.Home {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--primarybg);
+}

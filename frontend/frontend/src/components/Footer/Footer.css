@@ -1,0 +1,17 @@
+:root {
+  --primarybg: #111928;
+  --secondarybg: #272e3c;
+  --button: #6a9eed;
+  --button-hover: #6a9eed;
+  --text-hover: #90b3f1;
+}
+.Footer {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  color: #8c8f98;
+  background-color: var(--secondarybg);
+}

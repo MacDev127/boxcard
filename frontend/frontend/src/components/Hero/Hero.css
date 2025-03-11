@@ -1,0 +1,79 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.hero__banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero__banner img {
+  max-height: 500px;
+}
+.hero__input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+}
+
+.hero__input-container input {
+  flex-grow: 1;
+  padding: 12px 20px;
+  border-radius: 25px;
+  background-color: #30384c;
+  border: 1px solid #30384c;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  border-radius: 25px 0 0 25px;
+}
+
+.hero__input-container input::placeholder {
+  color: #8c8f98;
+}
+
+.hero__input-container input:focus {
+  border-color: #7ea8ef;
+}
+
+.hero__input-container button {
+  background-color: #7ea8ef;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 8px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  border-radius: 0 25px 25px 0;
+}
+
+.hero__input-container button:hover {
+  background-color: #90b3f1;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 600px) {
+  .hero__input-container {
+    flex-direction: column;
+  }
+
+  .hero__input-container input,
+  .hero__input-container button {
+    width: 100%;
+  }
+
+  .hero__input-container button {
+    margin-top: 8px;
+  }
+}
