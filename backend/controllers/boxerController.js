@@ -25,6 +25,25 @@ exports.getAllBoxers = async (req, res) => {
   }
 };
 
+// GET one boxer by NAME
+exports.getBoxerByName = async (req, res) => {
+  try {
+    const { name } = req.query;
+    const boxer = await prisma.boxer.findUnique({
+      where: { name },
+    });
+
+    if (!boxer) {
+      return res.status(404).json({ message: 'Boxer not found.' });
+    }
+
+    res.json(boxer);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching boxer.' });
+  }
+};
+
 // GET one boxer by ID
 exports.getBoxerById = async (req, res) => {
   try {
@@ -32,9 +51,11 @@ exports.getBoxerById = async (req, res) => {
     const boxer = await prisma.boxer.findUnique({
       where: { id: parseInt(id) },
     });
+
     if (!boxer) {
       return res.status(404).json({ message: 'Boxer not found.' });
     }
+
     res.json(boxer);
   } catch (error) {
     console.error(error);
@@ -50,6 +71,7 @@ exports.updateBoxer = async (req, res) => {
       where: { id: parseInt(id) },
       data: { ...req.body },
     });
+
     res.json(updatedBoxer);
   } catch (error) {
     console.error(error);
@@ -62,6 +84,7 @@ exports.deleteBoxer = async (req, res) => {
   try {
     const { id } = req.params;
     await prisma.boxer.delete({ where: { id: parseInt(id) } });
+
     res.status(204).send(); // No content
   } catch (error) {
     console.error(error);

@@ -1,22 +1,19 @@
-// src/routes/boxerRoutes.js
 const express = require('express');
 const router = express.Router();
 const {
   createBoxer,
   getAllBoxers,
   getBoxerById,
+  getBoxerByName,
   updateBoxer,
   deleteBoxer,
 } = require('../controllers/boxerController');
 
-// Example: Admin routes might require auth middleware
-// const { verifyAdmin } = require('../middlewares/auth');
-
-// Public or protected routes depending on your auth requirements:
-router.post('/', /* verifyAdmin, */ createBoxer);
+router.post('/', createBoxer);
 router.get('/', getAllBoxers);
+router.get('/search', getBoxerByName);
 router.get('/:id', getBoxerById);
-router.put('/:id', /* verifyAdmin, */ updateBoxer);
-router.delete('/:id', /* verifyAdmin, */ deleteBoxer);
+router.put('/:id', updateBoxer);
+router.delete('/:id', deleteBoxer);
 
 module.exports = router;
