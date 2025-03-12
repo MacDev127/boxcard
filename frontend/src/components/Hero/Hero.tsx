@@ -1,35 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Hero.css';
 import SearchIcon from '@mui/icons-material/Search';
 import banner from '../../images/banner.png';
-import Axios from 'Axios';
+import axios from 'axios';
+
+interface Boxer {
+  id: number;
+  name: string;
+}
 
 const Hero = () => {
-  const [searchBoxer, setSearchBoxer] = useState<string>('');
-  const [boxerList, setBoxerList] = useState<string[]>(['']);
+  const [searchBoxer, setSearchBoxer] = useState('');
+  const [boxerList, setBoxerList] = useState<Boxer[]>([]);
+  const [filteredBoxers, setFilteredBoxers] = useState<Boxer[]>([]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchBoxer(e.target.value);
-  };
-
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const filteredBoxers = boxerList.filter((boxer) =>
-      boxer.toLowerCase().includes(searchBoxer.toLowerCase())
-    );
-    setBoxerList(filteredBoxers);
-    setSearchBoxer('');
-  };
+  useEffect(() => {
+    fetchBoxers();
+  }, []);
 
   const fetchBoxers = async () => {
     try {
-      const response = await Axios.get(
-        'https://www.thesportsdb.com/api/v1/json/1/searchboxer.php?q='
-      );
-      setBoxerList(response.data.boxers.map((boxer) => boxer.strBoxer));
+      const response = await axios.get('http://localhost:5002/api/boxers');
+      setBoxerList(response.data);
+      setFilteredBoxers(response.data); // initialize filtered list
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setSearchBoxer(inputValue);
+
+    // dynamically filter boxers
+    const filtered = boxerList.filter((boxer) =>
+      boxer.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
+    setFilteredBoxers(filtered);
   };
 
   return (
@@ -37,21 +45,26 @@ const Hero = () => {
       <div className="hero__banner">
         <img src={banner} alt="" />
         <div className="hero__input-container">
-          <input
-            type="text"
-            placeholder="Find a Boxer"
-            onChange={handleSearchChange}
-          />
-          <button type="submit" onClick={handleSubmit}>
-            <SearchIcon />
-          </button>
-        </div>
-        <div>
-          <ul>
-            {boxerList.map((boxList) => {
-              return <li key={boxList}>{boxList}</li>;
-            })}
-          </ul>
+          <div className="hero__input-wrapper">
+            <SearchIcon className="hero__search-icon" />
+            <input
+              type="text"
+              placeholder="Find a Boxer"
+              value={searchBoxer}
+              onChange={handleInputChange}
+            />
+            {searchBoxer.trim().length > 0 && filteredBoxers.length > 0 && (
+              <ul className="hero__results">
+                {filteredBoxers.map((boxer) => (
+                  <span className="hero__results-boxer">
+                    <li key={boxer.id}>
+                      <a href="/home">{boxer.name}</a>
+                    </li>
+                  </span>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </div>

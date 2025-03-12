@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 }
 
@@ -20,26 +20,50 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
-  max-width: 600px;
-  padding: 10px;
+  max-width: 380px;
+  padding: 10px 0;
   position: absolute;
   bottom: 15%;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.hero__input-container input {
+.hero__input-wrapper {
+  position: relative; /* so the icon can be absolutely positioned inside */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hero__search-icon {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8c8f98;
+  /* Adjust icon size or color as needed */
+}
+
+.hero__input-wrapper input {
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
   flex-grow: 1;
-  padding: 14px 20px;
-  border-radius: 25px;
+  padding: 14px 10px 14px 14px;
   background-color: #30384c;
   border: 1px solid #30384c;
   color: #fff;
-  font-size: 16px;
   outline: none;
-  transition: border-color 0.3s ease;
-  border-radius: 25px 0 0 25px;
+}
+
+/* For the placeholder color */
+.hero__input-wrapper input::placeholder {
+  color: #8c8f98;
 }
 
 .hero__input-container input::placeholder {
@@ -50,24 +74,43 @@
   border-color: #7ea8ef;
 }
 
-.hero__input-container button {
-  background-color: #7ea8ef;
-  color: #000;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 20px;
+.hero__results li {
+  list-style: none;
+  padding: 10px;
+  width: 100%;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  border-radius: 0 25px 25px 0;
 }
 
-.hero__input-container button:hover {
-  background-color: #90b3f1;
+.hero__results li a {
+  text-decoration: none;
+  color: #8c8f98;
+}
+.hero__results-boxer {
+  width: 100%;
+  border-radius: 8px;
+}
+.hero__results-boxer:hover {
+  background-color: #474e61;
+}
+
+.hero__results {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 380px;
+  background-color: #30384c;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  position: absolute;
+  top: calc(50% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-height: 100px;
+  overflow-y: auto;
+  z-index: 10;
 }
 
 /* Responsiveness */
