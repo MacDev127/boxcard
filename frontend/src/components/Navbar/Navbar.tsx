@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
             </a>
           </li>
           <li>
-            <a href="#">About</a>
+            <a href="#">Boxers</a>
           </li>
           <li>
             <a href="#">Contact</a>
