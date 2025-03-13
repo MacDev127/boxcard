@@ -16,6 +16,7 @@ model Boxer {
   id           Int      @id @default(autoincrement())
   name         String
   country      String
+  sex          String?  
   profileImage String?
   club         String?
   province     String?

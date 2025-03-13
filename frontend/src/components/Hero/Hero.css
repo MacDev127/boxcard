@@ -4,6 +4,7 @@
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  z-index: 0;
 }
 
 .hero__banner {
@@ -37,6 +38,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 80px;
 }
 
 .hero__search-icon {
@@ -60,6 +62,16 @@
   color: #fff;
   outline: none;
 }
+.hero__results-boxer-info {
+  display: flex;
+  gap: 8px;
+}
+.hero__results-boxer-info p {
+  font-size: 13px;
+  margin: 0;
+  font-weight: 200;
+  text-transform: capitalize;
+}
 
 /* For the placeholder color */
 .hero__input-wrapper input::placeholder {
@@ -71,13 +83,13 @@
 }
 
 .hero__input-container input:focus {
-  border-color: #7ea8ef;
+  border: 1px solid #7ea8ef;
 }
 
 .hero__results li {
   list-style: none;
   padding: 10px;
-  width: 100%;
+  width: 95%;
   cursor: pointer;
 }
 
@@ -108,9 +120,16 @@
   top: calc(50% + 10px);
   left: 50%;
   transform: translateX(-50%);
-  min-height: 100px;
+  height: 300px;
   overflow-y: auto;
   z-index: 10;
+}
+
+.hero__results-boxer-gender {
+}
+.hero__results-boxer-country {
+  display: flex;
+  align-items: center;
 }
 
 /* Responsiveness */
@@ -124,5 +143,10 @@
 @media screen and (max-width: 600px) {
   .hero__input-container {
     margin: 0 10px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .hero__banner img {
+    max-height: 300px;
   }
 }

@@ -22,6 +22,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 #navbar li {
@@ -84,6 +85,7 @@ nav {
     right: 0;
     padding: 2px 20px;
     display: block;
+    z-index: 10;
   }
   nav {
     align-items: normal;
