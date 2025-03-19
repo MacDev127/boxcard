@@ -1,11 +1,11 @@
 import Profile from '../../components/Profile/Profile';
+import './BoxerDetails.css';
 const BoxerDetail = () => {
   return (
-    <div className="BoxerDetails">
-      <Profile />
-      {/* Add more details here */}
+    <div className="boxer-details">
       <h2>Boxer Details</h2>
-      {/* Add more details here */}
+
+      <Profile />
     </div>
   );
 };
