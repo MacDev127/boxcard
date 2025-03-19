@@ -3,7 +3,9 @@ import './Profile.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ReactCountryFlag from 'react-country-flag';
-import { getIsoCode } from './countryUtils'; // <-- your utility function path
+import ReactPlayer from 'react-player';
+
+import { getIsoCode } from './countryUtils';
 
 interface BoxerProfile {
   id: number;
@@ -22,12 +24,33 @@ interface BoxerProfile {
   videoUrl?: string | null;
 }
 
+type BoutOutcome = 'win' | 'loss';
+
+//Total Bouts function
 const totalBouts = (boxer: BoxerProfile) => {
   return boxer.fightsWon + boxer.fightsLost;
 };
-const totalRounds = (boxer: BoxerProfile) => {
-  return totalBouts(boxer) * 3;
+
+//Win percentage function
+const winPercentage = (boxer: BoxerProfile) => {
+  if (totalBouts(boxer) === 0) {
+    return 0;
+  }
+  return (boxer.fightsWon / totalBouts(boxer)) * 100;
 };
+
+//Random result function
+const getRandomBout = (): BoutOutcome => {
+  const outcomes: BoutOutcome[] = ['win', 'loss'];
+  return outcomes[Math.floor(Math.random() * outcomes.length)];
+};
+
+const generateRandomOutcomes = (count: number = 5): BoutOutcome[] => {
+  return Array.from({ length: count }, () => getRandomBout());
+};
+
+const results = generateRandomOutcomes(5);
+//Random result function
 
 const Profile = () => {
   const { id } = useParams<{ id: string }>();
@@ -65,6 +88,18 @@ const Profile = () => {
         </div>
         <div className="profile__top-name">
           <h2>{boxer.name}</h2>
+          <div className="profile__top-bio">
+            <h4>Bio</h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+              inventore eveniet impedit natus adipisci quae dolore eligendi
+              quam, vero quidem qui asperiores sunt, rerum nesciunt culpa
+              exercitationem at, minima voluptatum. Tempore repellat eveniet
+              omnis voluptatibus, consequatur, perferendis molestias cum error
+              repudiandae quaerat laboriosam deleniti, nulla harum laborum quos
+              praesentium nostrum.
+            </p>
+          </div>
           <div className="profile__top-wrapper">
             <div className="profile__column">
               <ul className="profile__stat-list">
@@ -79,16 +114,12 @@ const Profile = () => {
                   </p>
                 </li>
                 <li className="profile__stat-item">
+                  <h4>Age</h4>
+                  <p>{boxer.age}</p>
+                </li>
+                <li className="profile__stat-item">
                   <h4>Weight</h4>
                   <p>{boxer.weight} kgs</p>
-                </li>
-                <li className="profile__stat-item">
-                  <h4>Bouts</h4>
-                  <p>{totalBouts(boxer)}</p>
-                </li>
-                <li className="profile__stat-item">
-                  <h4>Rounds</h4>
-                  <p>{totalRounds(boxer)}</p>
                 </li>
               </ul>
             </div>
@@ -100,22 +131,23 @@ const Profile = () => {
                   <p>{boxer.sex}</p>
                 </li>
                 <li className="profile__stat-item">
-                  <h4>Age</h4>
-                  <p>{boxer.age}</p>
+                  <h4>Bouts</h4>
+                  <p>{totalBouts(boxer)}</p>
                 </li>
+
                 <li className="profile__stat-item">
                   <h4>Level</h4>
                   <p>{boxer.level}</p>
-                </li>
-                <li className="profile__stat-item">
-                  <h4>Stance</h4>
-                  <p>{boxer.stance}</p>
                 </li>
               </ul>
             </div>
 
             <div className="profile__column">
               <ul className="profile__stat-list">
+                <li className="profile__stat-item">
+                  <h4>Stance</h4>
+                  <p>{boxer.stance}</p>
+                </li>
                 <li className="profile__stat-item">
                   <h4>Club</h4>
                   <p>{boxer.club}</p>
@@ -129,66 +161,70 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="profile__top-fights">
-        <h2>BOUTS</h2>
-        <div className="profile__top-fights-stats">
-          <div className="profile__top-fights-stats-won">
+
+      {/* --------------bouts section---------------------- */}
+      <div className="profile__bouts">
+        <div className="profile__bouts-title">
+          <h2>BOUTS</h2>
+        </div>
+
+        <div className="profile__bouts-stats">
+          <div className="profile__bouts-stats-detail">
             <span className="won">
               <h3> {boxer.fightsWon}</h3>
             </span>
             <p>Won</p>
           </div>
-          <div className="profile__top-fight-stats-lost">
+          <div className="profile__bouts-stats-detail">
             <span className="lost">
               <h3>{boxer.fightsLost}</h3>
             </span>
             <p>Lost</p>
           </div>
-          <div className="profile__top-fight-stats-draw">
+          <div className="profile__bouts-stats-detail">
             <span className="draw">
               <h3>0</h3>
             </span>
             <p>Draw</p>
           </div>
         </div>
+        <div className="profile__bouts-recent">
+          <h2>Last 5 Bouts</h2>
+          <div className="profile__bouts-recent-list">
+            {results.map((result, index) => (
+              <span
+                key={index}
+                className={`profile__bouts-recent-result ${result}`}
+              ></span>
+            ))}
+          </div>
+        </div>
+        <div className="profile__bouts-percentage">
+          <h2>Win Percentage</h2>
+          {winPercentage(boxer) >= 50 ? (
+            <h3 className="percentage-high">
+              {winPercentage(boxer).toFixed(2)}%
+            </h3>
+          ) : (
+            <h3 className="percentage-low">
+              {winPercentage(boxer).toFixed(2)}%
+            </h3>
+          )}
+        </div>
       </div>
-      {boxer.videoUrl && (
-        <p>
-          <strong>Video:</strong>{' '}
-          <a href={boxer.videoUrl} target="_blank" rel="noopener noreferrer">
-            Watch
-          </a>
-        </p>
-      )}
-      <div className="profile__bottom">
-        <div className="profile__bottom-stat">
-          <h3>Age</h3>
-          <p>{boxer.age}</p>
-        </div>
-        <div className="profile__bottom-stat">
-          <h3>Gender</h3>
-          <p>{boxer.sex}</p>
-        </div>
-        <div className="profile__bottom-stat">
-          <h3>Country</h3>
-          <p>{boxer.country}</p>
-        </div>
-        <div className="profile__bottom-stat">
-          <h3>Province</h3>
-          <p>{boxer.province}</p>
-        </div>
-        <div className="profile__bottom-stat">
-          <h3>Club</h3>
-          <p>{boxer.club}</p>
-        </div>
-        <div className="profile__bottom-stat">
-          <h3>Stance</h3>
-          <p>{boxer.stance}</p>
-        </div>
-        <div className="profile__bottom-stat">
-          <h3>Level</h3>
-          <p>{boxer.level}</p>
-        </div>
+
+      {/*---------------- Video Section ----------*/}
+      <div className="profile__video">
+        {boxer.videoUrl ? (
+          <ReactPlayer
+            url={boxer.videoUrl}
+            controls={true}
+            width="100%"
+            height="100%"
+          />
+        ) : (
+          <p>No video available</p>
+        )}
       </div>
     </div>
   );

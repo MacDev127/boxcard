@@ -7,6 +7,10 @@ root {
 
 .Home {
   min-height: 100vh;
-  width: 100%;
+
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+
   background-color: var(--primarybg);
 }

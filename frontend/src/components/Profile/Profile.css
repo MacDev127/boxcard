@@ -6,6 +6,9 @@
   --text-hover: #90b3f1;
   --primary-font: #ffffff;
   --secondary-font: #8c8f98;
+  --loss: #ef4444;
+  --win: #22c55e;
+  --draw: #3b82f6;
 }
 
 .Profile {
@@ -15,20 +18,21 @@
 
 .profile__top {
   display: flex;
-  height: 300px;
   border-radius: 0.5rem;
-
+  min-height: 300px;
   width: 100%;
   background-color: var(--secondarybg);
 }
 
 .profile__top-image {
-  height: 100%;
-  width: 300px;
+  min-width: 200px;
   background-color: #374151;
+  border-right: 2px solid #8c8f98;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: stretch;
 }
 
 .profile__top-image img {
@@ -50,9 +54,27 @@
   letter-spacing: 2px;
 }
 
+.profile__top-bio h4 {
+  color: var(--secondary-font);
+  margin: 0;
+  font-weight: 500;
+}
+.profile__top-bio p {
+  color: var(--primary-font);
+  margin: 0;
+  font-weight: 300;
+  font-size: 14px;
+  width: 90%;
+  text-align: justify;
+}
+.profile__top-bio {
+  margin-bottom: 30px;
+}
+
 .profile__top-wrapper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .profile__stat-list {
@@ -71,89 +93,177 @@
 }
 
 .profile__stat-item h4 {
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: 1px;
   font-size: 14px;
   margin: 0;
-  width: 80px;
 }
 
 .profile__stat-item p {
   color: var(--primary-font);
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   margin: 0;
   text-transform: capitalize;
 }
 
-.profile__top-fights {
-  text-align: center;
+.profile__column-bio {
+  font-weight: 200;
+  font-size: 12px;
+  width: 60%;
+}
+
+/* ----------profile bouts section----------- */
+
+.profile__bouts {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: var(--secondarybg);
+  border-radius: 8px;
+}
+
+.profile__bouts-title {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   margin-top: 40px;
 }
-.profile__top-fights h2 {
-  text-align: center;
-  font-size: 30px;
+.profile__bouts-title h2 {
+  font-size: 22px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
-.profile__top-fights-stats {
-  display: flex;
-  gap: 60px;
-  justify-content: center;
-}
-.profile__top-fights-stats h3 {
-  font-size: 50px;
-  font-weight: 500;
-  margin: 0;
-}
-
-.profile__top-fights-stats p {
-  font-size: 14px;
-  font-weight: 300;
-  margin: 0;
-  color: var(--secondary-font);
-}
-.profile__top-fights-stats .won {
-  color: #6bc16e;
-}
-.profile__top-fights-stats .lost {
-  color: #d7263d;
-}
-.profile__top-fights-stats .draw {
-  color: #0197f6;
-}
-.profile__top-fights-stats > div:not(:last-child) {
-  border-right: 2px solid #8c8f98;
-  padding-right: 44px;
-  margin-right: 0px;
-}
-
-.profile__bottom {
+.profile__bouts-stats {
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 50px;
+  margin-bottom: 20px;
 }
 
-.profile__bottom-stat {
+.profile__bouts-stats-detail h3 {
+  font-size: 70px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+.profile__bouts-stats-detail p {
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--secondary-font);
+  margin: 0;
+}
+.profile__bouts-stats-detail .lost {
+  color: var(--loss);
+}
+.profile__bouts-stats-detail .won {
+  color: var(--win);
+}
+.profile__bouts-stats-detail .draw {
+  color: var(--draw);
+}
+
+.profile__bouts-recent-result {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.profile__bouts-recent-result.win {
+  background-color: var(--win);
+}
+
+.profile__bouts-recent-result.loss {
+  background-color: var(--loss);
+}
+
+.profile__bouts-recent {
+  margin: 40px 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  flex-direction: column;
 }
-.profile__bottom > div:not(:last-child) {
-  border-right: 2px solid #8c8f98;
-  padding-right: 44px;
-  margin-right: 0px;
+.profile__bouts-recent h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
-.profile__bottom-stat h3 {
-  font-weight: 500;
-  margin-bottom: 0;
+.profile__bouts-recent {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.profile__bottom-stat p {
-  text-transform: capitalize;
-  color: var(--secondary-font);
-  font-size: 12px;
+
+.profile__bouts-percentage {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 30px 0 40px 0;
+}
+.profile__bouts-percentage h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.profile__bouts-percentage h3 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.percentage-high {
+  color: var(--win);
+}
+.percentage-low {
+  color: var(--loss);
+}
+
+/* --------Video Section ---------------*/
+
+.profile__video {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--secondarybg);
+}
+
+/* media queries */
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+@media screen and (max-width: 768px) {
+  .profile__top {
+    flex-direction: column;
+  }
+
+  .profile__column {
+    margin-right: 100px;
+  }
+}
+@media screen and (max-width: 414px) {
+  .profile__top-wrapper {
+    flex-direction: column;
+  }
+
+  .profile__top-name {
+    padding: 0;
+  }
 }
