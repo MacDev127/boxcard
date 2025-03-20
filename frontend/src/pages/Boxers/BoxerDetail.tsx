@@ -1,10 +1,10 @@
 import Profile from '../../components/Profile/Profile';
+import Navbar from '../../components/Navbar/Navbar';
 import './BoxerDetails.css';
 const BoxerDetail = () => {
   return (
     <div className="boxer-details">
-      <h2>Boxer Details</h2>
-
+      <Navbar />
       <Profile />
     </div>
   );

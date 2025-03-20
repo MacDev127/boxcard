@@ -237,11 +237,10 @@
 .profile__video {
   margin-top: 10px;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
-  background-color: var(--secondarybg);
 }
 
 /* media queries */
@@ -257,6 +256,9 @@
   .profile__column {
     margin-right: 100px;
   }
+  .profile__top-bio p {
+    width: 80%;
+  }
 }
 @media screen and (max-width: 414px) {
   .profile__top-wrapper {
@@ -265,5 +267,10 @@
 
   .profile__top-name {
     padding: 0;
+  }
+
+  .profile__top-bio p {
+    text-align: left;
+    line-height: 1.8;
   }
 }

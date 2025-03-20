@@ -4,9 +4,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ReactCountryFlag from 'react-country-flag';
 import ReactPlayer from 'react-player';
-
 import { getIsoCode } from './countryUtils';
-
+import CustomAccordion from '../Accoridan/CustomAccoridan';
 interface BoxerProfile {
   id: number;
   name?: string;
@@ -216,14 +215,11 @@ const Profile = () => {
       {/*---------------- Video Section ----------*/}
       <div className="profile__video">
         {boxer.videoUrl ? (
-          <ReactPlayer
-            url={boxer.videoUrl}
-            controls={true}
-            width="100%"
-            height="100%"
-          />
+          <CustomAccordion title="View Highlights">
+            <ReactPlayer url={boxer.videoUrl} controls width="100%" />
+          </CustomAccordion>
         ) : (
-          <p>No video available</p>
+          <h3>No video available.</h3>
         )}
       </div>
     </div>
