@@ -4,11 +4,13 @@ import Footer from '../../components/footer/Footer';
 import './Home.css';
 const Home = () => {
   return (
-    <div className="Home">
-      <Navbar />
-      <Hero />
+    <>
+      <div className="Home">
+        <Navbar />
+        <Hero />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

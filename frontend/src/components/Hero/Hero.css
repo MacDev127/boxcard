@@ -3,6 +3,7 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
+  margin-top: 100px;
   position: relative;
   z-index: 0;
 }
@@ -26,7 +27,7 @@
   max-width: 380px;
   padding: 10px 0;
   position: absolute;
-  bottom: 15%;
+  bottom: 35%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -115,9 +116,10 @@
   background-color: #30384c;
   color: #fff;
   border-radius: 8px;
+  overflow: hidden;
   padding: 10px;
   position: absolute;
-  top: calc(50% + 10px);
+  top: calc(50% + 15px);
   left: 50%;
   transform: translateX(-50%);
   height: 300px;
@@ -132,7 +134,7 @@
 
 /* Responsiveness */
 
-@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) {
   .hero__input-container {
     bottom: 33%;
   }
