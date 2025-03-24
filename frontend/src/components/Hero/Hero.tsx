@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './Hero.css';
 import SearchIcon from '@mui/icons-material/Search';
 import banner from '../../images/banner.png';
+import hero from '../../images/hero.png';
 import axios from 'axios';
 import ReactCountryFlag from 'react-country-flag';
 import { getIsoCode } from './countryUtils'; // <-- your utility function path
@@ -45,7 +46,7 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero__banner">
-        <img src={banner} alt="Banner" />
+        <img src={hero} alt="Hero" />
         <div className="hero__input-container">
           <div className="hero__input-wrapper">
             <SearchIcon className="hero__search-icon" />

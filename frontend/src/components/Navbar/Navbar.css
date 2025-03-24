@@ -86,13 +86,10 @@ nav {
     padding: 2px 20px;
     display: block;
     z-index: 10;
-  }
-  nav {
-    align-items: normal;
+    cursor: pointer;
   }
 
-  mobile i {
-    font-size: 24px;
-    cursor: pointer;
+  .mobile i {
+    font-size: 28px;
   }
 }
