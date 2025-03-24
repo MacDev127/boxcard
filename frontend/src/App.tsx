@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import BoxerList from './pages/Boxers/BoxerList';
+import BoxerList from './pages/Boxers/BoxerList/BoxerList';
 import BoxerDetail from './pages/Boxers/BoxerDetail';
 import BoxerEdit from './pages/Boxers/BoxerEdit';
 import AdminDashboard from './pages/Admin/AdminDashboard';

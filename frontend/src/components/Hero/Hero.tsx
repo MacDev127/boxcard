@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Hero.css';
 import SearchIcon from '@mui/icons-material/Search';
-import banner from '../../images/banner.png';
 import hero from '../../images/hero.png';
 import axios from 'axios';
 import ReactCountryFlag from 'react-country-flag';

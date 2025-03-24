@@ -1,0 +1,10 @@
+.boxer-list {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px; /* Optional spacing between grid items */
+  padding: 20px;
+  height: 100vh;
+}
