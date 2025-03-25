@@ -8,10 +8,11 @@ import Footer from '../../../components/footer/Footer';
 
 interface Boxer {
   id: number;
-  name?: string;
+  name: string;
   profileImage: string;
   age: number;
   sex: string;
+  province: string;
   weight: number;
   country: string;
   club: string;
@@ -37,11 +38,13 @@ const BoxerList: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <div className="boxer-list">
-        {boxerDetails.map((boxer) => (
-          <Card key={boxer.id} boxer={boxer} />
-        ))}
+        <Navbar />
+        <div className="boxer-list__container">
+          {boxerDetails.map((boxer) => (
+            <Card key={boxer.id} boxer={boxer} />
+          ))}
+        </div>
       </div>
       <Footer />
     </>
