@@ -14,10 +14,32 @@ exports.createBoxer = async (req, res) => {
   }
 };
 
-// GET all boxers
+// GET all boxers with filtering support
 exports.getAllBoxers = async (req, res) => {
   try {
-    const boxers = await prisma.boxer.findMany();
+    const { sex, club, country, weight, level } = req.query;
+    const filters = {};
+
+    if (sex) {
+      filters.sex = sex;
+    }
+    if (club) {
+      filters.club = club;
+    }
+    if (country) {
+      filters.country = country;
+    }
+    if (weight) {
+      // If weight is stored as a number in the database, you might want to convert it
+      filters.weight = parseInt(weight);
+    }
+    if (level) {
+      filters.level = level;
+    }
+
+    const boxers = await prisma.boxer.findMany({
+      where: filters,
+    });
     res.json(boxers);
   } catch (error) {
     console.error(error);

@@ -25,7 +25,6 @@ interface CardProps {
 const Card = ({ boxer }: CardProps) => {
   return (
     <div className="card">
-      <div className="card__overlay"></div>
       <div className="card__image">
         <img
           src={boxer.profileImage || '../../images/profile.png'}
