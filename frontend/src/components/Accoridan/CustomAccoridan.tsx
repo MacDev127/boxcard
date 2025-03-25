@@ -11,10 +11,7 @@ interface CustomAccordionProps {
   children: React.ReactNode;
 }
 
-const CustomAccordion: React.FC<CustomAccordionProps> = ({
-  title,
-  children,
-}) => {
+const CustomAccordion = ({ title, children }: CustomAccordionProps) => {
   return (
     <Accordion style={{ backgroundColor: '#272e3c' }}>
       <AccordionSummary

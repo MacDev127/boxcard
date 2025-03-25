@@ -1,6 +1,6 @@
+// src/components/Card/Card.tsx
+import React from 'react';
 import './Card.css';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 import ReactCountryFlag from 'react-country-flag';
 import { getIsoCode } from './countryUtils';
 
@@ -17,56 +17,45 @@ interface Boxer {
   fightsLost: number;
 }
 
-const Card = () => {
-  const [boxerDetails, setBoxerDetails] = useState<Boxer[]>([]);
-  useEffect(() => {
-    fetchBoxerDetails();
-  }, []);
+interface CardProps {
+  boxer: Boxer;
+}
 
-  const fetchBoxerDetails = async () => {
-    try {
-      const response = await axios.get('http://localhost:5002/api/boxers');
-      setBoxerDetails(response.data);
-    } catch (error) {
-      console.error('Error fetching boxer details:', error); // Handle the error gracefully. For example, display a message to the user.
-    }
-  };
-
+const Card = ({ boxer }: CardProps) => {
   return (
     <div className="card">
-      {boxerDetails.map((boxer) => (
-        <div className="card__container">
-          <img
-            src={boxer.profileImage || '../../images/profile.png'}
-            alt={boxer.name || 'Boxer Profile'}
-          />
-          <div>
-            <h2>{boxer.name}</h2>
-            <p>
-              <ReactCountryFlag
-                countryCode={getIsoCode(boxer.country)}
-                svg
-                style={{ width: '1.1em', height: '1.1em' }}
-              />
-            </p>
-          </div>
-          <div>
-            <h4>{boxer.weight} kg</h4>
-            <h4>{boxer.sex}</h4>
-            <h3>{boxer.age}</h3>
-            <p></p>
-          </div>
-          <div>
-            <p>{boxer.fightsWon}</p>
-            <p>{boxer.fightsLost}</p>
-            <p>0</p>
-          </div>
+      <div className="card__image">
+        <img
+          src={boxer.profileImage || '../../images/profile.png'}
+          alt={boxer.name || 'Boxer Profile'}
+        />
+      </div>
 
+      <div className="card__container">
+        <div className="card__top">
+          <h2>{boxer.name}</h2>
+          <p>
+            <ReactCountryFlag
+              countryCode={getIsoCode(boxer.country)}
+              svg
+              style={{ width: '1.5em', height: '1.5em' }}
+            />
+          </p>
+        </div>
+        <div className="card__middle">
+          <h4>{boxer.weight} kg</h4>
+          <h4>{boxer.sex}</h4>
+          <h4>{boxer.age}</h4>
+        </div>
+        <div className="card__bottom">
+          <p>{boxer.fightsWon}</p>
+          <p>{boxer.fightsLost}</p>
+          <p>0</p>
+        </div>
+        <div>
           <a href={`/boxers/${boxer.id}`}>View Profile</a>
         </div>
-      ))}
-
-      <p></p>
+      </div>
     </div>
   );
 };
