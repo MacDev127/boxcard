@@ -113,3 +113,46 @@ exports.deleteBoxer = async (req, res) => {
     res.status(500).json({ message: 'Error deleting boxer.' });
   }
 };
+
+// GET distinct weights
+exports.getDistinctWeights = async (req, res) => {
+  try {
+    // Using Prisma's groupBy to get unique weights
+    const weights = await prisma.boxer.groupBy({
+      by: ['weight'],
+      orderBy: { weight: 'asc' },
+    });
+    res.json(weights.map((w) => w.weight));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching distinct weights.' });
+  }
+};
+
+// GET distinct levels
+exports.getDistinctLevels = async (req, res) => {
+  try {
+    const levels = await prisma.boxer.groupBy({
+      by: ['level'],
+      orderBy: { level: 'asc' },
+    });
+    res.json(levels.map((l) => l.level));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching distinct levels.' });
+  }
+};
+
+// GET distinct clubs
+exports.getDistinctClubs = async (req, res) => {
+  try {
+    const clubs = await prisma.boxer.groupBy({
+      by: ['club'],
+      orderBy: { club: 'asc' },
+    });
+    res.json(clubs.map((c) => c.club));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching distinct clubs.' });
+  }
+};
