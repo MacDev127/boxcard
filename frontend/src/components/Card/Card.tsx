@@ -48,7 +48,6 @@ const Card = ({ boxer }: CardProps) => {
             <h4>{boxer.weight}KG</h4>
             <h4>{boxer.sex} </h4>
             <h4>{boxer.age}</h4>
-            <h4>{boxer.level} </h4>
             <h4>{boxer.club} </h4>
           </div>
 
