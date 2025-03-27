@@ -1,5 +1,4 @@
 // src/components/Card/Card.tsx
-import React from 'react';
 import './Card.css';
 import ReactCountryFlag from 'react-country-flag';
 import { getIsoCode } from './countryUtils';
@@ -40,7 +39,7 @@ const Card = ({ boxer }: CardProps) => {
               <ReactCountryFlag
                 countryCode={getIsoCode(boxer.country)}
                 svg
-                style={{ width: '1.5em', height: '1.5em' }}
+                style={{ width: '1.3em', height: '1.3em' }}
               />
             </p>
           </div>

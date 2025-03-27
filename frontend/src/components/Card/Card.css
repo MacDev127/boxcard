@@ -20,10 +20,11 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 250px;
-  width: 250px;
+  min-width: 260px;
+  width: 260px;
   background: var(--secondarybg);
   min-height: 120px;
+  height: 360px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
@@ -56,14 +57,14 @@ a {
 }
 
 .card__image img {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .card h2 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 400;
   margin: 0;
   letter-spacing: 1px;
@@ -144,17 +145,69 @@ a {
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) {
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .card {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
     min-width: 250px;
     width: 250px;
     background: var(--secondarybg);
+    min-height: 120px;
+    height: 360px;
+    overflow: hidden;
     position: relative;
     cursor: pointer;
     margin: 0;
+    padding-bottom: 30px;
+    border-radius: 10px;
+  }
+
+  .card__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .card__image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 250px;
+    width: 250px;
+    background: var(--secondarybg);
+    min-height: 120px;
+    height: 360px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    padding-bottom: 30px;
+    border-radius: 10px;
+  }
+
+  .card__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .card__image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
   }
 }
 
@@ -179,15 +232,12 @@ a {
   }
 
   .card__image img {
-    width: 170px;
-    height: 170px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
   }
 
-  .card__container {
-    padding-top: 40px;
-  }
   .card__middle h4 {
     font-size: 0.9rem;
     font-weight: 400;
@@ -199,7 +249,7 @@ a {
   }
 
   .card h2 {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 400;
     margin: 0;
     letter-spacing: 1px;
@@ -211,7 +261,10 @@ a {
     color: var(--secondary-font);
   }
   .card__bottom-bouts h3 {
-    font-size: 2.6rem;
+    font-size: 2rem;
     margin: 10px 0 0 0;
+  }
+  .card__bottom-bouts {
+    padding-bottom: 10px;
   }
 }
