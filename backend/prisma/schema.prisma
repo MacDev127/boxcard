@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,6 +6,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model Boxer {
   id           Int      @id @default(autoincrement())
   name         String
@@ -29,4 +24,21 @@ model Boxer {
   videoUrl     String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  // Relations: All contests where this boxer participated
+  contestsAsBoxer1 Contest[] @relation("Boxer1Contests")
+  contestsAsBoxer2 Contest[] @relation("Boxer2Contests")
+}
+
+model Contest {
+  id         Int      @id @default(autoincrement())
+  date       DateTime @default(now())
+  boxer1Id   Int
+  boxer2Id   Int
+  winnerId   Int?     // Optional: can be null if contest is pending
+  result     String?  // Optional: store result details, e.g., "boxer1 won"
+  
+  boxer1     Boxer    @relation("Boxer1Contests", fields: [boxer1Id], references: [id])
+  boxer2     Boxer    @relation("Boxer2Contests", fields: [boxer2Id], references: [id])
+  // You can also define a relation for the winner if needed.
 }

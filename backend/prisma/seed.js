@@ -307,6 +307,59 @@ async function main() {
       },
     ],
   });
+  await prisma.contest.createMany({
+    data: [
+      {
+        date: new Date('2023-01-10T10:00:00Z'),
+        boxer1Id: 1,
+        boxer2Id: 2,
+        winnerId: 1,
+        result: 'Aidan Reilly won',
+      },
+      {
+        date: new Date('2023-02-15T14:30:00Z'),
+        boxer1Id: 3,
+        boxer2Id: 4,
+        winnerId: 4,
+        result: 'Dervla Murray won',
+      },
+      {
+        date: new Date('2023-03-05T12:00:00Z'),
+        boxer1Id: 5,
+        boxer2Id: 6,
+        winnerId: 6,
+        result: 'Maeve Harte won',
+      },
+      {
+        date: new Date('2023-03-20T18:45:00Z'),
+        boxer1Id: 7,
+        boxer2Id: 8,
+        winnerId: 7,
+        result: 'Brendan Doran won',
+      },
+      {
+        date: new Date('2023-04-01T20:00:00Z'),
+        boxer1Id: 9,
+        boxer2Id: 10,
+        winnerId: 10,
+        result: 'Saoirse Byrne won',
+      },
+      {
+        date: new Date('2023-04-10T15:30:00Z'),
+        boxer1Id: 11,
+        boxer2Id: 12,
+        winnerId: 11,
+        result: 'Fiachra Healy won',
+      },
+      {
+        date: new Date('2023-04-25T17:00:00Z'),
+        boxer1Id: 13,
+        boxer2Id: 14,
+        winnerId: 13,
+        result: 'Dara Quinn won',
+      },
+    ],
+  });
 }
 
 main()
