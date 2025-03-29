@@ -6,6 +6,7 @@ import ReactCountryFlag from 'react-country-flag';
 import ReactPlayer from 'react-player';
 import { getIsoCode } from './countryUtils';
 import CustomAccordion from '../Accoridan/CustomAccoridan';
+import Table from '../Table/Table';
 interface BoxerProfile {
   id: number;
   name?: string;
@@ -212,6 +213,13 @@ const Profile = () => {
         </div>
       </div>
 
+      {/*---------------- Results Table ----------*/}
+      <div className="profile__results">
+        <h2>Results</h2>
+        <div className="profile__results-table">
+          <Table />
+        </div>
+      </div>
       {/*---------------- Video Section ----------*/}
       <div className="profile__video">
         {boxer.videoUrl ? (
