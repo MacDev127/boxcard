@@ -12,9 +12,9 @@
 }
 
 table {
-  margin: 50px 0;
+  margin: 50px;
   padding: 0;
-  width: 100%;
+  width: 90%;
   table-layout: fixed;
 }
 
@@ -38,6 +38,7 @@ table td {
 table td {
   text-align: center;
   padding: 20px 0;
+  font-size: 12px;
   border-bottom: 1px solid var(--secondary-font);
 }
 
