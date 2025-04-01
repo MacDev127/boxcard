@@ -240,11 +240,15 @@
   justify-content: center;
   flex-direction: column;
 }
+
+/*----------Results section-------------*/
 .profile__results {
   margin-top: 10px;
   width: 100%;
   background-color: var(--secondarybg);
   height: 100%;
+  border-radius: 8px;
+
   display: flex;
   align-items: center;
   justify-content: center;

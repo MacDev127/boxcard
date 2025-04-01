@@ -16,6 +16,7 @@ table {
   padding: 0;
   width: 90%;
   table-layout: fixed;
+  border-spacing: 0;
 }
 
 table caption {
@@ -25,6 +26,16 @@ table caption {
 
 table tr {
   padding: 0.35em;
+  cursor: pointer;
+}
+
+.table__win {
+  color: var(--win);
+  font-weight: 600;
+}
+.table__loss {
+  color: var(--loss);
+  font-weight: 600;
 }
 
 table th,
@@ -38,8 +49,12 @@ table td {
 table td {
   text-align: center;
   padding: 20px 0;
-  font-size: 12px;
+  font-size: 14px;
   border-bottom: 1px solid var(--secondary-font);
+}
+
+table tr:hover {
+  background-color: #343c4bed;
 }
 
 table th {
@@ -52,6 +67,9 @@ table th {
 @media screen and (max-width: 600px) {
   table {
     border: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px 20px;
   }
 
   table caption {
@@ -70,7 +88,7 @@ table th {
   }
 
   table tr {
-    border-bottom: 3px solid #ddd;
+    border-bottom: 3px solid var(--secondary-font);
     display: block;
     margin-bottom: 0.625em;
   }
@@ -83,10 +101,6 @@ table th {
   }
 
   table td::before {
-    /*
-      * aria-label has no advantage, it won't be read inside a table
-      content: attr(aria-label);
-      */
     content: attr(data-label);
     float: left;
     font-weight: bold;

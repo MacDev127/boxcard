@@ -7,6 +7,7 @@ import ReactPlayer from 'react-player';
 import { getIsoCode } from './countryUtils';
 import CustomAccordion from '../Accoridan/CustomAccoridan';
 import Table from '../Table/Table';
+
 interface BoxerProfile {
   id: number;
   name?: string;

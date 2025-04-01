@@ -24,7 +24,7 @@ interface CardProps {
 
 const Card = ({ boxer }: CardProps) => {
   return (
-    <div className="card">
+    <div className="card" data-aos="fade-up">
       <div className="card__image">
         <img
           src={boxer.profileImage || '../../images/profile.png'}

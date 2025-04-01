@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from '../../../components/Card/Card';
 import Navbar from '../../../components/Navbar/Navbar';
 import Footer from '../../../components/footer/Footer';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './BoxerList.css';
 
 interface Boxer {
@@ -20,19 +22,23 @@ interface Boxer {
   fightsLost: number;
 }
 
-const BoxerList: React.FC = () => {
+const BoxerList = () => {
   const [boxerDetails, setBoxerDetails] = useState<Boxer[]>([]);
   const [weights, setWeights] = useState<number[]>([]);
   const [levels, setLevels] = useState<string[]>([]);
   const [clubs, setClubs] = useState<string[]>([]);
   const [selectedSex, setSelectedSex] = useState('');
-  const [selectedClub, setSelectedClub] = useState('');
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedWeight, setSelectedWeight] = useState('');
-  const [selectedLevel, setSelectedLevel] = useState('');
+  const [selectedClub, setSelectedClub] = useState<string>('');
+  const [selectedCountry, setSelectedCountry] = useState<string>('');
+  const [selectedWeight, setSelectedWeight] = useState<string>('');
+  const [selectedLevel, setSelectedLevel] = useState<string>('');
 
   // Fetch initial boxer data and filter options
   useEffect(() => {
+    AOS.init({
+      duration: 900,
+      once: false,
+    });
     const fetchInitialData = async () => {
       try {
         const [boxersRes, weightsRes, levelsRes, clubsRes] = await Promise.all([

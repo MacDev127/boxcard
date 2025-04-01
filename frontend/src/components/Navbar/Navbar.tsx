@@ -1,10 +1,10 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import './Navbar.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logo from '../../images/logo.png';
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
 
   const handleToggleMenu = () => {
@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
   return (
     <nav>
       <div className="logo">
-        <a href="/home">
+        <a href="/">
           <img src={logo} alt="" />
         </a>
       </div>
