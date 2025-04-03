@@ -81,10 +81,16 @@ const Profile = () => {
   return (
     <div className="Profile">
       <div className="profile__top">
-        <div className="profile__top-image">
+        <div className="profile__top-image" style={{ border: '2px solid red' }}>
           <img
-            src={boxer.profileImage || '../../images/profile.png'}
+            src={
+              boxer.profileImage
+                ? `http://localhost:5002/uploads/${boxer.profileImage}`
+                : '../../images/profile.png'
+            }
             alt={boxer.name || 'Boxer Profile'}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+            onError={(e) => console.error('Image load error:', e)}
           />
         </div>
         <div className="profile__top-name">

@@ -2,11 +2,43 @@
 const prisma = require('../config/db');
 
 // CREATE a boxer
+// exports.createBoxer = async (req, res) => {
+//   try {
+//     // Normalize path separators to forward slashes
+//     const profileImage = req.file
+//       ? req.file.path.replace(/\\/g, '/')
+//       : req.body.profileImage;
+//     const data = {
+//       ...req.body,
+//       age: parseInt(req.body.age, 10),
+//       weight: parseInt(req.body.weight, 10),
+//       fightsWon: parseInt(req.body.fightsWon, 10),
+//       fightsLost: parseInt(req.body.fightsLost, 10),
+//       profileImage, // Now uses normalized path
+//     };
+
+//     const newBoxer = await prisma.boxer.create({ data });
+//     res.status(201).json(newBoxer);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Error creating boxer profile.' });
+//   }
+// };
 exports.createBoxer = async (req, res) => {
   try {
-    const newBoxer = await prisma.boxer.create({
-      data: { ...req.body },
-    });
+    // Store ONLY the filename (no "uploads/" prefix)
+    const profileImage = req.file ? req.file.filename : null; // ⚠️ Critical change
+
+    const data = {
+      ...req.body,
+      age: parseInt(req.body.age, 10),
+      weight: parseInt(req.body.weight, 10),
+      fightsWon: parseInt(req.body.fightsWon, 10),
+      fightsLost: parseInt(req.body.fightsLost, 10),
+      profileImage, // Should now be "1743...jpg" NOT "uploads/1743...jpg"
+    };
+
+    const newBoxer = await prisma.boxer.create({ data });
     res.status(201).json(newBoxer);
   } catch (error) {
     console.error(error);

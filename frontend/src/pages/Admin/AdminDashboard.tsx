@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Navbar from './Navbar'; // adjust path as needed
-import './AdminAddBoxer.css';
+import Navbar from '../../components/Navbar/Navbar'; // adjust path as needed
+import './AdminDashboard.css';
 
 interface BoxerFormData {
   name: string;
   country: string;
   sex: string;
-  profileImage: string;
   club: string;
   province: string;
   age: number;
@@ -24,7 +23,6 @@ const AdminAddBoxer: React.FC = () => {
     name: '',
     country: '',
     sex: '',
-    profileImage: '',
     club: '',
     province: '',
     age: 0,
@@ -36,6 +34,8 @@ const AdminAddBoxer: React.FC = () => {
     videoUrl: '',
   });
 
+  // New state for the image file
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -50,28 +50,49 @@ const AdminAddBoxer: React.FC = () => {
     }));
   };
 
+  // Handler for the file input change event
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfileImageFile(e.target.files[0]);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
     setSuccessMessage(null);
 
-    const payload = {
-      ...formData,
-      age: Number(formData.age),
-      weight: Number(formData.weight),
-      fightsWon: Number(formData.fightsWon),
-      fightsLost: Number(formData.fightsLost),
-    };
+    // Create FormData object for multipart/form-data submission
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('country', formData.country);
+    data.append('sex', formData.sex);
+    data.append('club', formData.club);
+    data.append('province', formData.province);
+    data.append('age', String(formData.age));
+    data.append('weight', String(formData.weight));
+    data.append('stance', formData.stance);
+    data.append('level', formData.level);
+    data.append('fightsWon', String(formData.fightsWon));
+    data.append('fightsLost', String(formData.fightsLost));
+    data.append('videoUrl', formData.videoUrl);
+
+    if (profileImageFile) {
+      data.append('profileImage', profileImageFile);
+    }
 
     try {
-      await axios.post('http://localhost:5002/api/boxers', payload);
+      await axios.post('http://localhost:5002/api/boxers', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       setSuccessMessage('Boxer added successfully!');
       setFormData({
         name: '',
         country: '',
         sex: '',
-        profileImage: '',
         club: '',
         province: '',
         age: 0,
@@ -82,6 +103,7 @@ const AdminAddBoxer: React.FC = () => {
         fightsLost: 0,
         videoUrl: '',
       });
+      setProfileImageFile(null);
     } catch (err) {
       console.error(err);
       setError('Error adding boxer. Please try again.');
@@ -95,7 +117,7 @@ const AdminAddBoxer: React.FC = () => {
       <Navbar />
       <div className="admin">
         <h2>Add New Boxer</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form__wrapper">
             <div className="form-column">
               <div className="form__input">
@@ -134,13 +156,13 @@ const AdminAddBoxer: React.FC = () => {
                 </select>
               </div>
               <div className="form__input">
-                <label htmlFor="profileImage">Profile Image URL:</label>
+                <label htmlFor="profileImage">Profile Image:</label>
                 <input
-                  type="text"
+                  type="file"
                   id="profileImage"
                   name="profileImage"
-                  value={formData.profileImage}
-                  onChange={handleChange}
+                  onChange={handleFileChange}
+                  accept="image/*"
                 />
               </div>
               <div className="form__input">
@@ -242,7 +264,6 @@ const AdminAddBoxer: React.FC = () => {
                   name="age"
                   value={formData.age}
                   onChange={handleChange}
-                  required
                 />
               </div>
             </div>
