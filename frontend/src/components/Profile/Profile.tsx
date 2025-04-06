@@ -81,7 +81,7 @@ const Profile = () => {
   return (
     <div className="Profile">
       <div className="profile__top">
-        <div className="profile__top-image" style={{ border: '2px solid red' }}>
+        <div className="profile__top-image">
           <img
             src={
               boxer.profileImage
@@ -89,7 +89,6 @@ const Profile = () => {
                 : '../../images/profile.png'
             }
             alt={boxer.name || 'Boxer Profile'}
-            style={{ width: '100%', height: 'auto', display: 'block' }}
             onError={(e) => console.error('Image load error:', e)}
           />
         </div>

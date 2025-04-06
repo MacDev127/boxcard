@@ -30,6 +30,11 @@ const Card = ({ boxer }: CardProps) => {
           src={boxer.profileImage || '../../images/profile.png'}
           alt={boxer.name || 'Boxer Profile'}
         />
+        {/* src={
+    boxer.profileImage
+      ? `http://localhost:5002/uploads/${boxer.profileImage}`
+      : '../../images/profile.png'
+  }  */}
       </div>
       <a href={`/boxers/${boxer.id}`}>
         <div className="card__container">

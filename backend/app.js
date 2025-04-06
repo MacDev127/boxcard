@@ -16,9 +16,20 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        // Ensure your backend origin is allowed for images
         'img-src': ["'self'", 'data:', 'http://localhost:5002'],
+        // If you load scripts/styles/connect from backend too, add them:
+        // 'script-src': ["'self'", 'http://localhost:5002'], // Example
+        // 'style-src': ["'self'", 'http://localhost:5002', "'unsafe-inline'"], // Example
+        // 'connect-src': ["'self'", 'http://localhost:5002'], // Example for API calls
       },
     },
+    // **Explicitly allow cross-origin resource loading**
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    // You might also need to loosen COEP/COOP if they cause issues, but
+    // try with just CORP first. Example:
+    // crossOriginEmbedderPolicy: false, // Less secure, use if CORP alone isn't enough
+    // crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }, // Adjust as needed
   })
 );
 // Serve static files from the "uploads" directory at the /uploads route.
