@@ -1,0 +1,49 @@
+:root {
+  --primarybg: #111928;
+  --secondarybg: #272e3c;
+  --button: #6a9eed;
+  --button-hover: #6a9eed;
+  --text-hover: #90b3f1;
+  --primary-font: #ffffff;
+  --secondary-font: #8c8f98;
+  --loss: #ef4444;
+  --win: #22c55e;
+  --draw: #3b82f6;
+  --btn-hover: #575c68;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.logo {
+  margin: 20px 0 50px 0;
+  padding: 0 0px;
+}
+#drawer {
+  font-family: 'Poppins', sans-serif;
+}
+#button {
+  background-color: var(--secondarybg);
+  border: none;
+  cursor: pointer;
+  padding: 10 4px;
+  margin: 20px 0px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+span {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+#button-icon {
+  min-width: 40px;
+}
+
+#button:hover {
+  background-color: var(--btn-hover);
+}
+
+.css-1lwhjos-MuiPaper-root-MuiDrawer-paper {
+  background-color: var(--secondarybg) !important;
+  padding: 0 20px;
+}
