@@ -4,6 +4,8 @@ import BoxerList from './pages/Boxers/BoxerList/BoxerList';
 import BoxerDetail from './pages/Boxers/BoxerDetail';
 import BoxerEdit from './pages/Boxers/BoxerEdit';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+import AddBoxerPage from './pages/Admin/AddBoxerPage';
+import ManageBoxerPage from './pages/Admin/ManageBoxerPage';
 const App = () => {
   return (
     <div className="App">
@@ -13,7 +15,12 @@ const App = () => {
           <Route path="/boxers" element={<BoxerList />} />
           <Route path="/boxers/:id" element={<BoxerDetail />} />
           <Route path="/boxers/:id/edit" element={<BoxerEdit />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+
+          {/* Dashboard Routes */}
+          <Route path="/dashboard" element={<AdminDashboard />}>
+            <Route path="add-boxer" element={<AddBoxerPage />} />
+            <Route path="manage-boxer" element={<ManageBoxerPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
