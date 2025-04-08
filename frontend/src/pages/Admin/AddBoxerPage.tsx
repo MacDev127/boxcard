@@ -154,15 +154,15 @@ const AdminAddBoxer: React.FC = () => {
                 </select>
               </div>
               <div className="form__input">
-                <label htmlFor="profileImage">Profile Image:</label>
+                <label htmlFor="age">Age:</label>
                 <input
-                  type="file"
-                  id="profileImage"
-                  name="profileImage"
-                  onChange={handleFileChange}
-                  accept="image/*"
+                  type="number"
+                  id="age"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleChange}
                 />
-              </div>
+              </div>{' '}
               <div className="form__input">
                 <label htmlFor="club">Club:</label>
                 <input
@@ -198,14 +198,18 @@ const AdminAddBoxer: React.FC = () => {
               </div>
               <div className="form__input">
                 <label htmlFor="stance">Stance:</label>
-                <input
-                  type="text"
+
+                <select
                   id="stance"
                   name="stance"
                   value={formData.stance}
                   onChange={handleChange}
                   required
-                />
+                >
+                  <option value="">Stance</option>
+                  <option value="orthodox">Orthodox</option>
+                  <option value="southpaw">Southpaw</option>
+                </select>
               </div>
               <div className="form__input">
                 <label htmlFor="level">Level:</label>
@@ -255,13 +259,13 @@ const AdminAddBoxer: React.FC = () => {
                 />
               </div>
               <div className="form__input">
-                <label htmlFor="age">Age:</label>
+                <label htmlFor="profileImage">Profile Image:</label>
                 <input
-                  type="number"
-                  id="age"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleChange}
+                  type="file"
+                  id="profileImage"
+                  name="profileImage"
+                  onChange={handleFileChange}
+                  accept="image/*"
                 />
               </div>
             </div>

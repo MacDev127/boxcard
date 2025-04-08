@@ -69,9 +69,10 @@
 }
 
 .profile__top-wrapper {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 30px;
+  gap: 30px;
 }
 
 .profile__stat-list {
@@ -281,6 +282,12 @@
   .profile__top-bio p {
     width: 80%;
   }
+  .profile__top-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 30px;
+    gap: 30px;
+  }
 }
 @media screen and (max-width: 414px) {
   .profile__top-name {
@@ -291,5 +298,11 @@
   .profile__top-bio p {
     text-align: left;
     line-height: 1.8;
+  }
+  .profile__top-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-bottom: 30px;
+    gap: 30px;
   }
 }

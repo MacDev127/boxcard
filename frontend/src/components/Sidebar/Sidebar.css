@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --primarybg: #111928;
   --secondarybg: #272e3c;
@@ -11,7 +13,6 @@
   --draw: #3b82f6;
   --btn-hover: #575c68;
 }
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .logo {
   margin: 20px 0 50px 0;
@@ -24,8 +25,7 @@
   background-color: var(--secondarybg);
   border: none;
   cursor: pointer;
-  padding: 10 4px;
-  margin: 20px 0px;
+  padding: 10px;
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -37,6 +37,9 @@ span {
 
 #button-icon {
   min-width: 40px;
+}
+.css-rizt0-MuiTypography-root {
+  font-size: 15px !important;
 }
 
 #button:hover {

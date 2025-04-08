@@ -20,7 +20,7 @@
 
 /* Container for the admin form */
 .admin {
-  max-width: 600px;
+  max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
   border-radius: 8px;
@@ -72,7 +72,7 @@
 /* Input and select styling */
 .admin form input,
 .admin form select {
-  padding: 0.7rem 1rem;
+  padding: 1rem;
   font-size: 1rem;
   border: 1px solid var(--secondarybg);
   border-radius: 4px;

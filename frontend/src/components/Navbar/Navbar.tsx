@@ -1,5 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import PersonIcon from '@mui/icons-material/Person';
 import './Navbar.css';
 import { useState } from 'react';
 import logo from '../../images/logo.png';
@@ -32,6 +33,11 @@ const Navbar = () => {
             <a href="#">Contact</a>
           </li>
         </ul>
+      </div>
+      <div>
+        <a href="/dashboard">
+          <PersonIcon />
+        </a>
       </div>
       <div className="mobile">
         {toggleMenu ? (
