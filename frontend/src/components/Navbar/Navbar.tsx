@@ -34,16 +34,16 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="nav-admin">
         <a href="/dashboard">
-          <PersonIcon />
+          <PersonIcon className="icon" />
         </a>
       </div>
       <div className="mobile">
         {toggleMenu ? (
-          <CloseIcon onClick={handleToggleMenu} />
+          <CloseIcon onClick={handleToggleMenu} style={{ fontSize: '28px' }} />
         ) : (
-          <MenuIcon onClick={handleToggleMenu} />
+          <MenuIcon onClick={handleToggleMenu} style={{ fontSize: '28px' }} />
         )}
       </div>
     </nav>

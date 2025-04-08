@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
   // Sidebar (drawer) content to be reused between mobile & permanent
   const drawerContent = (
     <List>
-      <div className="logo">
+      <div id="logo">
         {/* Not clickable if it doesn't need to be */}
         <ListItem component="div">
           <img src={logo} alt="Logo" />

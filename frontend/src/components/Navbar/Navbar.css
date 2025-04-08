@@ -14,6 +14,17 @@ nav {
   background-color: var(--primarybg);
 }
 
+.nav-admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon:hover {
+  color: var(--button);
+  transition: ease 0.2s;
+}
+
 .logo img {
   width: 150px;
 }
@@ -68,8 +79,12 @@ nav {
     width: 200px;
     height: 100vh;
     background-color: var(--secondarybg);
-    padding: 40px 0 0 10px;
+    padding: 80px 0 0 10px;
     transition: ease-in-out 0.3s;
+  }
+
+  .nav-admin {
+    display: none;
   }
 
   #navbar.active {
@@ -83,13 +98,10 @@ nav {
   .mobile {
     position: absolute;
     right: 0;
-    padding: 2px 20px;
+    top: 0;
+    padding: 24px 10px;
     display: block;
     z-index: 10;
     cursor: pointer;
-  }
-
-  .mobile i {
-    font-size: 28px;
   }
 }
