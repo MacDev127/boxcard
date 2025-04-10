@@ -1,0 +1,45 @@
+/* EditBoxerPage.css */
+
+/* Container that wraps the form */
+.edit-boxer-container {
+  background-color: #1a1e28; /* dark background */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: #cbd5e0;
+  margin-top: 1rem;
+}
+
+/* The grid for the form fields */
+.edit-boxer-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Each field styles */
+.form-field {
+  width: 100%;
+}
+
+/* Full-width fields span across both columns */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Button container that spans both columns, aligned right on desktop */
+.edit-boxer-button {
+  margin-top: 1.5rem;
+  grid-column: 1 / -1;
+  text-align: right;
+}
+
+/* Responsive adjustment: for screens below 768px, stack columns */
+@media (max-width: 768px) {
+  .edit-boxer-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .edit-boxer-button {
+    text-align: center;
+  }
+}

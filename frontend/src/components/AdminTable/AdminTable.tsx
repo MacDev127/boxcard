@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import './AdminTable.css';
-import Profile from '../Profile/Profile';
+import { useNavigate } from 'react-router-dom';
 
 interface Boxer {
   id: number;
@@ -27,7 +27,10 @@ interface Boxer {
 }
 
 const BoxersTable: React.FC = () => {
+  const navigate = useNavigate();
+
   const [boxers, setBoxers] = useState<Boxer[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     axios.get('http://localhost:5002/api/boxers').then((res) => {
@@ -35,10 +38,14 @@ const BoxersTable: React.FC = () => {
     });
   }, []);
 
-  const handleDelete = (id: number) => {
-    axios.delete(`http://localhost:5002/api/boxers/${id}`).then(() => {
-      setBoxers(boxers.filter((boxer) => boxer.id !== id));
-    });
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:5002/api/boxers/${id}`);
+      setBoxers((prevBoxers) => prevBoxers.filter((boxer) => boxer.id !== id));
+    } catch (err) {
+      console.error(err);
+      setError('Error deleting boxer');
+    }
   };
 
   return (
@@ -78,7 +85,13 @@ const BoxersTable: React.FC = () => {
               <TableCell>{boxer.level}</TableCell>
               <TableCell>
                 <IconButton aria-label="edit">
-                  <Edit style={{ color: '#22c55e' }} />
+                  <Edit
+                    aria-label="edit"
+                    onClick={() =>
+                      navigate(`/dashboard/boxers/${boxer.id}/edit`)
+                    }
+                    style={{ color: '#22c55e' }}
+                  />
                 </IconButton>
                 <IconButton
                   aria-label="delete"
@@ -91,6 +104,7 @@ const BoxersTable: React.FC = () => {
           ))}
         </TableBody>
       </Table>
+      {error && <p>Error Deleting Boxer</p>}
     </TableContainer>
   );
 };

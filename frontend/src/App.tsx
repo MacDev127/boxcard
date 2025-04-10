@@ -7,6 +7,8 @@ import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard';
 import AddBoxerPage from './pages/Admin/AddBoxer/AddBoxerPage';
 import ManageBoxerPage from './pages/Admin/ManageBoxer/ManageBoxerPage';
 import AnalyticsPage from './pages/Admin/Analytics/AnalyticsPage';
+import EditBoxerPage from './pages/Admin/EditBoxer/EditBoxerPage';
+
 const App = () => {
   return (
     <div className="App">
@@ -22,6 +24,7 @@ const App = () => {
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="add-boxer" element={<AddBoxerPage />} />
             <Route path="manage-boxer" element={<ManageBoxerPage />} />
+            <Route path="boxers/:id/edit" element={<EditBoxerPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
