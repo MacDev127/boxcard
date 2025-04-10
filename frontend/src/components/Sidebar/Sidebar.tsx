@@ -8,6 +8,7 @@ import {
   ListItemText,
   IconButton,
   useMediaQuery,
+  Link,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -46,9 +47,9 @@ const Sidebar: React.FC = () => {
     <List sx={{ padding: 0, marginLeft: '10px' }}>
       {/* Logo area (not clickable by default) */}
       <div id="logo">
-        <ListItemButton component="div">
+        <Link to href="/">
           <img src={logo} alt="Logo" />
-        </ListItemButton>
+        </Link>
       </div>
 
       {/* Dashboard */}

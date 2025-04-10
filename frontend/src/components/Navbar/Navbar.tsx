@@ -35,7 +35,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="nav-admin">
-        <a href="/dashboard">
+        <a href="/dashboard/analytics">
           <PersonIcon className="icon" />
         </a>
       </div>

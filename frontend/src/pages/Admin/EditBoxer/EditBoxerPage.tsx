@@ -1,191 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { TextField, Button, Container, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
+import BoxerForm, {
+  BoxerFormData,
+} from '../../../components/BoxerForm/BoxerForm';
 import './EditBoxerPage.css';
-
-interface BoxerFormData {
-  name: string;
-  country: string;
-  sex: string;
-  club: string;
-  province: string;
-  age: number;
-  weight: number;
-  stance: string;
-  level: string;
-  fightsWon: number;
-  fightsLost: number;
-  videoUrl: string;
-  profileImage: string;
-}
 
 const EditBoxerPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<BoxerFormData | null>(null);
+  const [initialData, setInitialData] = useState<BoxerFormData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch boxer data by ID
     axios
       .get(`http://localhost:5002/api/boxers/${id}`)
-      .then((res) => setFormData(res.data))
+      .then((res) => {
+        setInitialData(res.data);
+      })
       .catch((err) => {
         console.error(err);
         setError('Failed to fetch boxer information.');
       });
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!formData) return;
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData) return;
-    try {
-      await axios.put(`http://localhost:5002/api/boxers/${id}`, formData);
-      navigate('/dashboard/manage-boxer');
-    } catch (err) {
-      console.error(err);
-      setError('Error updating boxer. Please try again.');
+  const handleSubmit = async (data: BoxerFormData, file?: File) => {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('country', data.country);
+    formData.append('sex', data.sex);
+    formData.append('club', data.club);
+    formData.append('province', data.province);
+    formData.append('age', String(data.age));
+    formData.append('weight', String(data.weight));
+    formData.append('stance', data.stance);
+    formData.append('level', data.level);
+    formData.append('fightsWon', String(data.fightsWon));
+    formData.append('fightsLost', String(data.fightsLost));
+    formData.append('videoUrl', data.videoUrl);
+    if (file) {
+      formData.append('profileImage', file);
     }
+
+    await axios.put(`http://localhost:5002/api/boxers/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   };
 
-  if (!formData) {
+  if (!initialData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <Container maxWidth="md" className="edit-boxer-container">
+    <Container maxWidth="md">
       <Typography variant="h5" gutterBottom>
         Edit Boxer
       </Typography>
-      {error && (
-        <Typography color="error" variant="body1">
-          {error}
-        </Typography>
-      )}
-      <form onSubmit={handleSubmit} className="edit-boxer-form">
-        <div className="edit-boxer-form-grid">
-          <TextField
-            label="Name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Country"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Sex"
-            name="sex"
-            value={formData.sex}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Club"
-            name="club"
-            value={formData.club}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Province"
-            name="province"
-            value={formData.province}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Age"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Weight (KG)"
-            name="weight"
-            value={formData.weight}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Stance"
-            name="stance"
-            value={formData.stance}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Level"
-            name="level"
-            value={formData.level}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Fights Won"
-            name="fightsWon"
-            value={formData.fightsWon}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Fights Lost"
-            name="fightsLost"
-            value={formData.fightsLost}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          />
-          <TextField
-            label="Video URL"
-            name="videoUrl"
-            value={formData.videoUrl}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field full-width"
-          />
-        </div>
-        <div className="edit-boxer-button">
-          <Button type="submit" variant="contained" color="primary">
-            Update Boxer
-          </Button>
-        </div>
-      </form>
+      {error && <Typography color="error">{error}</Typography>}
+      <BoxerForm
+        initialData={initialData}
+        onSubmit={handleSubmit}
+        submitLabel="Update Boxer"
+      />
     </Container>
   );
 };
