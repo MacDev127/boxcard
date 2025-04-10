@@ -3,17 +3,16 @@ import logo from '../../images/logo.png';
 import {
   Drawer,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   IconButton,
-  useTheme,
   useMediaQuery,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Sidebar.css';
 
@@ -22,35 +21,49 @@ const drawerWidth = 240;
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // true for screens smaller than "sm"
-  const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
-  // Helper: returns true if current path starts with given path.
+  // Custom media query for screens ≤768px
+  const isMobile = useMediaQuery('(max-width:768px)');
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Determine if a route is currently active
   const isActive = (path: string) => location.pathname.startsWith(path);
 
+  // Toggle the mobile drawer open/close
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  // Sidebar (drawer) content to be reused between mobile & permanent
+  // Shared drawer paper styling
+  const drawerPaperSx = {
+    boxSizing: 'border-box',
+    width: drawerWidth,
+    backgroundColor: '#272e3c', // Example background color; adjust as needed
+  };
+
+  // Sidebar content (common to both permanent & temporary)
   const drawerContent = (
-    <List>
+    <List sx={{ padding: 0, marginLeft: '10px' }}>
+      {/* Logo area (not clickable by default) */}
       <div id="logo">
-        {/* Not clickable if it doesn't need to be */}
-        <ListItem component="div">
+        <ListItemButton component="div">
           <img src={logo} alt="Logo" />
-        </ListItem>
+        </ListItemButton>
       </div>
+
+      {/* Dashboard */}
       <ListItemButton
-        id="button"
         onClick={() => {
-          navigate('/dashboard/add-boxer');
+          navigate('/dashboard/analytics');
           if (isMobile) setMobileOpen(false);
         }}
-        selected={isActive('/dashboard/add-boxer')}
+        selected={isActive('/dashboard/analytics')}
         sx={{
-          // When selected, persist the background and change colors.
+          marginX: '8px',
+          cursor: 'pointer',
+
+          marginY: '4px',
+          borderRadius: '8px',
           '&.Mui-selected': {
             backgroundColor: 'rgba(106, 158, 237, 0.2)',
             '& .MuiListItemText-root': { color: '#6a9eed' },
@@ -59,9 +72,48 @@ const Sidebar: React.FC = () => {
           '&.Mui-selected:hover': {
             backgroundColor: 'rgba(106, 158, 237, 0.2)',
           },
+          // Optional: If you also want a custom hover for non-selected
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.06)',
+          },
         }}
       >
-        <ListItemIcon id="button-icon" sx={{ color: 'white' }}>
+        <ListItemIcon sx={{ color: 'white' }}>
+          <SpaceDashboardIcon style={{ fontSize: '28px' }} />
+        </ListItemIcon>
+        <ListItemText
+          primary="Dashboard"
+          sx={{ color: isActive('/dashboard/analytics') ? '#6a9eed' : 'white' }}
+        />
+      </ListItemButton>
+
+      {/* Add Boxer */}
+      <ListItemButton
+        onClick={() => {
+          navigate('/dashboard/add-boxer');
+          if (isMobile) setMobileOpen(false);
+        }}
+        selected={isActive('/dashboard/add-boxer')}
+        sx={{
+          marginX: '8px',
+          marginY: '4px',
+          cursor: 'pointer',
+
+          borderRadius: '8px',
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(106, 158, 237, 0.2)',
+            '& .MuiListItemText-root': { color: '#6a9eed' },
+            '& .MuiSvgIcon-root': { color: '#6a9eed' },
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: 'rgba(106, 158, 237, 0.2)',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.06)',
+          },
+        }}
+      >
+        <ListItemIcon sx={{ color: 'white' }}>
           <PersonAddAlt1Icon style={{ fontSize: '28px' }} />
         </ListItemIcon>
         <ListItemText
@@ -69,14 +121,19 @@ const Sidebar: React.FC = () => {
           sx={{ color: isActive('/dashboard/add-boxer') ? '#6a9eed' : 'white' }}
         />
       </ListItemButton>
+
+      {/* Manage Boxers */}
       <ListItemButton
-        id="button"
         onClick={() => {
           navigate('/dashboard/manage-boxer');
           if (isMobile) setMobileOpen(false);
         }}
         selected={isActive('/dashboard/manage-boxer')}
         sx={{
+          marginX: '8px',
+          cursor: 'pointer',
+          marginY: '4px',
+          borderRadius: '8px',
           '&.Mui-selected': {
             backgroundColor: 'rgba(106, 158, 237, 0.2)',
             '& .MuiListItemText-root': { color: '#6a9eed' },
@@ -85,13 +142,16 @@ const Sidebar: React.FC = () => {
           '&.Mui-selected:hover': {
             backgroundColor: 'rgba(106, 158, 237, 0.2)',
           },
+          // Optional: If you also want a custom hover for non-selected
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.06)',
+          },
         }}
       >
-        <ListItemIcon id="button-icon" sx={{ color: 'white' }}>
+        <ListItemIcon sx={{ color: 'white' }}>
           <ManageSearchIcon style={{ fontSize: '28px' }} />
         </ListItemIcon>
         <ListItemText
-          id="button-text"
           primary="View Boxers"
           sx={{
             color: isActive('/dashboard/manage-boxer') ? '#6a9eed' : 'white',
@@ -103,46 +163,42 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      {/* Temporary drawer for mobile screens */}
+      {/* Hamburger menu icon (top-right) for ≤768px */}
       {isMobile && (
-        <>
-          {/* A menu button to toggle the drawer */}
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ ml: 2, mt: 2, display: { xs: 'block', sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better performance on mobile.
-            }}
-            sx={{
-              display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': {
-                boxSizing: 'border-box',
-                width: drawerWidth,
-              },
-            }}
-          >
-            {drawerContent}
-          </Drawer>
-        </>
+        <IconButton
+          onClick={handleDrawerToggle}
+          sx={{
+            position: 'fixed',
+            top: '16px',
+            right: '16px',
+            color: '#ffffff', // Icon color
+            zIndex: 1300, // Ensure the icon is on top
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
       )}
 
-      {/* Permanent drawer for larger screens */}
+      {/* Temporary drawer for mobile screens */}
       <Drawer
-        id="drawer"
+        variant="temporary"
+        open={mobileOpen && isMobile}
+        onClose={handleDrawerToggle}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': drawerPaperSx,
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+
+      {/* Permanent drawer for desktop screens */}
+      <Drawer
         variant="permanent"
         sx={{
-          display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          display: { xs: 'none', md: 'block' },
+          '& .MuiDrawer-paper': drawerPaperSx,
         }}
         open
       >

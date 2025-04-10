@@ -11,12 +11,17 @@
   --loss: #ef4444;
   --win: #22c55e;
   --draw: #3b82f6;
-  --btn-hover: #575c68;
+  --btn-hover: #3f4452;
 }
 
 #logo {
   margin: 20px 0 50px 0;
-  padding: 0 0px;
+  padding: 0px;
+  background-color: none;
+}
+
+#logo img {
+  width: 150px;
 }
 #drawer {
   font-family: 'Poppins', sans-serif;
@@ -42,11 +47,30 @@ span {
   font-size: 15px !important;
 }
 
-#button:hover {
+/* #button:hover {
   background-color: var(--btn-hover);
-}
+} */
 
 .css-1lwhjos-MuiPaper-root-MuiDrawer-paper {
   background-color: var(--secondarybg) !important;
   padding: 0 20px;
+}
+.css-176wsp5-MuiListItemIcon-root {
+  min-width: 40px !important;
+}
+.css-2y3f57-MuiList-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+@media screen and (max-width: 768px) {
+  #logo {
+    margin: 20px 0 50px 0;
+    padding-left: 12px;
+    background-color: none;
+  }
+}
+
+@media screen and (max-width: 414px) {
 }

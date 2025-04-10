@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './AdminDashboard.css';
-
+import './AddBoxer.css';
 interface BoxerFormData {
   name: string;
   country: string;
@@ -112,8 +111,8 @@ const AdminAddBoxer: React.FC = () => {
   };
 
   return (
-    <div className="dashboard">
-      <div className="admin">
+    <div className="add-boxer">
+      <div className="add-boxer__container">
         <h2>Add New Boxer</h2>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form__wrapper">

@@ -1,0 +1,46 @@
+:root {
+  --primarybg: #111928;
+  --secondarybg: #272e3c;
+  --button: #6a9eed;
+  --button-hover: #6a9eed;
+  --text-hover: #90b3f1;
+  --primary-font: #ffffff;
+  --secondary-font: #8c8f98;
+  --loss: #ef4444;
+  --win: #22c55e;
+  --draw: #3b82f6;
+}
+
+.analytic__card {
+  background: var(--secondarybg);
+  max-width: 300px;
+  width: 260px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px 30px;
+  gap: 10px;
+}
+.analytic__card span i {
+  margin: 0;
+  padding: 0;
+  color: var(--button);
+}
+.analytic__card p {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0;
+  padding: 0;
+}
+.analytic__card h2 {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}

@@ -12,6 +12,8 @@ import {
   IconButton,
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
+import './AdminTable.css';
+import Profile from '../Profile/Profile';
 
 interface Boxer {
   id: number;
@@ -21,6 +23,7 @@ interface Boxer {
   weight: number;
   stance: string;
   level: string;
+  profileImage: string;
 }
 
 const BoxersTable: React.FC = () => {
@@ -43,6 +46,7 @@ const BoxersTable: React.FC = () => {
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>Profile</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Country</TableCell>
             <TableCell>Age</TableCell>
@@ -55,6 +59,17 @@ const BoxersTable: React.FC = () => {
         <TableBody>
           {boxers.map((boxer) => (
             <TableRow key={boxer.id}>
+              <TableCell className="table__image">
+                <img
+                  src={
+                    boxer.profileImage
+                      ? `http://localhost:5002/uploads/${boxer.profileImage}`
+                      : '../../images/profile.png'
+                  }
+                  alt={boxer.name || 'Boxer Profile'}
+                  onError={(e) => console.error('Image load error:', e)}
+                />
+              </TableCell>
               <TableCell>{boxer.name}</TableCell>
               <TableCell>{boxer.country}</TableCell>
               <TableCell>{boxer.age}</TableCell>
@@ -63,13 +78,13 @@ const BoxersTable: React.FC = () => {
               <TableCell>{boxer.level}</TableCell>
               <TableCell>
                 <IconButton aria-label="edit">
-                  <Edit />
+                  <Edit style={{ color: '#22c55e' }} />
                 </IconButton>
                 <IconButton
                   aria-label="delete"
                   onClick={() => handleDelete(boxer.id)}
                 >
-                  <Delete />
+                  <Delete style={{ color: '#ef4444' }} />
                 </IconButton>
               </TableCell>
             </TableRow>

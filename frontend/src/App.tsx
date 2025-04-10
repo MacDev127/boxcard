@@ -3,9 +3,10 @@ import Home from './pages/Home/Home';
 import BoxerList from './pages/Boxers/BoxerList/BoxerList';
 import BoxerDetail from './pages/Boxers/BoxerDetail';
 import BoxerEdit from './pages/Boxers/BoxerEdit';
-import AdminDashboard from './pages/Admin/AdminDashboard';
-import AddBoxerPage from './pages/Admin/AddBoxerPage';
-import ManageBoxerPage from './pages/Admin/ManageBoxerPage';
+import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard';
+import AddBoxerPage from './pages/Admin/AddBoxer/AddBoxerPage';
+import ManageBoxerPage from './pages/Admin/ManageBoxer/ManageBoxerPage';
+import AnalyticsPage from './pages/Admin/Analytics/AnalyticsPage';
 const App = () => {
   return (
     <div className="App">
@@ -18,6 +19,7 @@ const App = () => {
 
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<AdminDashboard />}>
+            <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="add-boxer" element={<AddBoxerPage />} />
             <Route path="manage-boxer" element={<ManageBoxerPage />} />
           </Route>
