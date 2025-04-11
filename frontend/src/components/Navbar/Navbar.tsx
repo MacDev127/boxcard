@@ -36,7 +36,7 @@ const Navbar = () => {
       </div>
       <div className="nav-admin">
         <a href="/dashboard/analytics">
-          <PersonIcon className="icon" />
+          <PersonIcon className="admin-icon" />
         </a>
       </div>
       <div className="mobile">

@@ -34,7 +34,14 @@
   gap: 20px;
   margin: 50px 0;
 }
+.filter-reset {
+  cursor: pointer;
+}
 
+.reset-icon:hover {
+  color: var(--button);
+  transition: all 0.2s;
+}
 /* Wrapper */
 
 /* Dropdown styling */

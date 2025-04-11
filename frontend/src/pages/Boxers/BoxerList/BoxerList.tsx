@@ -4,6 +4,7 @@ import Card from '../../../components/Card/Card';
 import Navbar from '../../../components/Navbar/Navbar';
 import Footer from '../../../components/footer/Footer';
 import AOS from 'aos';
+import { RiResetLeftFill } from 'react-icons/ri';
 import 'aos/dist/aos.css';
 import './BoxerList.css';
 
@@ -60,7 +61,6 @@ const BoxerList = () => {
     fetchInitialData();
   }, []);
 
-  // Fetch filtered data whenever filters change
   useEffect(() => {
     const fetchFilteredBoxers = async () => {
       try {
@@ -88,6 +88,15 @@ const BoxerList = () => {
     selectedWeight,
     selectedLevel,
   ]);
+
+  // Reset filter handler: sets all filters back to their default empty values
+  const handleResetFilters = () => {
+    setSelectedSex('');
+    setSelectedClub('');
+    setSelectedCountry('');
+    setSelectedWeight('');
+    setSelectedLevel('');
+  };
 
   return (
     <>
@@ -155,6 +164,13 @@ const BoxerList = () => {
             <option value="UK">UK</option>
             {/* Additional hardcoded or dynamic country options */}
           </select>
+          <div className="filter-reset">
+            <RiResetLeftFill
+              className="reset-icon"
+              fontSize="28px"
+              onClick={handleResetFilters}
+            />
+          </div>
         </div>
         <div className="boxer-list__container">
           {boxerDetails.map((boxer) => (

@@ -78,7 +78,7 @@ MuiToolbar-root
 /* Table body cells */
 .MuiTableCell-body {
   color: #cbd5e0 !important;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--secondarybg) !important;
   padding: 12px 16px;
 }
 

@@ -39,7 +39,6 @@
 }
 
 .profile__top-name {
-  padding: 0 20px;
   width: 100%;
   margin: 0 30px;
 }
@@ -277,10 +276,9 @@
   }
 
   .profile__column {
-    margin-right: 100px;
   }
   .profile__top-bio p {
-    width: 80%;
+    width: 86%;
   }
   .profile__top-wrapper {
     display: grid;

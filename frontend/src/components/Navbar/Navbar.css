@@ -20,7 +20,7 @@ nav {
   align-items: center;
 }
 
-.icon:hover {
+nav .icon-admin:hover {
   color: var(--button);
   transition: ease 0.2s;
 }
