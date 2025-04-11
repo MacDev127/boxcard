@@ -14,15 +14,58 @@
 .MuiTableContainer-root {
   background-color: var(--primarybg) !important;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   margin: 1rem 0;
   overflow-y: auto; /* Enable vertical scrolling */
-  max-height: calc(100vh - 200px); /* Adjust this value based on your layout */
+  max-height: calc(100vh - 200px) !important;
+  overflow-x: hidden !important; /* Prevent horizontal scrolling */
+  max-width: 100%;
+}
+
+.css-y2ff7i-MuiPaper-root-MuiTableContainer-root {
+  box-shadow: none !important;
+}
+
+.css-0 {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+MuiToolbar-root
+  MuiToolbar-gutters
+  MuiToolbar-regular
+  MuiTablePagination-toolbar
+  css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar {
+  color: white !important;
 }
 
 /* Table header styles */
 .MuiTableHead-root {
   background-color: var(--secondarybg); /* Darker header shade */
+}
+.css-7x9vt0-MuiButtonBase-root-MuiTableSortLabel-root:hover {
+  color: var(--button) !important;
+}
+
+.css-1toxriw-MuiList-root-MuiMenu-list {
+  background-color: var(--secondarybg);
+  color: white !important;
+}
+
+.css-7mt0f-MuiTablePagination-root {
+  color: white !important;
+}
+
+.css-1gpuzre-MuiSvgIcon-root-MuiSelect-icon {
+  color: white !important;
+}
+
+.css-7x9vt0-MuiButtonBase-root-MuiTableSortLabel-root.Mui-active {
+  color: var(--button) !important;
+}
+.css-7x9vt0-MuiButtonBase-root-MuiTableSortLabel-root.Mui-active
+  .MuiTableSortLabel-icon {
+  color: var(--button) !important;
 }
 
 .MuiTableCell-head {
@@ -66,4 +109,10 @@
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .MuiTableContainer-root {
+    overflow-x: auto !important;
+  }
 }

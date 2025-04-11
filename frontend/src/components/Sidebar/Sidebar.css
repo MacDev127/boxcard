@@ -54,9 +54,18 @@ span {
 .css-1lwhjos-MuiPaper-root-MuiDrawer-paper {
   background-color: var(--secondarybg) !important;
   padding: 0 20px;
+  /* position: relative !important; */
 }
 .css-176wsp5-MuiListItemIcon-root {
   min-width: 40px !important;
+}
+.css-1ixdmtw-MuiButtonBase-root-MuiListItemButton-root {
+  padding: 8px 16px !important;
+  margin: 4px 0px !important;
+}
+.css-83s1mp-MuiButtonBase-root-MuiListItemButton-root {
+  padding: 8px 16px !important ;
+  margin: 4px 0px !important;
 }
 .css-2y3f57-MuiList-root {
   display: flex;

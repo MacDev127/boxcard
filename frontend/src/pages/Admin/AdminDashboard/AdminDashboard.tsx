@@ -9,7 +9,7 @@ const drawerWidth = 240;
 
 const AdminDashboard: React.FC = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <Sidebar />
       <Box
         component="main"

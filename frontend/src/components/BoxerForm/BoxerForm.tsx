@@ -216,6 +216,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
         </div>
         <div className="boxer-form-button">
           <Button
+            id="boxer-form-btn"
             type="submit"
             variant="contained"
             color="primary"
