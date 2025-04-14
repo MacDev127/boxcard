@@ -33,6 +33,7 @@ const BoxerList = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedWeight, setSelectedWeight] = useState<string>('');
   const [selectedLevel, setSelectedLevel] = useState<string>('');
+  const [showFilter, setShowFilter] = useState<boolean>(false);
 
   // Fetch initial boxer data and filter options
   useEffect(() => {
@@ -102,76 +103,76 @@ const BoxerList = () => {
     <>
       <div className="boxer-list">
         <Navbar />
-        <div className="boxer-list__filter">
-          <select
-            className="custom-dropdown"
-            onChange={(e) => setSelectedWeight(e.target.value)}
-          >
-            <option value="" disabled selected>
-              Weight
-            </option>
-            {weights.map((weight) => (
-              <div
-                className="container
+        <button onClick={() => setShowFilter(true)}>Test filter</button>
+        {showFilter && (
+          <div className="boxer-list__filter">
+            <select
+              className="custom-dropdown"
+              onChange={(e) => setSelectedWeight(e.target.value)}
+            >
+              <option value="" disabled selected>
+                Weight
+              </option>
+              {weights.map((weight) => (
+                <div
+                  className="container
                 "
-              >
-                <option key={weight} value={weight}>
-                  {weight}KG
+                >
+                  <option key={weight} value={weight}>
+                    {weight}KG
+                  </option>
+                </div>
+              ))}
+            </select>
+
+            <select
+              className="custom-dropdown"
+              onChange={(e) => setSelectedLevel(e.target.value)}
+            >
+              <option value="">Level</option>
+              {levels.map((level) => (
+                <option key={level} value={level}>
+                  {level}
                 </option>
-              </div>
-            ))}
-          </select>
+              ))}
+            </select>
 
-          <select
-            className="custom-dropdown"
-            onChange={(e) => setSelectedLevel(e.target.value)}
-          >
-            <option value="">Level</option>
-            {levels.map((level) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
+            <select
+              className="custom-dropdown"
+              onChange={(e) => setSelectedSex(e.target.value)}
+            >
+              <option value="">Genders</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </select>
 
-          <select
-            className="custom-dropdown"
-            onChange={(e) => setSelectedSex(e.target.value)}
-          >
-            <option value="">Genders</option>
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-          </select>
+            <select
+              className="custom-dropdown"
+              onChange={(e) => setSelectedClub(e.target.value)}
+            >
+              <option value="">Club</option>
+              {clubs.map((club) => (
+                <option key={club} value={club}>
+                  {club}
+                </option>
+              ))}
+            </select>
 
-          <select
-            className="custom-dropdown"
-            onChange={(e) => setSelectedClub(e.target.value)}
-          >
-            <option value="">Club</option>
-            {clubs.map((club) => (
-              <option key={club} value={club}>
-                {club}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className="custom-dropdown"
-            onChange={(e) => setSelectedCountry(e.target.value)}
-          >
-            <option value="">Country</option>
-            <option value="Ireland">Ireland</option>
-            <option value="UK">UK</option>
-            {/* Additional hardcoded or dynamic country options */}
-          </select>
-          <div className="filter-reset">
-            <RiResetLeftFill
-              className="reset-icon"
-              fontSize="28px"
-              onClick={handleResetFilters}
-            />
+            <select
+              className="custom-dropdown"
+              onChange={(e) => setSelectedCountry(e.target.value)}
+            >
+              <option value="">Country</option>
+              <option value="Ireland">Ireland</option>
+              <option value="UK">UK</option>
+            </select>
+            <button onClick={handleResetFilters} className="filter-reset">
+              Reset
+              <RiResetLeftFill className="reset-icon" fontSize="14px" />
+            </button>
           </div>
-        </div>
+        )}
+
         <div className="boxer-list__container">
           {boxerDetails.map((boxer) => (
             <Card key={boxer.id} boxer={boxer} />

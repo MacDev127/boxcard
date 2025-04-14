@@ -1,6 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import PersonIcon from '@mui/icons-material/Person';
+import { FaUser } from 'react-icons/fa';
 import './Navbar.css';
 import { useState } from 'react';
 import logo from '../../images/logo.png';
@@ -36,7 +36,7 @@ const Navbar = () => {
       </div>
       <div className="nav-admin">
         <a href="/dashboard/analytics">
-          <PersonIcon className="admin-icon" />
+          <FaUser className="admin-icon" />
         </a>
       </div>
       <div className="mobile">

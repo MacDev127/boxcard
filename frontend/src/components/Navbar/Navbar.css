@@ -25,6 +25,11 @@ nav .icon-admin:hover {
   transition: ease 0.2s;
 }
 
+.admin-icon:hover {
+  color: var(--button);
+  transition: all 0.2s;
+}
+
 .logo img {
   width: 150px;
 }
