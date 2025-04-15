@@ -1,5 +1,18 @@
+/* Update your ManageBoxer.css */
 .manage-boxer {
   position: relative;
-  max-width: 1600px;
-  margin: 0 auto;
+  max-width: calc(100% - 240px); /* Account for sidebar width */
+  margin-left: 240px; /* Offset by sidebar width */
+  padding: 20px;
+  width: calc(100% - 240px); /* Full width minus sidebar */
+}
+
+/* For mobile view when sidebar is collapsed */
+@media (max-width: 768px) {
+  .manage-boxer {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 10px;
+  }
 }

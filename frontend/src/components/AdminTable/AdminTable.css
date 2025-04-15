@@ -14,11 +14,12 @@
 .MuiTableContainer-root {
   background-color: var(--primarybg) !important;
   border-radius: 8px;
-  margin: 1rem 0;
+  margin: 1rem auto;
   overflow-y: auto; /* Enable vertical scrolling */
   max-height: calc(100vh - 200px) !important;
   overflow-x: hidden !important; /* Prevent horizontal scrolling */
-  max-width: 100%;
+  width: 100%;
+  max-width: 95%; /* Prevent table from touching edges */
 }
 
 .css-y2ff7i-MuiPaper-root-MuiTableContainer-root {

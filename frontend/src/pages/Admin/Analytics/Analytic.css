@@ -2,26 +2,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  max-width: calc(100% - var(--sidebar-width, 240px)); /* Use CSS variable */
+  margin-left: var(--sidebar-width, 240px); /* Use CSS variable */
+  padding: 20px;
+  width: calc(100% - var(--sidebar-width, 240px));
+  overflow-x: hidden !important;
+  transition: all 0.3s ease; /* Smooth transition */
 }
 
 .analytic-page__container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+  width: 100%;
+  max-width: 1600px; /* Optional: limit maximum width */
 }
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 1200px) {
   .analytic-page__container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 768px) {
   .analytic-page__container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .analytic-page {
+    --sidebar-width: 0; /* Override when sidebar is minimized */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .analytic-page__container {
+    grid-template-columns: 1fr;
   }
 }

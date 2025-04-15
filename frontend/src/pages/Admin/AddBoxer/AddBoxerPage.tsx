@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './AddBoxer.css';
 import BoxerForm, {
   BoxerFormData,
 } from '../../../components/BoxerForm/BoxerForm';
@@ -46,11 +47,13 @@ const AdminAddBoxer: React.FC = () => {
   };
 
   return (
-    <BoxerForm
-      initialData={defaultData}
-      onSubmit={handleSubmit}
-      submitLabel="Add Boxer"
-    />
+    <div className="add-boxer">
+      <BoxerForm
+        initialData={defaultData}
+        onSubmit={handleSubmit}
+        submitLabel="Add Boxer"
+      />
+    </div>
   );
 };
 

@@ -1,0 +1,7 @@
+.add-boxer {
+  position: relative;
+  max-width: calc(100% - 240px); /* Account for sidebar width */
+  margin-left: 240px; /* Offset by sidebar width */
+  padding: 20px;
+  width: calc(100% - 240px);
+}

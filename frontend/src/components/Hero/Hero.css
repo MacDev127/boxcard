@@ -158,24 +158,25 @@
 }
 
 @media screen and (max-width: 414px) {
-  .hero {
-    margin-bottom: 100px;
-  }
   .hero__banner img {
     max-height: 230px;
   }
 
+  .hero__banner {
+    margin-bottom: 80px;
+  }
+
   .hero__input-wrapper input {
-    width: 80%;
+    width: 90%;
     font-size: 14px;
   }
   .hero__search-icon {
-    right: 10%;
-    font-size: 18px !important;
+    right: 5%;
+    font-size: 20px !important;
   }
 
   .hero__results {
-    width: 232px;
+    width: 260px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
