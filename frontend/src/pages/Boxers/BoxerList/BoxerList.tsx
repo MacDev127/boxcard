@@ -7,6 +7,7 @@ import AOS from 'aos';
 import { RiResetLeftFill } from 'react-icons/ri';
 import { FaFilter } from 'react-icons/fa';
 import Collapse from '@mui/material/Collapse';
+import Pagination from '@mui/material/Pagination';
 
 import 'aos/dist/aos.css';
 import './BoxerList.css';
@@ -37,6 +38,8 @@ const BoxerList = () => {
   const [selectedWeight, setSelectedWeight] = useState<string>('');
   const [selectedLevel, setSelectedLevel] = useState<string>('');
   const [showFilter, setShowFilter] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [cardsPerPage] = useState<number>(12);
 
   // Fetch initial boxer data and filter options
   useEffect(() => {
@@ -66,6 +69,8 @@ const BoxerList = () => {
   }, []);
 
   useEffect(() => {
+    setCurrentPage(1);
+
     const fetchFilteredBoxers = async () => {
       try {
         const params = new URLSearchParams();
@@ -100,6 +105,15 @@ const BoxerList = () => {
     setSelectedWeight('');
     setSelectedLevel('');
   };
+
+  const lastIndex = currentPage * cardsPerPage;
+  const firstIndex = lastIndex - cardsPerPage;
+
+  // Slice out only the cards for this page
+  const currentCards = boxerDetails.slice(firstIndex, lastIndex);
+
+  // How many pages?
+  const pageCount = Math.ceil(boxerDetails.length / cardsPerPage);
 
   return (
     <>
@@ -187,11 +201,23 @@ const BoxerList = () => {
         </div>
 
         <div className="boxer-list__container">
-          {boxerDetails.map((boxer) => (
+          {currentCards.map((boxer) => (
             <Card key={boxer.id} boxer={boxer} />
           ))}
         </div>
       </div>
+      {pageCount > 1 && (
+        <div className="pagination-wrapper">
+          <Pagination
+            variant="outlined"
+            shape="rounded"
+            count={pageCount}
+            page={currentPage}
+            onChange={(_, page) => setCurrentPage(page)}
+            color="primary"
+          />
+        </div>
+      )}
       <Footer />
     </>
   );

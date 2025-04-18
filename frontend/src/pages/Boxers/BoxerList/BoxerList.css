@@ -100,6 +100,23 @@
   gap: 20px;
   padding-top: 20px;
 }
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.css-tdnytb-MuiButtonBase-root-MuiPaginationItem-root {
+  color: white !important;
+}
+.css-tdnytb-MuiButtonBase-root-MuiPaginationItem-root {
+  border-color: var(--secondarybg) !important;
+}
+
+.css-tdnytb-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected:focus {
+  box-shadow: 0 0 0.2em #26489a !important;
+  border: 1px solid #26489a !important;
+}
 
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) {
 }
