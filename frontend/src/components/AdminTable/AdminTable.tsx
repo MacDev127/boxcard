@@ -16,6 +16,7 @@ import {
 import { Edit, Delete } from '@mui/icons-material';
 import './AdminTable.css';
 import { useNavigate } from 'react-router-dom';
+import { PiWarningDuotone } from 'react-icons/pi';
 
 interface Boxer {
   id: number;
@@ -52,6 +53,7 @@ const BoxersTable: React.FC = () => {
   // Delete handler
   const handleDelete = async (id: number) => {
     try {
+      console.log('http://localhost:5002/api/boxers/${id}');
       await axios.delete(`http://localhost:5002/api/boxers/${id}`);
       setBoxers((prev) => prev.filter((boxer) => boxer.id !== id));
     } catch (err) {
@@ -106,7 +108,7 @@ const BoxersTable: React.FC = () => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Profile</TableCell>
+            {/* <TableCell>Profile</TableCell> */}
             <TableCell sortDirection={orderBy === 'name' ? order : false}>
               <TableSortLabel
                 active={orderBy === 'name'}
@@ -151,7 +153,7 @@ const BoxersTable: React.FC = () => {
         <TableBody>
           {paginatedBoxers.map((boxer) => (
             <TableRow key={boxer.id}>
-              <TableCell className="table__image">
+              {/* <TableCell className="table__image">
                 <img
                   src={
                     boxer.profileImage
@@ -161,7 +163,7 @@ const BoxersTable: React.FC = () => {
                   alt={boxer.name || 'Boxer Profile'}
                   onError={(e) => console.error('Image load error:', e)}
                 />
-              </TableCell>
+              </TableCell> */}
               <TableCell>{boxer.name}</TableCell>
               <TableCell>{boxer.country}</TableCell>
               <TableCell>{boxer.age}</TableCell>
@@ -186,7 +188,13 @@ const BoxersTable: React.FC = () => {
           ))}
         </TableBody>
       </Table>
-      {error && <p>{error}</p>}
+      {error && (
+        <div className="error-wrapper">
+          <p className="error-message">
+            {error} <PiWarningDuotone fontSize="28px" />
+          </p>
+        </div>
+      )}
       <TablePagination
         component="div"
         count={boxers.length}
