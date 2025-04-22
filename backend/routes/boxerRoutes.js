@@ -31,6 +31,7 @@ const {
   getDistinctLevels,
   getDistinctClubs,
 } = require('../controllers/boxerController');
+const { getContestsForBoxer } = require('../controllers/contestController');
 
 // Use the multer middleware for the POST route
 router.post('/', upload.single('profileImage'), createBoxer);
@@ -40,6 +41,8 @@ router.get('/filters/weights', getDistinctWeights);
 router.get('/filters/levels', getDistinctLevels);
 router.get('/filters/clubs', getDistinctClubs);
 router.get('/:id', getBoxerById);
+router.get('/:id/contests', getContestsForBoxer);
+
 router.put('/:id', updateBoxer);
 router.delete('/:id', deleteBoxer);
 

@@ -24,8 +24,33 @@ model Boxer {
   videoUrl     String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  /// All contests where this boxer was in the “boxer1” slot
+  contestsAsBoxer1  Contest[] @relation("ContestsAsBoxer1")
+  /// All contests where this boxer was in the “boxer2” slot
+  contestsAsBoxer2  Contest[] @relation("ContestsAsBoxer2")
+  /// All contests that this boxer actually won
+  contestsWon       Contest[] @relation("ContestWinner")
 }
 
+/// A single fight between two boxers.
+model Contest {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @default(now())
+  result    String?   
+  competition String?         // e.g. "Boxer1 won by UD"
+  boxer1Id  Int
+  boxer2Id  Int
+  winnerId  Int?               // nullable until you set the winner
 
+  /// Relations back to Boxer
+  boxer1    Boxer   @relation("ContestsAsBoxer1", fields: [boxer1Id], references: [id], onDelete: Cascade)
+  boxer2    Boxer   @relation("ContestsAsBoxer2", fields: [boxer2Id], references: [id], onDelete: Cascade)
+  winner    Boxer?  @relation("ContestWinner", fields: [winnerId], references: [id])
+
+  @@index([boxer1Id])
+  @@index([boxer2Id])
+  @@index([winnerId])
+}
 
 

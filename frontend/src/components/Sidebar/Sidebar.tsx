@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
     <List sx={{ padding: 0, marginLeft: '10px' }}>
       {/* Logo area (not clickable by default) */}
       <div id="logo">
-        <Link to href="/">
+        <Link href="/">
           <img src={logo} alt="Logo" />
         </Link>
       </div>

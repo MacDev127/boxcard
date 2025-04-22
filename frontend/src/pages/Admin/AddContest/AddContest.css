@@ -1,0 +1,24 @@
+.add-contest {
+  max-width: calc(100% - 240px); /* Account for sidebar width */
+  margin-left: 240px; /* Offset by sidebar width */
+  padding: 20px;
+  width: calc(100% - 240px);
+}
+
+.add-contest form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.add-contest input {
+  max-width: 200px;
+  width: 200px;
+}
+.input-select {
+  width: 200px;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: white !important;
+}
