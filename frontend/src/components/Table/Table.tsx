@@ -1,49 +1,60 @@
+// src/components/Table/Table.tsx
+import React from 'react';
 import './Table.css';
 
-const Table = () => {
+export interface ContestResults {
+  id: number;
+  date: string;
+  result: string;
+  competition: string;
+  boxer1Id: number;
+  boxer2Id: number;
+  winnerId: number;
+  boxer1: { id: number; name: string };
+  boxer2: { id: number; name: string };
+}
+
+interface TableProps {
+  bouts: ContestResults[];
+  boxerId: number;
+}
+
+const Table: React.FC<TableProps> = ({ bouts, boxerId }) => {
   return (
-    <table>
+    <table className="results-table">
       <thead>
         <tr>
-          <th scope="col">Opponent</th>
-          <th scope="col">Result</th>
-          <th scope="col">Competition</th>
-          <th scope="col">Due Date</th>
+          <th>Opponent</th>
+          <th>Result</th>
+          <th>Competition</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td data-label="Opponent">Paddy Smith</td>
-          <td data-label="Result">
-            <span className="table__win">W - UD</span>
-          </td>
-          <td data-label="Competition">National Youths</td>
-          <td data-label="Date">04/01/2016</td>
-        </tr>
-        <tr>
-          <td data-label="Opponent">James Ryan</td>
-          <td data-label="Result">
-            <span className="table__win">W - SD</span>
-          </td>
-          <td data-label="Competition">National Youths</td>
-          <td data-label="Date">05/01/2016</td>
-        </tr>
-        <tr>
-          <td data-label="Opponent">Lional Messi</td>
-          <td data-label="Result">
-            <span className="table__win">W - UD</span>
-          </td>
-          <td data-label="Competition">Eurpean Youths</td>
-          <td data-label="Date">12/02/2016</td>
-        </tr>
-        <tr>
-          <td data-label="Opponent">Carl Frampton</td>
-          <td data-label="Result">
-            <span className="table__loss">L - SD</span>
-          </td>
-          <td data-label="Competition">Celtic Box Cup</td>
-          <td data-label="Date">04/03/2016</td>
-        </tr>
+        {bouts.map((bout) => {
+          const opponent =
+            bout.boxer1Id === boxerId ? bout.boxer2.name : bout.boxer1.name;
+
+          return (
+            <tr key={bout.id}>
+              <td data-label="Opponent">{opponent}</td>
+
+              <td data-label="Result">
+                <span
+                  className={
+                    bout.result.startsWith('W') ? 'table__win' : 'table__loss'
+                  }
+                >
+                  {bout.result}
+                </span>
+              </td>
+              <td data-label="Competition">{bout.competition}</td>
+              <td data-label="Date">
+                {new Date(bout.date).toLocaleDateString()}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

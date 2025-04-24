@@ -12,9 +12,9 @@ interface ContestForm {
   date: string;
   result: string;
   competition: string;
-  boxer1Id: number;
-  boxer2Id: number;
-  winnerId: number;
+  boxer1Id: number | string;
+  boxer2Id: number | string;
+  winnerId: number | string;
 }
 
 const AddContestPage = () => {
@@ -24,9 +24,9 @@ const AddContestPage = () => {
     date: '',
     result: '',
     competition: '',
-    boxer1Id: 0,
-    boxer2Id: 0,
-    winnerId: 0,
+    boxer1Id: '',
+    boxer2Id: '',
+    winnerId: '',
   });
 
   const RESULT_OPTIONS = [
@@ -40,7 +40,7 @@ const AddContestPage = () => {
     'L-KO',
     'W-DQ',
     'L-DQ',
-  ] as const; // “as const” keeps the literal strings
+  ] as const;
 
   useEffect(() => {
     const fetchBoxers = async () => {
@@ -64,9 +64,9 @@ const AddContestPage = () => {
         date: '',
         result: '',
         competition: '',
-        boxer1Id: 0,
-        boxer2Id: 0,
-        winnerId: 0,
+        boxer1Id: '',
+        boxer2Id: '',
+        winnerId: '',
       });
     } catch {
       console.error('error');

@@ -7,25 +7,8 @@ import ReactPlayer from 'react-player';
 import { getIsoCode } from './countryUtils';
 import CustomAccordion from '../Accoridan/CustomAccoridan';
 import Table from '../Table/Table';
-
-interface BoxerProfile {
-  id: number;
-  name?: string;
-  profileImage: string;
-  age: number;
-  sex: string;
-  weight: number;
-  country: string;
-  club: string;
-  province: string;
-  stance: string;
-  level: string;
-  fightsWon: number;
-  fightsLost: number;
-  videoUrl?: string | null;
-}
-
-type BoutOutcome = 'win' | 'loss';
+import type { BoxerProfile, ContestResults, BoutOutcome } from './profileTypes';
+import StatsCharts from '../Stats/StatsCharts';
 
 //Total Bouts function
 const totalBouts = (boxer: BoxerProfile) => {
@@ -40,43 +23,39 @@ const winPercentage = (boxer: BoxerProfile) => {
   return (boxer.fightsWon / totalBouts(boxer)) * 100;
 };
 
-//Random result function
-const getRandomBout = (): BoutOutcome => {
-  const outcomes: BoutOutcome[] = ['win', 'loss'];
-  return outcomes[Math.floor(Math.random() * outcomes.length)];
-};
-
-const generateRandomOutcomes = (count: number = 5): BoutOutcome[] => {
-  return Array.from({ length: count }, () => getRandomBout());
-};
-
-const results = generateRandomOutcomes(5);
-//Random result function
-
 const Profile = () => {
   const { id } = useParams<{ id: string }>();
   const [boxer, setBoxer] = useState<BoxerProfile | null>(null);
+  const [contestData, setContestData] = useState<ContestResults[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchBoxer = async () => {
+    if (!id) return;
+    (async () => {
       try {
-        const response = await axios.get(
+        // fetch boxer
+        const { data: boxer } = await axios.get<BoxerProfile>(
           `http://localhost:5002/api/boxers/${id}`
         );
-        setBoxer(response.data);
-      } catch (error) {
-        console.error('Error fetching boxer details:', error);
-      }
-    };
+        setBoxer(boxer);
 
-    if (id) {
-      fetchBoxer();
-    }
+        // fetch their last-5 contests
+        const { data: contests } = await axios.get<ContestResults[]>(
+          `http://localhost:5002/api/boxers/${id}/contests?limit=5`
+        );
+        setContestData(contests);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load profile or contests');
+      }
+    })();
   }, [id]);
 
-  if (!boxer) {
-    return <div>Loading boxer details...</div>;
-  }
+  if (!boxer) return <div>Loading…</div>;
+
+  const recentOutcomes: BoutOutcome[] = contestData.map((contest) =>
+    contest.winnerId === boxer.id ? 'win' : 'loss'
+  );
 
   return (
     <div className="Profile">
@@ -197,10 +176,10 @@ const Profile = () => {
         <div className="profile__bouts-recent">
           <h2>Last 5 Bouts</h2>
           <div className="profile__bouts-recent-list">
-            {results.map((result, index) => (
+            {recentOutcomes.map((outcome, index) => (
               <span
                 key={index}
-                className={`profile__bouts-recent-result ${result}`}
+                className={`profile__bouts-recent-result ${outcome}`}
               ></span>
             ))}
           </div>
@@ -223,8 +202,18 @@ const Profile = () => {
       <div className="profile__results">
         <h2>Results</h2>
         <div className="profile__results-table">
-          <Table />
+          <Table bouts={contestData} boxerId={boxer.id} />{' '}
         </div>
+        {error && <p>Error fetching contest data</p>}
+      </div>
+
+      {/* Results stats */}
+      <div className="profile__results">
+        <h2>Stats</h2>
+        <div className="profile__results-stats">
+          <StatsCharts />
+        </div>
+        {error && <p>Error fetching contest data</p>}
       </div>
       {/*---------------- Video Section ----------*/}
       <div className="profile__video">
