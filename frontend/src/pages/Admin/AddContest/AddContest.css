@@ -1,3 +1,18 @@
+:root {
+  --primarybg: #111928;
+  --test: #33384a;
+  --test2: #7ec2e6;
+  --secondarybg: #272e3c;
+  --button: #6a9eed;
+  --button-hover: #6a9eed;
+  --text-hover: #90b3f1;
+  --primary-font: #ffffff;
+  --secondary-font: #8c8f98;
+  --loss: #ef4444;
+  --win: #22c55e;
+  --draw: #3b82f6;
+}
+
 .add-contest {
   max-width: calc(100% - 240px); /* Account for sidebar width */
   margin-left: 240px; /* Offset by sidebar width */
@@ -17,8 +32,33 @@
   width: 200px;
 }
 .input-select {
-  width: 200px;
+  width: 230px;
+  max-width: 230px;
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root {
   color: white !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+}
+.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #8c8f98 !important;
+}
+
+.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  color: #ffffff;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  outline: none;
+}
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+  background-color: var(--secondarybg);
 }

@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
+import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Sidebar.css';
 
@@ -119,6 +120,41 @@ const Sidebar: React.FC = () => {
         </ListItemIcon>
         <ListItemText
           primary="Add Boxer"
+          sx={{ color: isActive('/dashboard/add-boxer') ? '#6a9eed' : 'white' }}
+        />
+      </ListItemButton>
+
+      {/* Add Contest */}
+      <ListItemButton
+        onClick={() => {
+          navigate('/dashboard/add-contest');
+          if (isMobile) setMobileOpen(false);
+        }}
+        selected={isActive('/dashboard/add-contest')}
+        sx={{
+          marginX: '8px',
+          marginY: '4px',
+          cursor: 'pointer',
+
+          borderRadius: '8px',
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(106, 158, 237, 0.2)',
+            '& .MuiListItemText-root': { color: '#6a9eed' },
+            '& .MuiSvgIcon-root': { color: '#6a9eed' },
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: 'rgba(106, 158, 237, 0.2)',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.06)',
+          },
+        }}
+      >
+        <ListItemIcon sx={{ color: 'white' }}>
+          <SportsKabaddiIcon style={{ fontSize: '28px' }} />
+        </ListItemIcon>
+        <ListItemText
+          primary="Add Contest"
           sx={{ color: isActive('/dashboard/add-boxer') ? '#6a9eed' : 'white' }}
         />
       </ListItemButton>

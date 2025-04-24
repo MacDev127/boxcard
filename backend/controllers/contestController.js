@@ -30,12 +30,13 @@ exports.getContestsForBoxer = async (req, res) => {
 
 // POST /api/contests
 exports.createContest = async (req, res) => {
-  const { date, result, boxer1Id, boxer2Id, winnerId } = req.body;
+  const { date, result, boxer1Id, boxer2Id, winnerId, competition } = req.body;
   try {
     const fight = await prisma.contest.create({
       data: {
         date: new Date(date),
         result,
+        competition,
         boxer1Id,
         boxer2Id,
         winnerId,

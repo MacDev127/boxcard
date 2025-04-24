@@ -5,20 +5,42 @@ import './AddContest.css';
 
 interface Boxer {
   name: string;
-  id: string;
+  id: number;
+}
+
+interface ContestForm {
+  date: string;
+  result: string;
+  competition: string;
+  boxer1Id: number;
+  boxer2Id: number;
+  winnerId: number;
 }
 
 const AddContestPage = () => {
   const [boxers, setBoxers] = useState<Boxer[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<ContestForm>({
     date: '',
     result: '',
-    boxer1Id: '',
-    boxer2Id: '',
-    winnerId: '',
     competition: '',
+    boxer1Id: 0,
+    boxer2Id: 0,
+    winnerId: 0,
   });
+
+  const RESULT_OPTIONS = [
+    'W-UD',
+    'W-SD',
+    'L-UD',
+    'L-SD',
+    'W-TKO',
+    'L-TKO',
+    'W-KO',
+    'L-KO',
+    'W-DQ',
+    'L-DQ',
+  ] as const; // “as const” keeps the literal strings
 
   useEffect(() => {
     const fetchBoxers = async () => {
@@ -42,9 +64,9 @@ const AddContestPage = () => {
         date: '',
         result: '',
         competition: '',
-        boxer1Id: '',
-        boxer2Id: '',
-        winnerId: '',
+        boxer1Id: 0,
+        boxer2Id: 0,
+        winnerId: 0,
       });
     } catch {
       console.error('error');
@@ -56,8 +78,9 @@ const AddContestPage = () => {
     <div className="add-contest">
       <form onSubmit={handleSubmit}>
         <TextField
-          label="Date"
+          className="input-select"
           type="date"
+          required
           value={form.date}
           onChange={(e) =>
             setForm((form) => ({ ...form, date: e.target.value }))
@@ -69,7 +92,7 @@ const AddContestPage = () => {
           label="Boxer 1"
           value={form.boxer1Id}
           onChange={(e) =>
-            setForm((form) => ({ ...form, boxer1Id: e.target.value }))
+            setForm((form) => ({ ...form, boxer1Id: Number(e.target.value) }))
           }
         >
           {boxers.map((boxer) => (
@@ -85,7 +108,7 @@ const AddContestPage = () => {
           label="Boxer 2"
           value={form.boxer2Id}
           onChange={(e) =>
-            setForm((prev) => ({ ...prev, boxer2Id: e.target.value }))
+            setForm((form) => ({ ...form, boxer2Id: Number(e.target.value) }))
           }
           required
         >
@@ -102,7 +125,7 @@ const AddContestPage = () => {
           label="Winner"
           value={form.winnerId}
           onChange={(e) =>
-            setForm((prev) => ({ ...prev, winnerId: e.target.value }))
+            setForm((prev) => ({ ...prev, winnerId: Number(e.target.value) }))
           }
           required
         >
@@ -122,12 +145,22 @@ const AddContestPage = () => {
           }
         />
         <TextField
+          select
           label="Result"
+          className="input-select"
           value={form.result}
           onChange={(e) =>
-            setForm((form) => ({ ...form, result: e.target.value }))
+            setForm((prev) => ({ ...prev, result: e.target.value }))
           }
-        />
+          required
+        >
+          {RESULT_OPTIONS.map((code) => (
+            <MenuItem key={code} value={code}>
+              {code}
+            </MenuItem>
+          ))}
+        </TextField>
+
         <Button type="submit">Create Contest</Button>
         {error && <p>Error submitting form</p>}
       </form>
