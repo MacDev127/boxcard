@@ -9,6 +9,8 @@ import CustomAccordion from '../Accoridan/CustomAccoridan';
 import Table from '../Table/Table';
 import type { BoxerProfile, ContestResults, BoutOutcome } from './profileTypes';
 import FighterRadar from '../FighterRader/FighterRader';
+import Title from '../Title/Title';
+
 //Total Bouts function
 const totalBouts = (boxer: BoxerProfile) => {
   return boxer.fightsWon + boxer.fightsLost;
@@ -149,7 +151,7 @@ const Profile = () => {
       {/* --------------bouts section---------------------- */}
       <div className="profile__bouts">
         <div className="profile__bouts-title">
-          <h2>BOUTS</h2>
+          <Title>Bouts</Title>
         </div>
 
         <div className="profile__bouts-stats">
@@ -173,7 +175,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="profile__bouts-recent">
-          <h2>Last 5 Bouts</h2>
+          <Title>Last 5 Bouts</Title>
           <div className="profile__bouts-recent-list">
             {recentOutcomes.map((outcome, index) => (
               <span
@@ -184,7 +186,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="profile__bouts-percentage">
-          <h2>Win Percentage</h2>
+          <Title>WIN PERCENTAGE</Title>
           {winPercentage(boxer) >= 50 ? (
             <h3 className="percentage-high">
               {winPercentage(boxer).toFixed(2)}%
@@ -199,7 +201,7 @@ const Profile = () => {
 
       {/*---------------- Results Table ----------*/}
       <div className="profile__results">
-        <h2>Results</h2>
+        <Title className="profile__results-title">Results</Title>
         <div className="profile__results-table">
           <Table bouts={contestData} boxerId={boxer.id} />{' '}
         </div>
@@ -208,7 +210,7 @@ const Profile = () => {
 
       {/* Results stats */}
       <div className="profile__stats">
-        <h2>Stats</h2>
+        <Title className="profile__stats-title">Stats</Title>
         <div className="profile__stats-charts">
           <FighterRadar />
         </div>

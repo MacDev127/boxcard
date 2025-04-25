@@ -68,6 +68,7 @@ a {
   font-weight: 400;
   margin: 0;
   letter-spacing: 1px;
+  text-transform: capitalize;
 }
 
 .card__container {
@@ -79,7 +80,7 @@ a {
 
 .card__top {
   display: flex;
-  align-items: center;
+  align-items: centre;
   gap: 10px;
   padding-bottom: 10px;
 }

@@ -5,13 +5,31 @@
   --button-hover: #6a9eed;
   --text-hover: #90b3f1;
 }
-.Footer {
+footer {
   width: 100%;
   margin-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100px;
+  padding: 50px 0;
   color: #8c8f98;
   background-color: var(--secondarybg);
+}
+
+footer p {
+  font-size: 14px;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.icon:hover {
+  color: var(--button);
+  transition: ease-in 0.2s;
+  cursor: pointer;
 }
