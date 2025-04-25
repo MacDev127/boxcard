@@ -8,8 +8,7 @@ import { getIsoCode } from './countryUtils';
 import CustomAccordion from '../Accoridan/CustomAccoridan';
 import Table from '../Table/Table';
 import type { BoxerProfile, ContestResults, BoutOutcome } from './profileTypes';
-import StatsCharts from '../Stats/StatsCharts';
-
+import FighterRadar from '../FighterRader/FighterRader';
 //Total Bouts function
 const totalBouts = (boxer: BoxerProfile) => {
   return boxer.fightsWon + boxer.fightsLost;
@@ -208,10 +207,10 @@ const Profile = () => {
       </div>
 
       {/* Results stats */}
-      <div className="profile__results">
+      <div className="profile__stats">
         <h2>Stats</h2>
-        <div className="profile__results-stats">
-          <StatsCharts />
+        <div className="profile__stats-charts">
+          <FighterRadar />
         </div>
         {error && <p>Error fetching contest data</p>}
       </div>
