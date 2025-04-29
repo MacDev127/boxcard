@@ -39,7 +39,7 @@
 
 .hero__search-icon {
   position: absolute;
-  right: 0px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   color: #8c8f98;
@@ -113,10 +113,11 @@
   border-radius: 8px;
   overflow: hidden;
   padding: 10px;
-  position: absolute;
-  top: calc(50% + 15px);
+  margin-top: 10px;
+  /* position: absolute;
+  top: calc(50% + 35px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); */
   height: 300px;
   overflow-y: auto;
   z-index: 10;
@@ -171,27 +172,15 @@
     font-size: 14px;
   }
   .hero__search-icon {
-    right: 5%;
+    right: 24px;
     font-size: 20px !important;
   }
 
   .hero__results {
     width: 260px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: column;
-    max-width: 380px;
-    background-color: #30384c;
-    color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    padding: 10px;
-    position: absolute;
-    top: calc(50% + 15px);
-    left: 50%;
-    transform: translateX(-50%);
-    height: 250px;
+
+    height: 300px;
+    max-height: 320px;
     overflow-y: auto;
     z-index: 10;
   }

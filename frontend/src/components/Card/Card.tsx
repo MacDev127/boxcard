@@ -27,14 +27,14 @@ const Card = ({ boxer }: CardProps) => {
     <div className="card" data-aos="fade-up">
       <div className="card__image">
         <img
-          src={boxer.profileImage || '../../images/profile.png'}
+          src={
+            boxer.profileImage
+              ? `http://localhost:5002/uploads/${boxer.profileImage}`
+              : '../../images/profile.png'
+          }
+          // src={boxer.profileImage || '../../images/profile.png'}
           alt={boxer.name || 'Boxer Profile'}
         />
-        {/* src={
-    boxer.profileImage
-      ? `http://localhost:5002/uploads/${boxer.profileImage}`
-      : '../../images/profile.png'
-  }  */}
       </div>
       <a href={`/boxers/${boxer.id}`}>
         <div className="card__container">
