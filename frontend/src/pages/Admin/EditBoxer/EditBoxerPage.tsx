@@ -27,25 +27,23 @@ const EditBoxerPage: React.FC = () => {
 
   const handleSubmit = async (data: BoxerFormData, file?: File) => {
     const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('country', data.country);
-    formData.append('sex', data.sex);
-    formData.append('club', data.club);
-    formData.append('province', data.province);
-    formData.append('age', String(data.age));
-    formData.append('weight', String(data.weight));
-    formData.append('stance', data.stance);
-    formData.append('level', data.level);
-    formData.append('fightsWon', String(data.fightsWon));
-    formData.append('fightsLost', String(data.fightsLost));
-    formData.append('videoUrl', data.videoUrl);
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value.toString());
+    });
     if (file) {
       formData.append('profileImage', file);
+    }
+
+    // ADD THIS
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
     }
 
     await axios.put(`http://localhost:5002/api/boxers/${id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
+
+    navigate('/dashboard/manage-boxer', { state: { reload: true } });
   };
 
   if (!initialData) {
@@ -62,6 +60,7 @@ const EditBoxerPage: React.FC = () => {
         initialData={initialData}
         onSubmit={handleSubmit}
         submitLabel="Update Boxer"
+        mode="edit"
       />
     </Container>
   );

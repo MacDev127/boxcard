@@ -30,12 +30,19 @@ exports.createBoxer = async (req, res) => {
     const profileImage = req.file ? req.file.filename : null; // ⚠️ Critical change
 
     const data = {
-      ...req.body,
+      name: req.body.name,
+      country: req.body.country,
+      sex: req.body.sex,
+      profileImage,
+      club: req.body.club,
+      province: req.body.province,
       age: parseInt(req.body.age, 10),
       weight: parseInt(req.body.weight, 10),
+      stance: req.body.stance,
+      level: req.body.level,
       fightsWon: parseInt(req.body.fightsWon, 10),
       fightsLost: parseInt(req.body.fightsLost, 10),
-      profileImage, // Should now be "1743...jpg" NOT "uploads/1743...jpg"
+      videoUrl: req.body.videoUrl,
     };
 
     const newBoxer = await prisma.boxer.create({ data });
@@ -121,9 +128,28 @@ exports.getBoxerById = async (req, res) => {
 exports.updateBoxer = async (req, res) => {
   try {
     const { id } = req.params;
+
+    const profileImage = req.file ? req.file.filename : req.body.profileImage;
+
+    const data = {
+      name: req.body.name,
+      country: req.body.country,
+      sex: req.body.sex,
+      profileImage,
+      club: req.body.club,
+      province: req.body.province,
+      age: parseInt(req.body.age, 10),
+      weight: parseInt(req.body.weight, 10),
+      stance: req.body.stance,
+      level: req.body.level,
+      fightsWon: parseInt(req.body.fightsWon, 10),
+      fightsLost: parseInt(req.body.fightsLost, 10),
+      videoUrl: req.body.videoUrl,
+    };
+
     const updatedBoxer = await prisma.boxer.update({
-      where: { id: parseInt(id) },
-      data: { ...req.body },
+      where: { id: parseInt(id, 10) },
+      data,
     });
 
     res.json(updatedBoxer);

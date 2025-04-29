@@ -43,7 +43,8 @@ router.get('/filters/clubs', getDistinctClubs);
 router.get('/:id', getBoxerById);
 router.get('/:id/contests', getContestsForBoxer);
 
-router.put('/:id', updateBoxer);
+router.put('/boxers/:id', upload.single('profileImage'), updateBoxer);
+
 router.delete('/:id', deleteBoxer);
 
 module.exports = router;

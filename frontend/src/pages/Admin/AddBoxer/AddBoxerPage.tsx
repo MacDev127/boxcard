@@ -50,8 +50,10 @@ const AdminAddBoxer: React.FC = () => {
     <div className="add-boxer">
       <BoxerForm
         initialData={defaultData}
+        blankData={defaultData}
         onSubmit={handleSubmit}
         submitLabel="Add Boxer"
+        mode="create"
       />
     </div>
   );

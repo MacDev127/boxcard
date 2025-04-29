@@ -59,6 +59,9 @@ app.use(express.json());
 app.use('/api/boxers', boxerRouter);
 app.use('/api/contests', contestRoutes);
 
+const boxerRoutes = require('./routes/boxerRoutes');
+app.use('/api', boxerRoutes); // ✅ mounts all boxer routes under /api
+
 // Health check route or default route
 app.get('/', (req, res) => {
   res.send('Boxer Profile API is running.');

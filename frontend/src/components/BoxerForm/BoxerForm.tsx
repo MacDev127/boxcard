@@ -1,12 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import {
-  Container,
-  TextField,
-  Button,
-  Typography,
-  MenuItem,
-} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Container, TextField, Button, Typography } from '@mui/material';
 import './BoxerForm.css';
 
 export interface BoxerFormData {
@@ -15,55 +8,57 @@ export interface BoxerFormData {
   sex: string;
   club: string;
   province: string;
-  age: number | '';
-  weight: number | '';
+  age: number;
+  weight: number;
   stance: string;
   level: string;
-  fightsWon: number | '';
-  fightsLost: number | '';
+  fightsWon: number;
+  fightsLost: number;
   videoUrl: string;
   profileImage?: string;
 }
 
-const defaultInitialData: BoxerFormData = {
-  name: '',
-  country: '',
-  sex: '',
-  club: '',
-  province: '',
-  age: '',
-  weight: '',
-  stance: '',
-  level: '',
-  fightsWon: '',
-  fightsLost: '',
-  videoUrl: '',
-};
+type BoxerFormMode = 'create' | 'edit';
 
-const sexOptions = ['Male', 'Female'];
-const countryOptions = ['Ireland', 'UK', 'USA'];
-const provinceOptions = ['Ulster', 'Munster', 'Leinster', 'Connacht'];
-const levelOptions = ['Elite', 'Intermediate', 'Youth', 'Junior'];
-const stanceOptions = ['Orthodox', 'Southpaw'];
+interface BoxerFormProps {
+  initialData: BoxerFormData;
+  blankData?: BoxerFormData; // 👈 Add this
+  onSubmit: (data: BoxerFormData, file?: File) => Promise<void>;
+  submitLabel?: string;
+  mode: BoxerFormMode;
+}
 
-const BoxerForm: React.FC = () => {
-  const [formData, setFormData] = useState<BoxerFormData>(defaultInitialData);
+const BoxerForm: React.FC<BoxerFormProps> = ({
+  initialData,
+  onSubmit,
+  blankData,
+  submitLabel = 'Submit',
+  mode,
+}) => {
+  // Local state for form fields
+  const [formData, setFormData] = useState<BoxerFormData>(initialData);
+
+  // Local state for the file selected from the device
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  // Update the form data if the initial data changes (useful for edit page)
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: ['age', 'weight', 'fightsWon', 'fightsLost'].includes(name)
-        ? Number(value)
-        : value,
-    }));
+    setFormData((prev) => {
+      const updated = {
+        ...prev,
+        [name]: value,
+      };
+      console.log('Updated Form Data:', updated); // 👈 ADD THIS
+      return updated;
+    });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,33 +72,17 @@ const BoxerForm: React.FC = () => {
     setIsSubmitting(true);
     setError(null);
     setSuccessMessage(null);
-
     try {
-      // Build FormData for multipart upload
-      const payload = new FormData();
-      Object.entries(formData).forEach(([key, val]) => {
-        payload.append(key, val?.toString() ?? '');
-      });
-      if (profileImageFile) {
-        payload.append('profileImage', profileImageFile);
-      }
+      await onSubmit(formData, profileImageFile || undefined);
+      setSuccessMessage(mode === 'edit' ? 'Boxer updated!' : 'Boxer added!');
 
-      // POST to your API
-      await axios.post('http://localhost:5002/api/boxers', payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      setSuccessMessage('Boxer successfully added!');
-
-      // Reset form
-      setFormData(defaultInitialData);
-      setProfileImageFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+      if (mode === 'create' && blankData) {
+        setFormData(blankData); // 👈 much cleaner
+        setProfileImageFile(null);
       }
     } catch (err) {
       console.error(err);
-      setError('Failed to add boxer. Please try again.');
+      setError('There was an error. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -112,7 +91,7 @@ const BoxerForm: React.FC = () => {
   return (
     <Container maxWidth="md" className="boxer-form-container">
       <Typography variant="h5" gutterBottom>
-        Add New Boxer
+        {submitLabel}
       </Typography>
       {error && (
         <Typography color="error" variant="body1">
@@ -129,27 +108,9 @@ const BoxerForm: React.FC = () => {
             fullWidth
             margin="normal"
             className="form-field"
+            sx={{ color: 'white' }}
           />
-
           <TextField
-            select
-            label="Sex"
-            name="sex"
-            value={formData.sex}
-            onChange={handleChange}
-            fullWidth
-            margin="normal"
-            className="form-field"
-          >
-            {sexOptions.map((opt) => (
-              <MenuItem key={opt} value={opt}>
-                {opt}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <TextField
-            select
             label="Country"
             name="country"
             value={formData.country}
@@ -157,16 +118,26 @@ const BoxerForm: React.FC = () => {
             fullWidth
             margin="normal"
             className="form-field"
-          >
-            {countryOptions.map((opt) => (
-              <MenuItem key={opt} value={opt}>
-                {opt}
-              </MenuItem>
-            ))}
-          </TextField>
-
+          />
           <TextField
-            select
+            label="Sex"
+            name="sex"
+            value={formData.sex}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            className="form-field"
+          />
+          <TextField
+            label="Club"
+            name="club"
+            value={formData.club}
+            onChange={handleChange}
+            fullWidth
+            margin="normal"
+            className="form-field"
+          />
+          <TextField
             label="Province"
             name="province"
             value={formData.province}
@@ -174,14 +145,7 @@ const BoxerForm: React.FC = () => {
             fullWidth
             margin="normal"
             className="form-field"
-          >
-            {provinceOptions.map((opt) => (
-              <MenuItem key={opt} value={opt}>
-                {opt}
-              </MenuItem>
-            ))}
-          </TextField>
-
+          />
           <TextField
             label="Age"
             name="age"
@@ -192,7 +156,6 @@ const BoxerForm: React.FC = () => {
             margin="normal"
             className="form-field"
           />
-
           <TextField
             label="Weight (KG)"
             name="weight"
@@ -203,9 +166,7 @@ const BoxerForm: React.FC = () => {
             margin="normal"
             className="form-field"
           />
-
           <TextField
-            select
             label="Stance"
             name="stance"
             value={formData.stance}
@@ -213,16 +174,8 @@ const BoxerForm: React.FC = () => {
             fullWidth
             margin="normal"
             className="form-field"
-          >
-            {stanceOptions.map((opt) => (
-              <MenuItem key={opt} value={opt}>
-                {opt}
-              </MenuItem>
-            ))}
-          </TextField>
-
+          />
           <TextField
-            select
             label="Level"
             name="level"
             value={formData.level}
@@ -230,14 +183,7 @@ const BoxerForm: React.FC = () => {
             fullWidth
             margin="normal"
             className="form-field"
-          >
-            {levelOptions.map((opt) => (
-              <MenuItem key={opt} value={opt}>
-                {opt}
-              </MenuItem>
-            ))}
-          </TextField>
-
+          />
           <TextField
             label="Fights Won"
             name="fightsWon"
@@ -248,7 +194,6 @@ const BoxerForm: React.FC = () => {
             margin="normal"
             className="form-field"
           />
-
           <TextField
             label="Fights Lost"
             name="fightsLost"
@@ -259,7 +204,6 @@ const BoxerForm: React.FC = () => {
             margin="normal"
             className="form-field"
           />
-
           <TextField
             label="Video URL"
             name="videoUrl"
@@ -269,13 +213,11 @@ const BoxerForm: React.FC = () => {
             margin="normal"
             className="form-field"
           />
-
           <div className="form-field full-width">
             <label htmlFor="profileImage" className="file-label">
               Profile Image
             </label>
             <input
-              ref={fileInputRef}
               type="file"
               id="profileImage"
               name="profileImage"
@@ -285,7 +227,6 @@ const BoxerForm: React.FC = () => {
             />
           </div>
         </div>
-
         <div className="boxer-form-button">
           <Button
             id="boxer-form-btn"
@@ -294,10 +235,9 @@ const BoxerForm: React.FC = () => {
             color="primary"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Add Boxer'}
+            {isSubmitting ? 'Submitting...' : submitLabel}
           </Button>
         </div>
-
         {successMessage && (
           <Typography
             variant="body1"
