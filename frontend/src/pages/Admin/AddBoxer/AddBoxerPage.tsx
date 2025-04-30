@@ -11,12 +11,13 @@ const defaultData: BoxerFormData = {
   sex: '',
   club: '',
   province: '',
-  age: 0,
-  weight: 0,
+  bio: '',
   stance: '',
   level: '',
-  fightsWon: 0,
-  fightsLost: 0,
+  age: '',
+  weight: '',
+  fightsWon: '',
+  fightsLost: '',
   videoUrl: '',
   profileImage: '',
 };
@@ -30,6 +31,7 @@ const AdminAddBoxer: React.FC = () => {
     formData.append('club', data.club);
     formData.append('province', data.province);
     formData.append('age', String(data.age));
+    formData.append('bio', String(data.bio));
     formData.append('weight', String(data.weight));
     formData.append('stance', data.stance);
     formData.append('level', data.level);

@@ -1,29 +1,6 @@
 // src/controllers/boxerController.js
 const prisma = require('../config/db');
 
-// CREATE a boxer
-// exports.createBoxer = async (req, res) => {
-//   try {
-//     // Normalize path separators to forward slashes
-//     const profileImage = req.file
-//       ? req.file.path.replace(/\\/g, '/')
-//       : req.body.profileImage;
-//     const data = {
-//       ...req.body,
-//       age: parseInt(req.body.age, 10),
-//       weight: parseInt(req.body.weight, 10),
-//       fightsWon: parseInt(req.body.fightsWon, 10),
-//       fightsLost: parseInt(req.body.fightsLost, 10),
-//       profileImage, // Now uses normalized path
-//     };
-
-//     const newBoxer = await prisma.boxer.create({ data });
-//     res.status(201).json(newBoxer);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Error creating boxer profile.' });
-//   }
-// };
 exports.createBoxer = async (req, res) => {
   try {
     // Store ONLY the filename (no "uploads/" prefix)
@@ -39,6 +16,7 @@ exports.createBoxer = async (req, res) => {
       age: parseInt(req.body.age, 10),
       weight: parseInt(req.body.weight, 10),
       stance: req.body.stance,
+      bio: req.body.bio,
       level: req.body.level,
       fightsWon: parseInt(req.body.fightsWon, 10),
       fightsLost: parseInt(req.body.fightsLost, 10),
@@ -141,6 +119,7 @@ exports.updateBoxer = async (req, res) => {
       age: parseInt(req.body.age, 10),
       weight: parseInt(req.body.weight, 10),
       stance: req.body.stance,
+      bio: req.body.bio,
       level: req.body.level,
       fightsWon: parseInt(req.body.fightsWon, 10),
       fightsLost: parseInt(req.body.fightsLost, 10),

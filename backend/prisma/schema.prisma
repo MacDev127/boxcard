@@ -15,10 +15,11 @@ model Boxer {
   profileImage String?
   club         String?
   province     String?
+  bio          String?
   age          Int
   weight       Int
   stance       String
-  level        String   // e.g. "schoolboy", "schoolgirl", "youth", "junior", "elite"
+  level        String  
   fightsWon    Int      @default(0)
   fightsLost   Int      @default(0)
   videoUrl     String?

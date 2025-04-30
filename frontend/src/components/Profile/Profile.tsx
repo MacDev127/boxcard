@@ -76,15 +76,7 @@ const Profile = () => {
           <h2>{boxer.name}</h2>
           <div className="profile__top-bio">
             <h4>Bio</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-              inventore eveniet impedit natus adipisci quae dolore eligendi
-              quam, vero quidem qui asperiores sunt, rerum nesciunt culpa
-              exercitationem at, minima voluptatum. Tempore repellat eveniet
-              omnis voluptatibus, consequatur, perferendis molestias cum error
-              repudiandae quaerat laboriosam deleniti, nulla harum laborum quos
-              praesentium nostrum.
-            </p>
+            <p>{boxer.bio}</p>
           </div>
           <div className="profile__top-wrapper">
             <div className="profile__column">

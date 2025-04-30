@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Container, TextField, Button, Typography } from '@mui/material';
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  MenuItem,
+} from '@mui/material';
 import './BoxerForm.css';
 
 export interface BoxerFormData {
   name: string;
   country: string;
   sex: string;
+  bio: string;
   club: string;
   province: string;
-  age: number;
-  weight: number;
+  age: number | '';
+  weight: number | '';
   stance: string;
   level: string;
-  fightsWon: number;
-  fightsLost: number;
+  fightsWon: number | '';
+  fightsLost: number | '';
   videoUrl: string;
   profileImage?: string;
 }
@@ -43,6 +50,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [bioError, setBioError] = useState<string | null>(null);
 
   // Update the form data if the initial data changes (useful for edit page)
   useEffect(() => {
@@ -88,6 +96,23 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
     }
   };
 
+  const handleBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+
+    if (value.length > 500) {
+      setBioError('Bio cannot exceed 500 characters');
+    } else {
+      setBioError(null);
+      setFormData((prev) => ({ ...prev, bio: value }));
+    }
+  };
+
+  const sexOptions = ['Male', 'Female'];
+  const countryOptions = ['Ireland', 'UK', 'USA', 'Spain', 'Russia', 'France'];
+  const provinceOptions = ['Ulster', 'Munster', 'Leinster', 'Connacht'];
+  const levelOptions = ['Elite', 'Intermediate', 'Youth', 'Junior'];
+  const stanceOptions = ['Orthodox', 'Southpaw', 'Switch Hitter'];
+
   return (
     <Container maxWidth="md" className="boxer-form-container">
       <Typography variant="h5" gutterBottom>
@@ -111,6 +136,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             sx={{ color: 'white' }}
           />
           <TextField
+            select
             label="Country"
             name="country"
             value={formData.country}
@@ -118,8 +144,15 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             fullWidth
             margin="normal"
             className="form-field"
-          />
+          >
+            {countryOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
+            select
             label="Sex"
             name="sex"
             value={formData.sex}
@@ -127,7 +160,13 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             fullWidth
             margin="normal"
             className="form-field"
-          />
+          >
+            {sexOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             label="Club"
             name="club"
@@ -138,6 +177,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             className="form-field"
           />
           <TextField
+            select
             label="Province"
             name="province"
             value={formData.province}
@@ -145,7 +185,14 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             fullWidth
             margin="normal"
             className="form-field"
-          />
+          >
+            {provinceOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+
           <TextField
             label="Age"
             name="age"
@@ -167,6 +214,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             className="form-field"
           />
           <TextField
+            select
             label="Stance"
             name="stance"
             value={formData.stance}
@@ -174,8 +222,15 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             fullWidth
             margin="normal"
             className="form-field"
-          />
+          >
+            {stanceOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
+            select
             label="Level"
             name="level"
             value={formData.level}
@@ -183,7 +238,13 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             fullWidth
             margin="normal"
             className="form-field"
-          />
+          >
+            {levelOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             label="Fights Won"
             name="fightsWon"
@@ -193,6 +254,8 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
             fullWidth
             margin="normal"
             className="form-field"
+            placeholder="e.g. 12"
+            color="primary"
           />
           <TextField
             label="Fights Lost"
@@ -225,6 +288,27 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
               onChange={handleFileChange}
               className="file-input"
             />
+          </div>
+          <div className="form-field full-width">
+            <TextField
+              label="Bio"
+              name="bio"
+              value={formData.bio}
+              onChange={handleBio}
+              multiline
+              rows={5}
+              fullWidth
+              margin="normal"
+              inputProps={{ maxLength: 500 }}
+              placeholder="Write a short Bio (Max 500 characters)"
+              className="form-field"
+            />
+
+            {bioError && (
+              <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                {bioError}
+              </Typography>
+            )}
           </div>
         </div>
         <div className="boxer-form-button">

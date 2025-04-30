@@ -5,6 +5,7 @@ export interface BoxerProfile {
   age: number;
   sex: string;
   weight: number;
+  bio: string;
   country: string;
   club: string;
   province: string;
