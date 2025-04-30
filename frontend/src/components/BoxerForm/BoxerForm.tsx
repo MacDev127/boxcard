@@ -99,12 +99,15 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
   const handleBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
 
-    if (value.length > 500) {
-      setBioError('Bio cannot exceed 500 characters');
-    } else {
-      setBioError(null);
-      setFormData((prev) => ({ ...prev, bio: value }));
-    }
+    // Always update the form data
+    setFormData((prev) => ({ ...prev, bio: value }));
+
+    // Calculate word count (handle empty string case)
+    const wordCount =
+      value.trim() === '' ? 0 : value.trim().split(/\s+/).length;
+
+    // Set error if over limit
+    setBioError(wordCount > 100 ? 'Bio cannot exceed 100 words' : null);
   };
 
   const sexOptions = ['Male', 'Female'];
@@ -299,9 +302,12 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
               rows={5}
               fullWidth
               margin="normal"
-              inputProps={{ maxLength: 500 }}
-              placeholder="Write a short Bio (Max 500 characters)"
+              helperText={`${
+                formData.bio ? formData.bio.trim().split(/\s+/).length : 0
+              }/100 words`}
+              placeholder="Write a short Bio (Max 100 words)"
               className="form-field"
+              error={!!bioError}
             />
 
             {bioError && (

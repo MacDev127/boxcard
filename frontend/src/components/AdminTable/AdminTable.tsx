@@ -17,6 +17,9 @@ import { Edit, Delete } from '@mui/icons-material';
 import './AdminTable.css';
 import { useNavigate } from 'react-router-dom';
 import { PiWarningDuotone } from 'react-icons/pi';
+import Collapse from '@mui/material/Collapse';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface Boxer {
   id: number;
@@ -35,6 +38,7 @@ const BoxersTable: React.FC = () => {
   const navigate = useNavigate();
   const [boxers, setBoxers] = useState<Boxer[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [openModalId, setOpenModalId] = useState<number | null>(null);
 
   // Pagination state
   const [page, setPage] = useState(0);
@@ -152,42 +156,71 @@ const BoxersTable: React.FC = () => {
         </TableHead>
         <TableBody>
           {paginatedBoxers.map((boxer) => (
-            <TableRow key={boxer.id}>
-              {/* <TableCell className="table__image">
-                <img
-                  src={
-                    boxer.profileImage
-                      ? `http://localhost:5002/uploads/${boxer.profileImage}`
-                      : '../../images/profile.png'
-                  }
-                  alt={boxer.name || 'Boxer Profile'}
-                  onError={(e) => console.error('Image load error:', e)}
-                />
-              </TableCell> */}
-              <TableCell>{boxer.name}</TableCell>
-              <TableCell>{boxer.country}</TableCell>
-              <TableCell>{boxer.age}</TableCell>
-              <TableCell>{boxer.weight}</TableCell>
-              <TableCell>{boxer.stance}</TableCell>
-              <TableCell>{boxer.level}</TableCell>
-              <TableCell>
-                <IconButton
-                  aria-label="edit"
-                  onClick={() => navigate(`/dashboard/boxers/${boxer.id}/edit`)}
-                >
-                  <Edit style={{ color: '#22c55e' }} />
-                </IconButton>
-                <IconButton
-                  aria-label="delete"
-                  onClick={() => handleDelete(boxer.id)}
-                >
-                  <Delete style={{ color: '#ef4444' }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
+            <>
+              <TableRow key={boxer.id}>
+                {/* <TableCell className="table__image">
+      <img
+        src={
+          boxer.profileImage
+            ? `http://localhost:5002/uploads/${boxer.profileImage}`
+            : '../../images/profile.png'
+        }
+        alt={boxer.name || 'Boxer Profile'}
+        onError={(e) => console.error('Image load error:', e)}
+      />
+    </TableCell> */}
+                <TableCell>{boxer.name}</TableCell>
+                <TableCell>{boxer.country}</TableCell>
+                <TableCell>{boxer.age}</TableCell>
+                <TableCell>{boxer.weight}</TableCell>
+                <TableCell>{boxer.stance}</TableCell>
+                <TableCell>{boxer.level}</TableCell>
+                <TableCell>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() =>
+                      navigate(`/dashboard/boxers/${boxer.id}/edit`)
+                    }
+                  >
+                    <Edit style={{ color: '#22c55e' }} />
+                  </IconButton>
+                  <IconButton
+                    aria-label="delete"
+                    /* // onClick={() => handleDelete(boxer.id)} */
+                    onClick={() =>
+                      setOpenModalId(openModalId === boxer.id ? null : boxer.id)
+                    }
+                  >
+                    <Delete style={{ color: '#ef4444' }} />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+              <Collapse in={openModalId === boxer.id} timeout="auto">
+                <div className="modal">
+                  <p>Are you sure you want to delete this boxer?</p>
+                  <div className="modal-wrapper">
+                    <CheckIcon
+                      style={{ color: '#22c55e' }}
+                      onClick={() => {
+                        handleDelete(boxer.id);
+                        setOpenModalId(null); // close modal after delete
+                      }}
+                      aria-label="delete"
+                    />
+                    <CloseIcon
+                      style={{ color: '#ef4444' }}
+                      onClick={
+                        () => setOpenModalId(null) // close modal after delete
+                      }
+                    />
+                  </div>
+                </div>
+              </Collapse>
+            </>
           ))}
         </TableBody>
       </Table>
+
       {error && (
         <div className="error-wrapper">
           <p className="error-message">

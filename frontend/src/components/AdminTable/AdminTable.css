@@ -106,6 +106,30 @@ MuiToolbar-root
   align-items: center;
 }
 
+.modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondarybg);
+  height: 200px;
+  width: 200px;
+  cursor: pointer;
+}
+
+.modal-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 20px;
+}
 /* Icon button styling */
 
 .css-1umw9bq-MuiSvgIcon-root {

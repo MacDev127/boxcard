@@ -78,11 +78,20 @@ textarea {
   color: #cbd5e0;
 }
 
-.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-  color: #ffffff;
+.css-1ll44ll-MuiOutlinedInput-notchedOutline {
+  border-radius: none !important;
 }
-.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon {
-  color: #8c8f98 !important;
+
+.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-w76bbz-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #ffffff !important;
+}
+
+.css-w4nesw-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #ffffff !important;
+}
+.css-lohd6h-MuiSvgIcon-root-MuiSelect-icon,
+.css-er619e-MuiFormHelperText-root {
+  color: var(--secondary-font) !important;
 }
 .file-input {
   width: 100%;
