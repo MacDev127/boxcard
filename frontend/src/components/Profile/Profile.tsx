@@ -212,7 +212,12 @@ const Profile = () => {
       <div className="profile__video">
         {boxer.videoUrl ? (
           <CustomAccordion title="View Highlights">
-            <ReactPlayer url={boxer.videoUrl} controls width="100%" />
+            <ReactPlayer
+              url={boxer.videoUrl}
+              controls
+              width="100%"
+              height="500px"
+            />
           </CustomAccordion>
         ) : (
           <h3>No video available.</h3>

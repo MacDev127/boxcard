@@ -120,6 +120,7 @@ MuiToolbar-root
   background-color: var(--secondarybg);
   height: 200px;
   width: 200px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -155,6 +156,11 @@ MuiToolbar-root
 }
 
 @media (max-width: 768px) {
+  .MuiTableContainer-root {
+    overflow-x: auto !important;
+  }
+}
+@media (max-width: 414px) {
   .MuiTableContainer-root {
     overflow-x: auto !important;
   }
