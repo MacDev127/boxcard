@@ -1,0 +1,59 @@
+:root {
+  --primarybg: #111928;
+  --test: #33384a;
+  --test2: #7ec2e6;
+  --secondarybg: #272e3c;
+  --button: #1976d2;
+  --button-hover: #6a9eed;
+  --text-hover: #90b3f1;
+  --primary-font: #ffffff;
+  --secondary-font: #8c8f98;
+  --loss: #ef4444;
+  --win: #22c55e;
+  --draw: #3b82f6;
+}
+
+.contact_form {
+  max-width: 600px;
+  width: 100%;
+  padding: 50px 30px 35px 30px;
+  background-color: var(--secondarybg);
+  margin: 25px;
+  border-radius: 8px;
+}
+
+form h2 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.input-box .field {
+  width: 100%;
+  height: 50px;
+  background-color: transparent;
+  border: 2px solid var(--secondary-font);
+  outline: none;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 16px;
+  color: var(--secondary-font);
+  margin-top: 10px;
+}
+
+.input-box .feild .message {
+  height: 200px;
+  resize: none;
+}
+
+.contact_button {
+  width: 100%;
+  height: 50px;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-top: 30px;
+}

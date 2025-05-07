@@ -64,7 +64,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
         ...prev,
         [name]: value,
       };
-      console.log('Updated Form Data:', updated); // 👈 ADD THIS
+      console.log('Updated Form Data:', updated);
       return updated;
     });
   };

@@ -9,6 +9,7 @@ import ManageBoxerPage from './pages/Admin/ManageBoxer/ManageBoxerPage';
 import AnalyticsPage from './pages/Admin/Analytics/AnalyticsPage';
 import EditBoxerPage from './pages/Admin/EditBoxer/EditBoxerPage';
 import AddContestPage from './pages/Admin/AddContest/AddContest';
+import ContactPage from './pages/Contact/ContactPage';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/boxers" element={<BoxerList />} />
           <Route path="/boxers/:id" element={<BoxerDetail />} />
           <Route path="/boxers/:id/edit" element={<BoxerEdit />} />
+          <Route path="/contact" element={<ContactPage />} />
 
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<AdminDashboard />}>
