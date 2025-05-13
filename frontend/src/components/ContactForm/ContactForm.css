@@ -17,31 +17,35 @@
   max-width: 600px;
   width: 100%;
   padding: 50px 30px 35px 30px;
-  background-color: var(--secondarybg);
   margin: 25px;
   border-radius: 8px;
 }
 
-form h2 {
+.contact_form h2 {
   font-size: 30px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .input-box .field {
   width: 100%;
   height: 50px;
-  background-color: transparent;
-  border: 2px solid var(--secondary-font);
+  background-color: var(--secondarybg);
   outline: none;
   border-radius: 6px;
   padding: 15px;
   font-size: 16px;
   color: var(--secondary-font);
-  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-.input-box .feild .message {
-  height: 200px;
+.field:focus {
+  box-shadow: 0 0 0.2em #26489a;
+  border: 1px solid #26489a;
+}
+
+.message {
+  min-height: 100px;
   resize: none;
 }
 
@@ -55,5 +59,13 @@ form h2 {
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 1px;
-  margin-top: 30px;
+}
+
+.contact_button:hover {
+  background-color: #0e66bf;
+  transition: all ease-in-out 0.2s;
+}
+
+.contact_label {
+  color: var(--secondary-font);
 }

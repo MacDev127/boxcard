@@ -37,7 +37,7 @@ const ContactForm = () => {
       <form className="contact_form" onSubmit={onSubmit}>
         <h2>Contact Us</h2>
         <div className="input-box">
-          <label>Full Name</label>
+          <label className="contact_label">Full Name</label>
           <input
             type="text"
             className="field"
@@ -47,7 +47,7 @@ const ContactForm = () => {
           />
         </div>
         <div className="input-box">
-          <label>Email</label>
+          <label className="contact_label">Email</label>
           <input
             type="email"
             className="field"
@@ -58,7 +58,7 @@ const ContactForm = () => {
         </div>
 
         <div className="input-box">
-          <label>Your Message</label>
+          <label className="contact_label">Your Message</label>
           <textarea
             className="field message"
             placeholder="Enter your message.."

@@ -29,7 +29,7 @@ table tr {
   cursor: pointer;
 }
 
-.table__win {
+.profile .table__win {
   color: var(--win);
   font-weight: 600;
 }
@@ -71,8 +71,11 @@ table th {
     margin: 0;
     padding: 10px 20px;
   }
+  .profile__results-table {
+    padding: 0 10px;
+  }
 
-  table caption {
+  .profile table caption {
     font-size: 1.3em;
   }
 
@@ -88,23 +91,25 @@ table th {
   }
 
   table tr {
-    border-bottom: 3px solid var(--secondary-font);
+    border-bottom: 2px solid var(--secondary-font);
     display: block;
     margin-bottom: 0.625em;
   }
 
   table td {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--secondary-font);
     display: block;
     font-size: 0.8em;
     text-align: right;
+    font-weight: 500;
   }
 
   table td::before {
     content: attr(data-label);
     float: left;
-    font-weight: bold;
+    font-weight: 500;
     text-transform: uppercase;
+    color: var(--secondary-font);
   }
 
   table td:last-child {

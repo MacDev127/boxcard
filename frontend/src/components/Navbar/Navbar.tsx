@@ -32,13 +32,14 @@ const Navbar = () => {
           <li>
             <a href="/contact">Contact</a>
           </li>
+          <div className="nav-admin">
+            <a href="/dashboard/analytics">
+              <FaUser className="admin-icon" />
+            </a>
+          </div>
         </ul>
       </div>
-      <div className="nav-admin">
-        <a href="/dashboard/analytics">
-          <FaUser className="admin-icon" />
-        </a>
-      </div>
+
       <div className="mobile">
         {toggleMenu ? (
           <CloseIcon onClick={handleToggleMenu} style={{ fontSize: '28px' }} />

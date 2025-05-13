@@ -39,7 +39,7 @@ const Card = ({ boxer }: CardProps) => {
       <a href={`/boxers/${boxer.id}`}>
         <div className="card__container">
           <div className="card__top">
-            <h2>{boxer.name}</h2>
+            <h2 className="card__name">{boxer.name}</h2>
             <p>
               <ReactCountryFlag
                 countryCode={getIsoCode(boxer.country)}

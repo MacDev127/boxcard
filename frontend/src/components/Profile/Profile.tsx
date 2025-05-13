@@ -76,7 +76,8 @@ const Profile = () => {
           <h2>{boxer.name}</h2>
           <div className="profile__top-bio">
             <h4>Bio</h4>
-            <p>{boxer.bio}</p>
+
+            <p>{boxer.bio ? boxer.bio : 'No Bio Available'}</p>
           </div>
           <div className="profile__top-wrapper">
             <div className="profile__column">

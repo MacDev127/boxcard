@@ -63,12 +63,13 @@ a {
   object-fit: cover;
 }
 
-.card h2 {
-  font-size: 1.3rem;
+.card .card__name {
+  font-size: 1.2rem;
   font-weight: 400;
   margin: 0;
   letter-spacing: 1px;
   text-transform: capitalize;
+  padding-bottom: 0 !important;
 }
 
 .card__container {
@@ -80,7 +81,6 @@ a {
 
 .card__top {
   display: flex;
-  align-items: centre;
   gap: 10px;
   padding-bottom: 10px;
 }
@@ -99,7 +99,7 @@ a {
   margin: 0;
   color: var(--secondary-font);
   border-right: 1px solid var(--secondary-font);
-  padding-right: 0.3rem;
+  padding-right: 0.5rem;
   text-transform: capitalize;
 }
 .card__middle h4:last-child {
@@ -183,12 +183,11 @@ a {
     width: 238px;
     background: var(--secondarybg);
     min-height: 120px;
-    height: 360px;
+    height: 380px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     margin: 0;
-    padding-bottom: 30px;
     border-radius: 10px;
   }
 
