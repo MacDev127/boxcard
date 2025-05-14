@@ -6,6 +6,7 @@ import BoxerForm, {
   BoxerFormData,
 } from '../../../components/BoxerForm/BoxerForm';
 import './EditBoxerPage.css';
+import Swal from 'sweetalert2';
 
 const EditBoxerPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,13 +29,15 @@ const EditBoxerPage: React.FC = () => {
   const handleSubmit = async (data: BoxerFormData, file?: File) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value.toString());
+      formData.append(
+        key,
+        value !== null && value !== undefined ? value.toString() : ''
+      );
     });
     if (file) {
       formData.append('profileImage', file);
     }
 
-    // ADD THIS
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
@@ -42,8 +45,17 @@ const EditBoxerPage: React.FC = () => {
     await axios.put(`http://localhost:5002/api/boxers/${id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
+    if (formData) {
+      Swal.fire({
+        title: 'Boxer Updated',
+        icon: 'success',
+        confirmButtonText: 'Go to Dashboard',
+      }).then(() => {
+        window.location.href = '/dashboard/manage-boxer';
+      });
+    }
 
-    navigate('/dashboard/manage-boxer', { state: { reload: true } });
+    // navigate('/dashboard/manage-boxer', { state: { reload: true } });
   };
 
   if (!initialData) {

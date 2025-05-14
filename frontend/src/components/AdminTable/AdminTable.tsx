@@ -156,19 +156,8 @@ const BoxersTable: React.FC = () => {
         </TableHead>
         <TableBody>
           {paginatedBoxers.map((boxer) => (
-            <>
-              <TableRow key={boxer.id}>
-                {/* <TableCell className="table__image">
-      <img
-        src={
-          boxer.profileImage
-            ? `http://localhost:5002/uploads/${boxer.profileImage}`
-            : '../../images/profile.png'
-        }
-        alt={boxer.name || 'Boxer Profile'}
-        onError={(e) => console.error('Image load error:', e)}
-      />
-    </TableCell> */}
+            <React.Fragment key={boxer.id}>
+              <TableRow>
                 <TableCell>{boxer.name}</TableCell>
                 <TableCell>{boxer.country}</TableCell>
                 <TableCell>{boxer.age}</TableCell>
@@ -186,7 +175,6 @@ const BoxersTable: React.FC = () => {
                   </IconButton>
                   <IconButton
                     aria-label="delete"
-                    /* // onClick={() => handleDelete(boxer.id)} */
                     onClick={() =>
                       setOpenModalId(openModalId === boxer.id ? null : boxer.id)
                     }
@@ -195,28 +183,40 @@ const BoxersTable: React.FC = () => {
                   </IconButton>
                 </TableCell>
               </TableRow>
-              <Collapse in={openModalId === boxer.id} timeout="auto">
-                <div className="modal">
-                  <p>Are you sure you want to delete this boxer?</p>
-                  <div className="modal-wrapper">
-                    <CheckIcon
-                      style={{ color: '#22c55e' }}
-                      onClick={() => {
-                        handleDelete(boxer.id);
-                        setOpenModalId(null); // close modal after delete
-                      }}
-                      aria-label="delete"
-                    />
-                    <CloseIcon
-                      style={{ color: '#ef4444' }}
-                      onClick={
-                        () => setOpenModalId(null) // close modal after delete
-                      }
-                    />
-                  </div>
-                </div>
-              </Collapse>
-            </>
+
+              {/* Collapsible confirmation row */}
+              <TableRow>
+                <TableCell
+                  colSpan={7}
+                  style={{ paddingBottom: 0, paddingTop: 0 }}
+                >
+                  <Collapse
+                    in={openModalId === boxer.id}
+                    timeout="auto"
+                    unmountOnExit
+                  >
+                    <div className="modal">
+                      <p>Are you sure you want to delete this boxer?</p>
+                      <div className="modal-wrapper">
+                        <CheckIcon
+                          style={{ color: '#22c55e', cursor: 'pointer' }}
+                          onClick={() => {
+                            handleDelete(boxer.id);
+                            setOpenModalId(null);
+                          }}
+                          aria-label="confirm-delete"
+                        />
+                        <CloseIcon
+                          style={{ color: '#ef4444', cursor: 'pointer' }}
+                          onClick={() => setOpenModalId(null)}
+                          aria-label="cancel-delete"
+                        />
+                      </div>
+                    </div>
+                  </Collapse>
+                </TableCell>
+              </TableRow>
+            </React.Fragment>
           ))}
         </TableBody>
       </Table>

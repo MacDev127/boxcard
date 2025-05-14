@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
+
 import {
   Container,
   TextField,
@@ -87,6 +89,15 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
       if (mode === 'create' && blankData) {
         setFormData(blankData); // 👈 much cleaner
         setProfileImageFile(null);
+      }
+      if (formData) {
+        Swal.fire({
+          title: 'Boxer Added',
+          icon: 'success',
+          confirmButtonText: 'Back',
+        }).then(() => {
+          window.location.href = '/dashboard/add-boxer';
+        });
       }
     } catch (err) {
       console.error(err);
