@@ -64,14 +64,11 @@ const EditBoxerPage: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h5" gutterBottom>
-        Edit Boxer
-      </Typography>
       {error && <Typography color="error">{error}</Typography>}
       <BoxerForm
         initialData={initialData}
         onSubmit={handleSubmit}
-        submitLabel="Update Boxer"
+        submitLabel="Edit Boxer"
         mode="edit"
       />
     </Container>

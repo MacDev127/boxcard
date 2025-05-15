@@ -51,7 +51,7 @@ const FighterRadar: React.FC = () => {
   const total = dummyData.reduce((acc, curr) => acc + curr.value, 0);
 
   return (
-    <Card className="flex flex-col w-full bg-transparent border-none">
+    <Card className="flex flex-col w-full bg-transparent border-none shadow-none">
       <CardHeader className="items-center pb-2">
         <CardDescription className="text-white text-center text-base font-light">
           Average per-fight metrics for previous 5 bouts
@@ -61,7 +61,7 @@ const FighterRadar: React.FC = () => {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[300px] sm:max-h-[400px]"
+          className="mx-auto aspect-square  max-h-[400px] sm:max-h-[400px]"
         >
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>

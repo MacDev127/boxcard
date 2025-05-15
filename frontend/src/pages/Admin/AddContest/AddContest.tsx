@@ -75,119 +75,132 @@ const AddContestPage = () => {
   };
 
   return (
-    <div className="add-contest">
-      <div className="wrapper">
-        <form onSubmit={handleSubmit}>
-          <TextField
-            className="input-select"
-            type="date"
-            required
-            value={form.date}
-            fullWidth
-            margin="normal"
-            onChange={(e) =>
-              setForm((form) => ({ ...form, date: e.target.value }))
-            }
-          />
-          <TextField
-            select
-            className="input-select"
-            fullWidth
-            margin="normal"
-            label="Boxer 1"
-            value={form.boxer1Id}
-            onChange={(e) =>
-              setForm((form) => ({ ...form, boxer1Id: Number(e.target.value) }))
-            }
-          >
-            {boxers.map((boxer) => (
-              <MenuItem key={boxer.id} value={boxer.id}>
-                {boxer.name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            sx={{ color: 'white' }}
-            fullWidth
-            margin="normal"
-            className="input-select"
-            select
-            label="Boxer 2"
-            value={form.boxer2Id}
-            onChange={(e) =>
-              setForm((form) => ({ ...form, boxer2Id: Number(e.target.value) }))
-            }
-            required
-          >
-            {boxers.map((boxer) => (
-              <MenuItem key={boxer.id} value={boxer.id}>
-                {boxer.name}
-              </MenuItem>
-            ))}
-          </TextField>
+    <>
+      <div className="add-contest">
+        <div className="wrapper">
+          <h2>Add Contest</h2>
 
-          <TextField
-            select
-            className="input-select"
-            fullWidth
-            margin="normal"
-            label="Winner"
-            value={form.winnerId}
-            onChange={(e) =>
-              setForm((prev) => ({ ...prev, winnerId: Number(e.target.value) }))
-            }
-            required
-          >
-            {boxers.map((boxer) => (
-              <MenuItem key={boxer.id} value={boxer.id}>
-                {boxer.name}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          {/* Add Boxer 2 and Winner dropdowns here */}
-          <TextField
-            label="Competition"
-            value={form.competition}
-            fullWidth
-            margin="normal"
-            onChange={(e) =>
-              setForm((form) => ({ ...form, competition: e.target.value }))
-            }
-          />
-          <TextField
-            select
-            label="Result"
-            className="input-select"
-            fullWidth
-            margin="normal"
-            value={form.result}
-            onChange={(e) =>
-              setForm((prev) => ({ ...prev, result: e.target.value }))
-            }
-            required
-          >
-            {RESULT_OPTIONS.map((code) => (
-              <MenuItem key={code} value={code}>
-                {code}
-              </MenuItem>
-            ))}
-          </TextField>
-          <div className="form__btn-wrapper">
-            <Button
-              type="submit"
-              id="boxer-form-btn"
-              variant="contained"
-              color="primary"
+          <form onSubmit={handleSubmit}>
+            <TextField
+              className="input-select"
+              type="date"
+              required
+              value={form.date}
+              fullWidth
+              margin="normal"
+              onChange={(e) =>
+                setForm((form) => ({ ...form, date: e.target.value }))
+              }
+            />
+            <TextField
+              select
+              className="input-select"
+              fullWidth
+              margin="normal"
+              label="Boxer 1"
+              value={form.boxer1Id}
+              onChange={(e) =>
+                setForm((form) => ({
+                  ...form,
+                  boxer1Id: Number(e.target.value),
+                }))
+              }
             >
-              Create Contest
-            </Button>
-          </div>
+              {boxers.map((boxer) => (
+                <MenuItem key={boxer.id} value={boxer.id}>
+                  {boxer.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              sx={{ color: 'white' }}
+              fullWidth
+              margin="normal"
+              className="input-select"
+              select
+              label="Boxer 2"
+              value={form.boxer2Id}
+              onChange={(e) =>
+                setForm((form) => ({
+                  ...form,
+                  boxer2Id: Number(e.target.value),
+                }))
+              }
+              required
+            >
+              {boxers.map((boxer) => (
+                <MenuItem key={boxer.id} value={boxer.id}>
+                  {boxer.name}
+                </MenuItem>
+              ))}
+            </TextField>
 
-          {error && <p>Error submitting form</p>}
-        </form>
+            <TextField
+              select
+              className="input-select"
+              fullWidth
+              margin="normal"
+              label="Winner"
+              value={form.winnerId}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  winnerId: Number(e.target.value),
+                }))
+              }
+              required
+            >
+              {boxers.map((boxer) => (
+                <MenuItem key={boxer.id} value={boxer.id}>
+                  {boxer.name}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            {/* Add Boxer 2 and Winner dropdowns here */}
+            <TextField
+              label="Competition"
+              value={form.competition}
+              fullWidth
+              margin="normal"
+              onChange={(e) =>
+                setForm((form) => ({ ...form, competition: e.target.value }))
+              }
+            />
+            <TextField
+              select
+              label="Result"
+              className="input-select"
+              fullWidth
+              margin="normal"
+              value={form.result}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, result: e.target.value }))
+              }
+              required
+            >
+              {RESULT_OPTIONS.map((code) => (
+                <MenuItem key={code} value={code}>
+                  {code}
+                </MenuItem>
+              ))}
+            </TextField>
+            <div className="form__btn-wrapper">
+              <Button
+                type="submit"
+                id="boxer-form-btn"
+                variant="contained"
+                color="primary"
+              >
+                Create Contest
+              </Button>
+            </div>
+
+            {error && <p>Error submitting form</p>}
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -132,27 +132,26 @@ const BoxerList = () => {
 
           <Collapse in={showFilter} timeout="auto">
             <div className="boxer-list__filter">
+              {/* //weight */}
               <select
                 className="custom-dropdown"
+                value={selectedWeight}
                 onChange={(e) => setSelectedWeight(e.target.value)}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Weight
                 </option>
                 {weights.map((weight) => (
-                  <div
-                    className="container
-                "
-                  >
-                    <option key={weight} value={weight}>
-                      {weight}KG
-                    </option>
-                  </div>
+                  <option key={weight} value={weight}>
+                    {weight}KG
+                  </option>
                 ))}
               </select>
 
+              {/* Level */}
               <select
                 className="custom-dropdown"
+                value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
               >
                 <option value="">Level</option>
@@ -163,20 +162,28 @@ const BoxerList = () => {
                 ))}
               </select>
 
+              {/* Gender */}
               <select
                 className="custom-dropdown"
+                value={selectedSex}
                 onChange={(e) => setSelectedSex(e.target.value)}
               >
-                <option value="">Genders</option>
+                <option value="" disabled>
+                  Gender
+                </option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </select>
 
+              {/* Club */}
               <select
                 className="custom-dropdown"
+                value={selectedClub}
                 onChange={(e) => setSelectedClub(e.target.value)}
               >
-                <option value="">Club</option>
+                <option value="" disabled>
+                  Club
+                </option>
                 {clubs.map((club) => (
                   <option key={club} value={club}>
                     {club}
@@ -184,14 +191,19 @@ const BoxerList = () => {
                 ))}
               </select>
 
+              {/* Country */}
               <select
                 className="custom-dropdown"
+                value={selectedCountry}
                 onChange={(e) => setSelectedCountry(e.target.value)}
               >
-                <option value="">Country</option>
+                <option value="" disabled>
+                  Country
+                </option>
                 <option value="Ireland">Ireland</option>
                 <option value="UK">UK</option>
               </select>
+
               <button onClick={handleResetFilters} className="filter-reset">
                 Reset
                 <RiResetLeftFill className="reset-icon" fontSize="14px" />
