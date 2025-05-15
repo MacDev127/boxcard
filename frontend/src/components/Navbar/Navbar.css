@@ -50,6 +50,7 @@ nav {
   gap: 0px 10px;
   margin-left: 20px;
   letter-spacing: 1px;
+  font-weight: 300;
 }
 
 .admin-desktop:hover {
@@ -149,6 +150,7 @@ nav li a {
     align-items: center;
     gap: 0px 10px;
     margin-left: 20px;
+    font-weight: 300;
     letter-spacing: 1px;
   }
 

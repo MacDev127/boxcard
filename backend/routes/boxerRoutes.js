@@ -29,6 +29,7 @@ const {
   deleteBoxer,
   getDistinctWeights,
   getDistinctLevels,
+  getDistinctGenders,
   getDistinctClubs,
 } = require('../controllers/boxerController');
 const { getContestsForBoxer } = require('../controllers/contestController');
@@ -39,6 +40,7 @@ router.get('/', getAllBoxers);
 router.get('/search', getBoxerByName);
 router.get('/filters/weights', getDistinctWeights);
 router.get('/filters/levels', getDistinctLevels);
+router.get('/filters/genders', getDistinctGenders);
 router.get('/filters/clubs', getDistinctClubs);
 router.get('/:id', getBoxerById);
 router.get('/:id/contests', getContestsForBoxer);

@@ -34,6 +34,8 @@ const BoxerList = () => {
   const [clubs, setClubs] = useState<string[]>([]);
   const [selectedSex, setSelectedSex] = useState('');
   const [selectedClub, setSelectedClub] = useState<string>('');
+  const [genders, setGenders] = useState<string[]>([]);
+
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedWeight, setSelectedWeight] = useState<string>('');
   const [selectedLevel, setSelectedLevel] = useState<string>('');
@@ -49,17 +51,20 @@ const BoxerList = () => {
     });
     const fetchInitialData = async () => {
       try {
-        const [boxersRes, weightsRes, levelsRes, clubsRes] = await Promise.all([
-          axios.get('http://localhost:5002/api/boxers'),
-          axios.get('http://localhost:5002/api/boxers/filters/weights'),
-          axios.get('http://localhost:5002/api/boxers/filters/levels'),
-          axios.get('http://localhost:5002/api/boxers/filters/clubs'),
-        ]);
+        const [boxersRes, weightsRes, levelsRes, clubsRes, gendersRes] =
+          await Promise.all([
+            axios.get('http://localhost:5002/api/boxers'),
+            axios.get('http://localhost:5002/api/boxers/filters/weights'),
+            axios.get('http://localhost:5002/api/boxers/filters/levels'),
+            axios.get('http://localhost:5002/api/boxers/filters/clubs'),
+            axios.get('http://localhost:5002/api/boxers/filters/genders'),
+          ]);
 
         setBoxerDetails(boxersRes.data);
         setWeights(weightsRes.data);
         setLevels(levelsRes.data);
         setClubs(clubsRes.data);
+        setGenders(gendersRes.data);
       } catch (error) {
         console.error('Error fetching initial data:', error);
       }
@@ -171,8 +176,11 @@ const BoxerList = () => {
                 <option value="" disabled>
                   Gender
                 </option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
+                {genders.map((gender) => (
+                  <option key={gender} value={gender}>
+                    {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                  </option>
+                ))}
               </select>
 
               {/* Club */}

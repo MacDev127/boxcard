@@ -193,3 +193,16 @@ exports.getDistinctClubs = async (req, res) => {
     res.status(500).json({ message: 'Error fetching distinct clubs.' });
   }
 };
+// GET distinct genders
+exports.getDistinctGenders = async (req, res) => {
+  try {
+    const genders = await prisma.boxer.groupBy({
+      by: ['sex'],
+      orderBy: { sex: 'asc' },
+    });
+    res.json(genders.map((g) => g.sex));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching distinct genders.' });
+  }
+};
