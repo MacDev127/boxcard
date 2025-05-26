@@ -34,15 +34,15 @@ const chartConfig = {
 
 export function VisitorsChart() {
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col bg-transparent border-none">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - Shape</CardTitle>
+        <CardTitle className="text-white">Radial Chart - Shape</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
+      <CardContent className="flex-1 pb-0 t">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square max-h-[250px] "
         >
           <RadialBarChart
             data={chartData}
@@ -54,10 +54,16 @@ export function VisitorsChart() {
               gridType="circle"
               radialLines={false}
               stroke="none"
-              className="first:fill-muted last:fill-background"
+              style={{
+                fill: 'var(--secondarybg)', // sets the main thick arc fill
+              }}
               polarRadius={[86, 74]}
             />
-            <RadialBar dataKey="visitors" background />
+            <RadialBar
+              dataKey="visitors"
+              fill="#6a9eed"
+              background={{ fill: '#2c2f38' }}
+            />{' '}
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
@@ -72,15 +78,11 @@ export function VisitorsChart() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-4xl font-bold"
+                          className=" text-4xl  font-bold"
                         >
                           {chartData[0].visitors.toLocaleString()}
                         </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
-                        >
+                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24}>
                           Visitors
                         </tspan>
                       </text>
