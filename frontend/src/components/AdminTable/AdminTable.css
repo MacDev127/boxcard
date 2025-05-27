@@ -10,9 +10,9 @@
   --win: #22c55e;
   --draw: #3b82f6;
 }
+
 /* Style the container to have a consistent background and rounded corners */
 .MuiTableContainer-root {
-  background-color: var(--primarybg) !important;
   border-radius: 8px;
   margin: 1rem auto;
   overflow-y: auto; /* Enable vertical scrolling */
@@ -22,8 +22,17 @@
   max-width: 95%; /* Prevent table from touching edges */
 }
 
+.css-qopi4n-MuiPaper-root-MuiDialog-paper {
+  background-color: var(--secondarybg);
+  color: white;
+}
+.css-rvoa5x-MuiTypography-root-MuiDialogTitle-root {
+  text-align: center;
+}
+
 .css-y2ff7i-MuiPaper-root-MuiTableContainer-root {
   box-shadow: none !important;
+  background-color: var(--primarybg) !important;
 }
 
 .css-0 {
@@ -32,12 +41,37 @@
   align-items: center !important;
 }
 
-MuiToolbar-root
+.css-rvoa5x-MuiTypography-root-MuiDialogTitle-root
+  MuiToolbar-root
   MuiToolbar-gutters
   MuiToolbar-regular
   MuiTablePagination-toolbar
   css-1gak8h1-MuiToolbar-root-MuiTablePagination-toolbar {
   color: white !important;
+}
+
+/* dialog box */
+
+.css-qopi4n-MuiPaper-root-MuiDialog-paper {
+  background-color: var(--secondarybg) !important;
+  color: white !important;
+}
+
+.info-box__name {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.info-box__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px;
+  border-bottom: 1px solid var(--secondary-font);
+}
+.info-box__details span {
+  color: var(--secondary-font);
 }
 
 /* Table header styles */
@@ -84,8 +118,9 @@ MuiToolbar-root
 }
 
 /* Hover effect on rows */
-.MuiTableRow-root:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+
+.css-6ge3s-MuiTableRow-root:hover {
+  background-color: rgba(171, 165, 165, 0.05) !important;
 }
 
 .error-message {
@@ -104,24 +139,6 @@ MuiToolbar-root
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.modal {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  color: white;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--secondarybg);
-  height: 200px;
-  width: 200px;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
 .modal-wrapper {

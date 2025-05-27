@@ -1,4 +1,3 @@
-// BoxersTable.tsx
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import {
@@ -12,14 +11,21 @@ import {
   IconButton,
   TablePagination,
   TableSortLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Avatar,
+  Typography,
+  Box,
+  Button,
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
-import './AdminTable.css';
 import { useNavigate } from 'react-router-dom';
 import { PiWarningDuotone } from 'react-icons/pi';
 import Collapse from '@mui/material/Collapse';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import './AdminTable.css';
 
 interface Boxer {
   id: number;
@@ -29,7 +35,7 @@ interface Boxer {
   weight: number;
   stance: string;
   level: string;
-  profileImage: string;
+  profileImage: string; // URL or filename
 }
 
 type Order = 'asc' | 'desc';
@@ -38,206 +44,289 @@ const BoxersTable: React.FC = () => {
   const navigate = useNavigate();
   const [boxers, setBoxers] = useState<Boxer[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [openModalId, setOpenModalId] = useState<number | null>(null);
 
-  // Pagination state
+  // sorting & pagination
+  const [order, setOrder] = useState<Order>('asc');
+  const [orderBy, setOrderBy] = useState<keyof Boxer>('name');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  // Sorting state
-  const [order, setOrder] = useState<Order>('asc');
-  const [orderBy, setOrderBy] = useState<keyof Boxer>('name');
+  // delete confirmation collapse
+  const [openModalId, setOpenModalId] = useState<number | null>(null);
+
+  // ** NEW: dialog state **
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedBoxer, setSelectedBoxer] = useState<Boxer | null>(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5002/api/boxers').then((res) => {
-      setBoxers(res.data);
-    });
+    axios
+      .get<Boxer[]>('http://localhost:5002/api/boxers')
+      .then((res) => setBoxers(res.data))
+      .catch(() => setError('Error loading boxers'));
   }, []);
 
-  // Delete handler
   const handleDelete = async (id: number) => {
     try {
-      console.log('http://localhost:5002/api/boxers/${id}');
       await axios.delete(`http://localhost:5002/api/boxers/${id}`);
-      setBoxers((prev) => prev.filter((boxer) => boxer.id !== id));
-    } catch (err) {
-      console.error(err);
+      setBoxers((bs) => bs.filter((b) => b.id !== id));
+      setOpenModalId(null);
+    } catch {
       setError('Error deleting boxer');
     }
   };
 
-  // Sorting comparator: compares two items based on the orderBy field.
-  const comparator = <T,>(a: T, b: T, orderBy: keyof T): number => {
-    if (a[orderBy] < b[orderBy]) {
-      return -1;
-    }
-    if (a[orderBy] > b[orderBy]) {
-      return 1;
-    }
-    return 0;
-  };
+  //  pagination logic
 
-  // Sort the data using our comparator
-  const sortedBoxers = [...boxers].sort((a, b) => {
-    return order === 'asc'
-      ? comparator(a, b, orderBy)
-      : -comparator(a, b, orderBy);
-  });
+  const comparator = <T,>(a: T, b: T, orderBy: keyof T) =>
+    a[orderBy] < b[orderBy] ? -1 : a[orderBy] > b[orderBy] ? 1 : 0;
 
-  // Slice data for pagination.
-  const paginatedBoxers = sortedBoxers.slice(
+  const sorted = [...boxers].sort((a, b) =>
+    order === 'asc' ? comparator(a, b, orderBy) : -comparator(a, b, orderBy)
+  );
+
+  const displayed = sorted.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
 
-  // Handle changing the sort order when a column header is clicked
-  const handleRequestSort = (property: keyof Boxer) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  // Pagination handlers
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {/* <TableCell>Profile</TableCell> */}
-            <TableCell sortDirection={orderBy === 'name' ? order : false}>
-              <TableSortLabel
-                active={orderBy === 'name'}
-                direction={orderBy === 'name' ? order : 'asc'}
-                onClick={() => handleRequestSort('name')}
-              >
-                Name
-              </TableSortLabel>
-            </TableCell>
-            <TableCell sortDirection={orderBy === 'country' ? order : false}>
-              <TableSortLabel
-                active={orderBy === 'country'}
-                direction={orderBy === 'country' ? order : 'asc'}
-                onClick={() => handleRequestSort('country')}
-              >
-                Country
-              </TableSortLabel>
-            </TableCell>
-            <TableCell sortDirection={orderBy === 'age' ? order : false}>
-              <TableSortLabel
-                active={orderBy === 'age'}
-                direction={orderBy === 'age' ? order : 'asc'}
-                onClick={() => handleRequestSort('age')}
-              >
-                Age
-              </TableSortLabel>
-            </TableCell>
-            <TableCell sortDirection={orderBy === 'weight' ? order : false}>
-              <TableSortLabel
-                active={orderBy === 'weight'}
-                direction={orderBy === 'weight' ? order : 'asc'}
-                onClick={() => handleRequestSort('weight')}
-              >
-                Weight (KG)
-              </TableSortLabel>
-            </TableCell>
-            <TableCell>Stance</TableCell>
-            <TableCell>Level</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {paginatedBoxers.map((boxer) => (
-            <React.Fragment key={boxer.id}>
-              <TableRow>
-                <TableCell>{boxer.name}</TableCell>
-                <TableCell>{boxer.country}</TableCell>
-                <TableCell>{boxer.age}</TableCell>
-                <TableCell>{boxer.weight}</TableCell>
-                <TableCell>{boxer.stance}</TableCell>
-                <TableCell>{boxer.level}</TableCell>
-                <TableCell>
-                  <IconButton
-                    aria-label="edit"
-                    onClick={() =>
-                      navigate(`/dashboard/boxers/${boxer.id}/edit`)
-                    }
-                  >
-                    <Edit style={{ color: '#22c55e' }} />
-                  </IconButton>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() =>
-                      setOpenModalId(openModalId === boxer.id ? null : boxer.id)
-                    }
-                  >
-                    <Delete style={{ color: '#ef4444' }} />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-
-              {/* Collapsible confirmation row */}
-              <TableRow>
-                <TableCell
-                  colSpan={7}
-                  style={{ paddingBottom: 0, paddingTop: 0 }}
+    <>
+      <TableContainer component={Paper}>
+        <Table className="table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Avatar</TableCell>
+              <TableCell sortDirection={orderBy === 'name' ? order : false}>
+                <TableSortLabel
+                  active={orderBy === 'name'}
+                  direction={orderBy === 'name' ? order : 'asc'}
+                  onClick={() => {
+                    const isAsc = orderBy === 'name' && order === 'asc';
+                    setOrder(isAsc ? 'desc' : 'asc');
+                    setOrderBy('name');
+                  }}
                 >
-                  <Collapse
-                    in={openModalId === boxer.id}
-                    timeout="auto"
-                    unmountOnExit
-                  >
-                    <div className="modal">
-                      <p>Are you sure you want to delete this boxer?</p>
-                      <div className="modal-wrapper">
-                        <CheckIcon
-                          style={{ color: '#22c55e', cursor: 'pointer' }}
-                          onClick={() => {
-                            handleDelete(boxer.id);
-                            setOpenModalId(null);
-                          }}
-                          aria-label="confirm-delete"
-                        />
-                        <CloseIcon
-                          style={{ color: '#ef4444', cursor: 'pointer' }}
-                          onClick={() => setOpenModalId(null)}
-                          aria-label="cancel-delete"
-                        />
-                      </div>
-                    </div>
-                  </Collapse>
-                </TableCell>
-              </TableRow>
-            </React.Fragment>
-          ))}
-        </TableBody>
-      </Table>
+                  Name
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sortDirection={orderBy === 'country' ? order : false}>
+                <TableSortLabel
+                  active={orderBy === 'country'}
+                  direction={orderBy === 'country' ? order : 'asc'}
+                  onClick={() => {
+                    const isAsc = orderBy === 'country' && order === 'asc';
+                    setOrder(isAsc ? 'desc' : 'asc');
+                    setOrderBy('country');
+                  }}
+                >
+                  Country
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sortDirection={orderBy === 'age' ? order : false}>
+                <TableSortLabel
+                  active={orderBy === 'age'}
+                  direction={orderBy === 'age' ? order : 'asc'}
+                  onClick={() => {
+                    const isAsc = orderBy === 'age' && order === 'asc';
+                    setOrder(isAsc ? 'desc' : 'asc');
+                    setOrderBy('age');
+                  }}
+                >
+                  Age
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sortDirection={orderBy === 'weight' ? order : false}>
+                <TableSortLabel
+                  active={orderBy === 'weight'}
+                  direction={orderBy === 'weight' ? order : 'asc'}
+                  onClick={() => {
+                    const isAsc = orderBy === 'weight' && order === 'asc';
+                    setOrder(isAsc ? 'desc' : 'asc');
+                    setOrderBy('weight');
+                  }}
+                >
+                  Weight
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sortDirection={orderBy === 'stance' ? order : false}>
+                <TableSortLabel
+                  active={orderBy === 'stance'}
+                  direction={orderBy === 'stance' ? order : 'asc'}
+                  onClick={() => {
+                    const isAsc = orderBy === 'stance' && order === 'asc';
+                    setOrder(isAsc ? 'desc' : 'asc');
+                    setOrderBy('stance');
+                  }}
+                >
+                  Stance
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sortDirection={orderBy === 'level' ? order : false}>
+                <TableSortLabel
+                  active={orderBy === 'level'}
+                  direction={orderBy === 'level' ? order : 'asc'}
+                  onClick={() => {
+                    const isAsc = orderBy === 'level' && order === 'asc';
+                    setOrder(isAsc ? 'desc' : 'asc');
+                    setOrderBy('level');
+                  }}
+                >
+                  Level
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>Actions</TableCell>
+              {/* Country, Age, Weight, Stance, Level, Actions */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {displayed.map((boxer) => (
+              <React.Fragment key={boxer.id}>
+                <TableRow
+                  hover
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    setSelectedBoxer(boxer);
+                    setDialogOpen(true);
+                  }}
+                >
+                  {/* PROFILE IMAGE */}
+                  <TableCell>
+                    <Avatar
+                      src={`http://localhost:5002/uploads/${boxer.profileImage}`}
+                      alt={boxer.name}
+                      sx={{ width: 50, height: 50 }}
+                    />
+                  </TableCell>
+                  <TableCell>{boxer.name}</TableCell>
+                  <TableCell>{boxer.country}</TableCell>
+                  <TableCell>{boxer.age}</TableCell>
+                  <TableCell>{boxer.weight}</TableCell>
+                  <TableCell>{boxer.stance}</TableCell>
+                  <TableCell>{boxer.level}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/dashboard/boxers/${boxer.id}/edit`);
+                      }}
+                    >
+                      <Edit sx={{ color: '#22c55e' }} />
+                    </IconButton>
+                    <IconButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenModalId(
+                          openModalId === boxer.id ? null : boxer.id
+                        );
+                      }}
+                    >
+                      <Delete sx={{ color: '#ef4444' }} />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
 
-      {error && (
-        <div className="error-wrapper">
-          <p className="error-message">
-            {error} <PiWarningDuotone fontSize="28px" />
-          </p>
-        </div>
-      )}
-      <TablePagination
-        component="div"
-        count={boxers.length}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </TableContainer>
+                {/* delete-confirmation */}
+                <TableRow>
+                  <TableCell colSpan={8} style={{ padding: 0 }}>
+                    <Collapse
+                      in={openModalId === boxer.id}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      <Box
+                        px={2}
+                        py={1}
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography>Delete {boxer.name}?</Typography>
+                        <Box>
+                          <IconButton onClick={() => handleDelete(boxer.id)}>
+                            <CheckIcon color="success" />
+                          </IconButton>
+                          <IconButton onClick={() => setOpenModalId(null)}>
+                            <CloseIcon color="error" />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    </Collapse>
+                  </TableCell>
+                </TableRow>
+              </React.Fragment>
+            ))}
+          </TableBody>
+        </Table>
+
+        {error && (
+          <Box p={2} display="flex" alignItems="center">
+            <PiWarningDuotone fontSize={24} color="error" />
+            <Typography color="error" ml={1}>
+              {error}
+            </Typography>
+          </Box>
+        )}
+
+        <TablePagination
+          component="div"
+          count={boxers.length}
+          page={page}
+          onPageChange={(_, p) => setPage(p)}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={(e) => {
+            setRowsPerPage(+e.target.value);
+            setPage(0);
+          }}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
+      </TableContainer>
+
+      {/* ========= DIALOG ========= */}
+      <Dialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        fullWidth
+        maxWidth="xs"
+      >
+        <DialogTitle>Boxer Details</DialogTitle>
+        <DialogContent dividers>
+          {selectedBoxer && (
+            <Box textAlign="center">
+              <Avatar
+                src={`http://localhost:5002/uploads/${selectedBoxer.profileImage}`}
+                alt={selectedBoxer.name}
+                sx={{ width: 90, height: 90, mx: 'auto', mb: 2 }}
+              />
+              <h2 className="info-box__name">{selectedBoxer.name}</h2>
+
+              <div className="info-box__details">
+                <span>Country:</span>
+                <p>{selectedBoxer.country}</p>
+              </div>
+              <div className="info-box__details">
+                <span>Age:</span>
+                <p>{selectedBoxer.age}</p>
+              </div>
+              <div className="info-box__details">
+                <span>Weight (kg):</span>
+                <p>{selectedBoxer.weight}</p>
+              </div>
+              <div className="info-box__details">
+                <span>Stance:</span>
+                <p>{selectedBoxer.stance}</p>
+              </div>
+              <div className="info-box__details">
+                <span>Level:</span>
+                <p>{selectedBoxer.level}</p>
+              </div>
+            </Box>
+          )}
+          <Box textAlign="right" mt={2}>
+            <Button onClick={() => setDialogOpen(false)}>Close</Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
