@@ -1,6 +1,9 @@
+// src/components/BoxersTable.tsx
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import {
+  Box,
+  TextField,
   Table,
   TableBody,
   TableCell,
@@ -16,15 +19,13 @@ import {
   DialogContent,
   Avatar,
   Typography,
-  Box,
   Button,
+  Collapse,
 } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { Edit, Delete, Check, Close } from '@mui/icons-material';
 import { PiWarningDuotone } from 'react-icons/pi';
-import Collapse from '@mui/material/Collapse';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
+
 import './AdminTable.css';
 
 interface Boxer {
@@ -35,26 +36,28 @@ interface Boxer {
   weight: number;
   stance: string;
   level: string;
-  profileImage: string; // URL or filename
+  profileImage: string;
 }
 
 type Order = 'asc' | 'desc';
 
 const BoxersTable: React.FC = () => {
   const navigate = useNavigate();
+
   const [boxers, setBoxers] = useState<Boxer[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [searchText, setSearchText] = useState('');
 
-  // sorting & pagination
+  // Sorting & pagination
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof Boxer>('name');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  // delete confirmation collapse
+  // Delete confirmation
   const [openModalId, setOpenModalId] = useState<number | null>(null);
 
-  // ** NEW: dialog state **
+  // Detail dialog
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedBoxer, setSelectedBoxer] = useState<Boxer | null>(null);
 
@@ -75,107 +78,94 @@ const BoxersTable: React.FC = () => {
     }
   };
 
-  //  pagination logic
+  // comparator
+  const comparator = <T,>(a: T, b: T, key: keyof T) =>
+    a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0;
 
-  const comparator = <T,>(a: T, b: T, orderBy: keyof T) =>
-    a[orderBy] < b[orderBy] ? -1 : a[orderBy] > b[orderBy] ? 1 : 0;
+  // 1) filter by search
+  const filtered = boxers.filter((b) =>
+    b.name.toLowerCase().includes(searchText.toLowerCase())
+  );
 
-  const sorted = [...boxers].sort((a, b) =>
+  // 2) sort the filtered
+  const sorted = [...filtered].sort((a, b) =>
     order === 'asc' ? comparator(a, b, orderBy) : -comparator(a, b, orderBy)
   );
 
+  // 3) paginate the sorted
   const displayed = sorted.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
 
   return (
-    <>
+    <Box>
+      {/* Search bar */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          p: 1,
+          backgroundColor: 'var(--primarybg)',
+          borderColor: 'var(--secondary-font)',
+        }}
+      >
+        <TextField
+          size="small"
+          variant="outlined"
+          placeholder="Search boxers…"
+          value={searchText}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setSearchText(e.target.value);
+            setPage(0);
+          }}
+          sx={{ width: 250 }}
+        />
+      </Box>
+
       <TableContainer component={Paper}>
-        <Table className="table">
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell>Avatar</TableCell>
-              <TableCell sortDirection={orderBy === 'name' ? order : false}>
-                <TableSortLabel
-                  active={orderBy === 'name'}
-                  direction={orderBy === 'name' ? order : 'asc'}
-                  onClick={() => {
-                    const isAsc = orderBy === 'name' && order === 'asc';
-                    setOrder(isAsc ? 'desc' : 'asc');
-                    setOrderBy('name');
+              {(
+                [
+                  'name',
+                  'country',
+                  'age',
+                  'weight',
+                  'stance',
+                  'level',
+                ] as (keyof Boxer)[]
+              ).map((col) => (
+                <TableCell
+                  key={col}
+                  sortDirection={orderBy === col ? order : false}
+                  sx={{
+                    display:
+                      col === 'country' ||
+                      col === 'age' ||
+                      col === 'weight' ||
+                      col === 'stance' ||
+                      col === 'level'
+                        ? { xs: 'none', md: 'table-cell' }
+                        : undefined,
                   }}
                 >
-                  Name
-                </TableSortLabel>
-              </TableCell>
-              <TableCell sortDirection={orderBy === 'country' ? order : false}>
-                <TableSortLabel
-                  active={orderBy === 'country'}
-                  direction={orderBy === 'country' ? order : 'asc'}
-                  onClick={() => {
-                    const isAsc = orderBy === 'country' && order === 'asc';
-                    setOrder(isAsc ? 'desc' : 'asc');
-                    setOrderBy('country');
-                  }}
-                >
-                  Country
-                </TableSortLabel>
-              </TableCell>
-              <TableCell sortDirection={orderBy === 'age' ? order : false}>
-                <TableSortLabel
-                  active={orderBy === 'age'}
-                  direction={orderBy === 'age' ? order : 'asc'}
-                  onClick={() => {
-                    const isAsc = orderBy === 'age' && order === 'asc';
-                    setOrder(isAsc ? 'desc' : 'asc');
-                    setOrderBy('age');
-                  }}
-                >
-                  Age
-                </TableSortLabel>
-              </TableCell>
-              <TableCell sortDirection={orderBy === 'weight' ? order : false}>
-                <TableSortLabel
-                  active={orderBy === 'weight'}
-                  direction={orderBy === 'weight' ? order : 'asc'}
-                  onClick={() => {
-                    const isAsc = orderBy === 'weight' && order === 'asc';
-                    setOrder(isAsc ? 'desc' : 'asc');
-                    setOrderBy('weight');
-                  }}
-                >
-                  Weight
-                </TableSortLabel>
-              </TableCell>
-              <TableCell sortDirection={orderBy === 'stance' ? order : false}>
-                <TableSortLabel
-                  active={orderBy === 'stance'}
-                  direction={orderBy === 'stance' ? order : 'asc'}
-                  onClick={() => {
-                    const isAsc = orderBy === 'stance' && order === 'asc';
-                    setOrder(isAsc ? 'desc' : 'asc');
-                    setOrderBy('stance');
-                  }}
-                >
-                  Stance
-                </TableSortLabel>
-              </TableCell>
-              <TableCell sortDirection={orderBy === 'level' ? order : false}>
-                <TableSortLabel
-                  active={orderBy === 'level'}
-                  direction={orderBy === 'level' ? order : 'asc'}
-                  onClick={() => {
-                    const isAsc = orderBy === 'level' && order === 'asc';
-                    setOrder(isAsc ? 'desc' : 'asc');
-                    setOrderBy('level');
-                  }}
-                >
-                  Level
-                </TableSortLabel>
-              </TableCell>
+                  <TableSortLabel
+                    active={orderBy === col}
+                    direction={orderBy === col ? order : 'asc'}
+                    onClick={() => {
+                      const isAsc = orderBy === col && order === 'asc';
+                      setOrder(isAsc ? 'desc' : 'asc');
+                      setOrderBy(col);
+                    }}
+                  >
+                    {col.charAt(0).toUpperCase() + col.slice(1)}
+                  </TableSortLabel>
+                </TableCell>
+              ))}
               <TableCell>Actions</TableCell>
-              {/* Country, Age, Weight, Stance, Level, Actions */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -189,7 +179,6 @@ const BoxersTable: React.FC = () => {
                     setDialogOpen(true);
                   }}
                 >
-                  {/* PROFILE IMAGE */}
                   <TableCell>
                     <Avatar
                       src={`http://localhost:5002/uploads/${boxer.profileImage}`}
@@ -198,11 +187,21 @@ const BoxersTable: React.FC = () => {
                     />
                   </TableCell>
                   <TableCell>{boxer.name}</TableCell>
-                  <TableCell>{boxer.country}</TableCell>
-                  <TableCell>{boxer.age}</TableCell>
-                  <TableCell>{boxer.weight}</TableCell>
-                  <TableCell>{boxer.stance}</TableCell>
-                  <TableCell>{boxer.level}</TableCell>
+                  <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+                    {boxer.country}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+                    {boxer.age}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+                    {boxer.weight}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+                    {boxer.stance}
+                  </TableCell>
+                  <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
+                    {boxer.level}
+                  </TableCell>
                   <TableCell>
                     <IconButton
                       onClick={(e) => {
@@ -225,9 +224,9 @@ const BoxersTable: React.FC = () => {
                   </TableCell>
                 </TableRow>
 
-                {/* delete-confirmation */}
+                {/* delete confirm */}
                 <TableRow>
-                  <TableCell colSpan={8} style={{ padding: 0 }}>
+                  <TableCell colSpan={8} sx={{ p: 0 }}>
                     <Collapse
                       in={openModalId === boxer.id}
                       timeout="auto"
@@ -243,10 +242,10 @@ const BoxersTable: React.FC = () => {
                         <Typography>Delete {boxer.name}?</Typography>
                         <Box>
                           <IconButton onClick={() => handleDelete(boxer.id)}>
-                            <CheckIcon color="success" />
+                            <Check color="success" />
                           </IconButton>
                           <IconButton onClick={() => setOpenModalId(null)}>
-                            <CloseIcon color="error" />
+                            <Close color="error" />
                           </IconButton>
                         </Box>
                       </Box>
@@ -267,9 +266,10 @@ const BoxersTable: React.FC = () => {
           </Box>
         )}
 
+        {/* only count the filtered+sorted rows */}
         <TablePagination
           component="div"
-          count={boxers.length}
+          count={sorted.length}
           page={page}
           onPageChange={(_, p) => setPage(p)}
           rowsPerPage={rowsPerPage}
@@ -281,7 +281,7 @@ const BoxersTable: React.FC = () => {
         />
       </TableContainer>
 
-      {/* ========= DIALOG ========= */}
+      {/* Detail dialog */}
       <Dialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
@@ -297,36 +297,33 @@ const BoxersTable: React.FC = () => {
                 alt={selectedBoxer.name}
                 sx={{ width: 90, height: 90, mx: 'auto', mb: 2 }}
               />
-              <h2 className="info-box__name">{selectedBoxer.name}</h2>
-
-              <div className="info-box__details">
-                <span>Country:</span>
-                <p>{selectedBoxer.country}</p>
-              </div>
-              <div className="info-box__details">
-                <span>Age:</span>
-                <p>{selectedBoxer.age}</p>
-              </div>
-              <div className="info-box__details">
-                <span>Weight (kg):</span>
-                <p>{selectedBoxer.weight}</p>
-              </div>
-              <div className="info-box__details">
-                <span>Stance:</span>
-                <p>{selectedBoxer.stance}</p>
-              </div>
-              <div className="info-box__details">
-                <span>Level:</span>
-                <p>{selectedBoxer.level}</p>
-              </div>
+              <Typography variant="h6">{selectedBoxer.name}</Typography>
+              {(
+                ['Country', 'Age', 'Weight (kg)', 'Stance', 'Level'] as const
+              ).map((label, i) => {
+                const key = (
+                  ['country', 'age', 'weight', 'stance', 'level'] as const
+                )[i] as keyof Boxer;
+                return (
+                  <Box
+                    key={label}
+                    display="flex"
+                    justifyContent="space-between"
+                    my={1}
+                  >
+                    <Typography color="textSecondary">{label}:</Typography>
+                    <Typography>{selectedBoxer[key]}</Typography>
+                  </Box>
+                );
+              })}
+              <Box textAlign="right" mt={2}>
+                <Button onClick={() => setDialogOpen(false)}>Close</Button>
+              </Box>
             </Box>
           )}
-          <Box textAlign="right" mt={2}>
-            <Button onClick={() => setDialogOpen(false)}>Close</Button>
-          </Box>
         </DialogContent>
       </Dialog>
-    </>
+    </Box>
   );
 };
 

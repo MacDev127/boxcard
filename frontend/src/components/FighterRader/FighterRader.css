@@ -1,1 +1,6 @@
-
+/* make every recharts tooltip transparent */
+.recharts-tooltip-wrapper {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  visibility: visible;
+}

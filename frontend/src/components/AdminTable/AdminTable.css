@@ -39,6 +39,7 @@
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+  flex-direction: column;
 }
 
 .css-rvoa5x-MuiTypography-root-MuiDialogTitle-root
@@ -177,6 +178,27 @@
     overflow-x: auto !important;
   }
 }
+
+@media (max-width: 600px) {
+  .MuiTableRow-root {
+    display: flex !important;
+    justify-content: space-between;
+  }
+  /* And make each visible cell adopt its flex size:
+     Avatar and Actions can shrink, Name can grow. */
+  .MuiTableCell-root {
+    flex: 1 1 auto;
+    overflow-x: auto !important;
+  }
+  .MuiTableCell-root:first-of-type,
+  .MuiTableCell-root:last-of-type {
+    flex: 0 0 auto;
+  }
+  .css-1xtozoh-MuiTableRow-root {
+    border: none;
+  }
+}
+
 @media (max-width: 414px) {
   .MuiTableContainer-root {
     overflow-x: auto !important;
