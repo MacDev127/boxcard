@@ -101,27 +101,47 @@ const BoxersTable: React.FC = () => {
   return (
     <Box>
       {/* Search bar */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          p: 1,
-          backgroundColor: 'var(--primarybg)',
-          borderColor: 'var(--secondary-font)',
-        }}
-      >
-        <TextField
-          size="small"
-          variant="outlined"
-          placeholder="Search boxers…"
-          value={searchText}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setSearchText(e.target.value);
-            setPage(0);
+
+      <div className="search_container">
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-start', // ← align to left          p: 1,
+            backgroundColor: 'var(--primarybg)',
+            width: '100%',
           }}
-          sx={{ width: 250 }}
-        />
-      </Box>
+        >
+          <TextField
+            size="small"
+            variant="outlined"
+            placeholder="Search boxers…"
+            value={searchText}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setSearchText(e.target.value);
+              setPage(0);
+            }}
+            sx={{
+              width: 250,
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'var(--secondarybg)', // ← white border
+              },
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'var(--button)',
+              },
+              '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  borderColor: 'var(--button)',
+                },
+              '& .MuiInputBase-input': {
+                color: 'var(--secondary-font)',
+              },
+            }}
+            InputLabelProps={{
+              shrink: false,
+            }}
+          />
+        </Box>
+      </div>
 
       <TableContainer component={Paper}>
         <Table>
