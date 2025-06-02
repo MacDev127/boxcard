@@ -100,18 +100,11 @@ const BoxersTable: React.FC = () => {
 
   return (
     <Box>
-      {/* Search bar */}
-
-      <div className="search_container">
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-start', // ← align to left          p: 1,
-            backgroundColor: 'var(--primarybg)',
-            width: '100%',
-          }}
-        >
+      <TableContainer component={Paper}>
+        {/* Search bar */}
+        <div className="search-container">
           <TextField
+            className="boxer-search"
             size="small"
             variant="outlined"
             placeholder="Search boxers…"
@@ -123,7 +116,7 @@ const BoxersTable: React.FC = () => {
             sx={{
               width: 250,
               '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'var(--secondarybg)', // ← white border
+                borderColor: 'var(--secondarybg)',
               },
               '&:hover .MuiOutlinedInput-notchedOutline': {
                 borderColor: 'var(--button)',
@@ -132,19 +125,13 @@ const BoxersTable: React.FC = () => {
                 {
                   borderColor: 'var(--button)',
                 },
-              '& .MuiInputBase-input': {
-                color: 'var(--secondary-font)',
-              },
             }}
             InputLabelProps={{
               shrink: false,
             }}
           />
-        </Box>
-      </div>
-
-      <TableContainer component={Paper}>
-        <Table>
+        </div>
+        <Table className="table">
           <TableHead>
             <TableRow>
               <TableCell>Avatar</TableCell>

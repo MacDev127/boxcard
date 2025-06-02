@@ -9,6 +9,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import './BoxerForm.css';
+import Title from '../Title/Title';
 
 export interface BoxerFormData {
   name: string;
@@ -41,7 +42,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
   initialData,
   onSubmit,
   blankData,
-  submitLabel = 'Submit',
+  submitLabel = '',
   mode,
 }) => {
   // Local state for form fields
@@ -129,9 +130,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
 
   return (
     <Container maxWidth="md" className="boxer-form-container">
-      <Typography variant="h5" gutterBottom>
-        {submitLabel}
-      </Typography>
+      <Title>Add Boxer</Title>
       {error && (
         <Typography color="error" variant="body1">
           {error}

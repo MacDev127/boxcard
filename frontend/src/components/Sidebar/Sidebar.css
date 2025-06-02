@@ -23,9 +23,9 @@
 #logo img {
   width: 150px;
 }
-#drawer {
+/* #drawer {
   font-family: 'Poppins', sans-serif;
-}
+} */
 #button {
   background-color: var(--secondarybg);
   border: none;
@@ -36,9 +36,9 @@
   justify-content: center;
   align-items: center;
 }
-span {
+/* span {
   font-family: 'Poppins', sans-serif !important;
-}
+} */
 
 #button-icon {
   min-width: 40px;

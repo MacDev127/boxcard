@@ -38,7 +38,6 @@ const AdminAddBoxer: React.FC = () => {
     formData.append('fightsWon', String(data.fightsWon));
     formData.append('fightsLost', String(data.fightsLost));
     formData.append('videoUrl', data.videoUrl);
-    // Append file if provided
     if (file) {
       formData.append('profileImage', file);
     }
@@ -54,7 +53,6 @@ const AdminAddBoxer: React.FC = () => {
         initialData={defaultData}
         blankData={defaultData}
         onSubmit={handleSubmit}
-        submitLabel="Add Boxer"
         mode="create"
       />
     </div>

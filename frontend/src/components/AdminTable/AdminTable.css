@@ -22,6 +22,18 @@
   max-width: 95%; /* Prevent table from touching edges */
 }
 
+.table {
+  margin-top: 20px;
+}
+
+.search-container {
+  margin-left: 30px;
+}
+
+.css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 12px !important;
+}
+
 .css-qopi4n-MuiPaper-root-MuiDialog-paper {
   background-color: var(--secondarybg);
   color: white;
@@ -184,8 +196,7 @@
     display: flex !important;
     justify-content: space-between;
   }
-  /* And make each visible cell adopt its flex size:
-     Avatar and Actions can shrink, Name can grow. */
+
   .MuiTableCell-root {
     flex: 1 1 auto;
     overflow-x: auto !important;
@@ -196,6 +207,15 @@
   }
   .css-1xtozoh-MuiTableRow-root {
     border: none;
+  }
+
+  .search-container {
+    margin: 0;
+    padding-bottom: 20px;
+  }
+
+  .boxer-search {
+    width: 100% !important;
   }
 }
 

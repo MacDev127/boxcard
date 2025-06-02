@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { TextField, Button, MenuItem } from '@mui/material';
+import Title from '@/components/Title/Title';
 import './AddContest.css';
 
 interface Boxer {
@@ -78,8 +79,7 @@ const AddContestPage = () => {
     <>
       <div className="add-contest">
         <div className="wrapper">
-          <h2>Add Contest</h2>
-
+          <Title>Add Contest</Title>
           <form onSubmit={handleSubmit}>
             <TextField
               className="input-select"

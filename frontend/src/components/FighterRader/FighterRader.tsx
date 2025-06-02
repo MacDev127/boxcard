@@ -66,19 +66,25 @@ const FighterRadar: React.FC = () => {
         <ChartContainer
           config={chartConfig}
           className="
+     
           w-full 
-          max-w-[370px]    
+          // max-w-md:[300px] 
+          sm:max-w-[100px]
+          md:max-w-[100%]     
           mx-auto         
           h-[250px] 
           sm:h-[350px] 
           md:h-[400px]
+         md:pl-20
+
         "
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
+              className="data-chart"
               data={dummyData}
               layout="vertical"
-              margin={{ left: 0, right: 16 }}
+              margin={{ left: 34, right: 50 }}
             >
               <XAxis type="number" hide />
               <YAxis

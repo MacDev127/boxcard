@@ -12,9 +12,14 @@
   --win: #22c55e;
   --draw: #3b82f6;
 }
-
+.contact {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .contact_form {
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
   padding: 50px 30px 35px 30px;
 
