@@ -112,7 +112,7 @@ nav li a {
   width: 40%;
   height: 2px;
   bottom: -4px;
-  left: 0px;
+  left: 2px;
   position: absolute;
   background-color: var(--text-hover);
 }

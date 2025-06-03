@@ -1,0 +1,28 @@
+:root {
+  --primarybg: #111928;
+  --test: #33384a;
+  --test2: #7ec2e6;
+  --secondarybg: #272e3c;
+  --button: #6a9eed;
+  --button-hover: #6a9eed;
+  --text-hover: #90b3f1;
+  --primary-font: #ffffff;
+  --secondary-font: #8c8f98;
+  --loss: #ef4444;
+  --win: #22c55e;
+  --draw: #3b82f6;
+}
+
+.contact-page {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.contact-page__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
