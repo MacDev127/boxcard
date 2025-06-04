@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import hero from '../../images/hero.png';
 import axios from 'axios';
 import ReactCountryFlag from 'react-country-flag';
-import { getIsoCode } from './countryUtils'; // <-- your utility function path
+import { getIsoCode } from './countryUtils';
 
 interface Boxer {
   id: number;

@@ -1,11 +1,43 @@
-import React from 'react';
-import UserForm from '@/components/UserForm/UserForm';
-import Navbar from '@/components/Navbar/Navbar';
+import React, { useState } from 'react';
+import axios from 'axios';
 import hero from '../../images/hero.png';
+import Swal from 'sweetalert2';
 
 const Register = () => {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        'http://localhost:5002/api/auth/signup',
+        form
+      );
+      console.log('Signup success:', res.data);
+      Swal.fire({
+        title: 'Account Registered',
+        icon: 'success',
+        confirmButtonText: 'Back',
+      }).then(() => {
+        window.location.href = '/';
+      });
+    } catch (error: any) {
+      console.error('Signup error:', error.response?.data || error.message);
+    }
+  };
+
   return (
     <div className="flex w-screen flex-wrap text-slate-800">
+      {/* Left Hero Section */}
       <div className="relative hidden h-screen select-none flex-col justify-center bg-[#272E3C] text-center md:flex md:w-1/2">
         <div className="mx-auto py-16 px-8 text-white xl:w-[40rem]">
           <img
@@ -15,75 +47,84 @@ const Register = () => {
           />
         </div>
       </div>
-      <div className="flex w-full flex-col md:w-1/2">
-        <div className="flex justify-center pt-12 md:justify-start md:pl-12">
-          <a href="#" className="text-2xl font-bold text-blue-600"></a>
-        </div>
+
+      {/* Form Section */}
+      <div className="flex w-full flex-col  md:w-1/2">
         <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">
-          <p className="text-center text-3xl font-bold md:text-left md:leading-tight text-white">
+          <p className="text-center text-3xl font-bold md:text-left text-white">
             Create your free account
           </p>
           <p className="mt-6 text-center font-medium md:text-left text-[#8c8f98]">
             Already Registered
             <a
               href="#"
-              className="whitespace-nowrap ml-2 font-semibold text-[#6a9eed]"
+              className="whitespace-nowrap underline decoration-white text-white ml-2 font-semibold"
             >
               Login here
             </a>
           </p>
 
-          <form className="flex flex-col items-stretch pt-3 md:pt-8">
+          <form
+            className="flex flex-col items-stretch pt-3 md:pt-8"
+            onSubmit={handleSubmit}
+          >
             <div className="flex flex-col pt-4">
-              <div className="relative flex overflow-hidden rounded-md border-transparent border-1 transition focus-within:border-blue-600">
-                <input
-                  type="text"
-                  id="login-name"
-                  className="w-full flex-shrink appearance-none  bg-[#272e3c] py-3 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
-                  placeholder="Name"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col pt-4">
-              <div className="relative flex overflow-hidden rounded-md  border-transparent border-1 transition focus-within:border-blue-600">
-                <input
-                  type="email"
-                  id="login-email"
-                  className="w-full flex-shrink appearance-none  bg-[#272e3c] py-3 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
-                  placeholder="Email"
-                />
-              </div>
-            </div>
-            <div className="mb-4 flex flex-col pt-4">
-              <div className="relative flex overflow-hidden rounded-md border-1 border-transparent transition focus-within:border-blue-600">
-                <input
-                  type="password"
-                  id="login-password"
-                  className="w-full flex-shrink appearance-none  bg-[#272e3c] py-3 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
-                  placeholder="Password (minimum 8 characters)"
-                />
-              </div>
-            </div>
-            <div className="block">
               <input
-                className="bg-[url('data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2020%2020%27%3e%3cpath%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%20stroke-width=%272%27%20d=%27M6%2010l3%203l6-6%27/%3e%3c/svg%3e')] bg-no-repeat
-                bg-center mr-2 h-5 w-5 appearance-none rounded border bg-contain bg-no-repeat align-top text-black shadow checked:bg-blue-600 focus:border-blue-600 focus:shadow"
-                type="checkbox"
-                id="remember-me"
-                checked
+                type="text"
+                required
+                name="name"
+                placeholder="Name"
+                value={form.name}
+                onChange={handleChange}
+                className="w-full bg-[#272e3c] py-3 px-4 text-base text-white placeholder-gray-400 rounded-md focus:outline-none"
               />
-              <label className="inline-block" htmlFor="remember-me">
-                <span className="text-[#8c8f98] pr-3">I agree to the</span>
+            </div>
+
+            <div className="flex flex-col pt-4">
+              <input
+                type="email"
+                required
+                name="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={handleChange}
+                className="w-full bg-[#272e3c] py-3 px-4 text-base text-white placeholder-gray-400 rounded-md focus:outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col pt-4">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password (min 8 characters)"
+                value={form.password}
+                onChange={handleChange}
+                className="w-full bg-[#272e3c] py-3 px-4 text-base text-white placeholder-gray-400 rounded-md focus:outline-none"
+                required
+              />
+            </div>
+
+            <div className="block pt-4 flex mt-3 align-">
+              <input
+                className="mr-2 h-5 w-5 rounded border border-gray-300 text-blue-600 focus:ring-blue-600"
+                type="checkbox"
+                id="terms"
+                defaultChecked
+                readOnly
+              />
+              <label htmlFor="terms" className="text-[#8c8f98]">
+                I agree to the{' '}
                 <a className="underline" href="#">
                   Terms and Conditions
                 </a>
               </label>
             </div>
+
             <button
               type="submit"
-              className="mt-6 rounded-lg bg-[#6a9eed] px-4 py-2 text-center text-base font-semibold text-white shadow-md outline-none ring-blue-500 transition hover:bg-[#90b3f1] focus:ring-2 md:w-32"
+              className="mt-6 rounded-lg bg-[#6a9eed] px-4 py-2 text-white font-semibold hover:bg-[#90b3f1] transition"
             >
-              Sign in
+              Create Account
             </button>
           </form>
         </div>

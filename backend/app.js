@@ -8,6 +8,7 @@ const path = require('path');
 // Routers
 const boxerRouter = require('./routes/boxerRoutes');
 const contestRoutes = require('./routes/contestRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -58,9 +59,11 @@ app.use(express.json());
 // Routes
 app.use('/api/boxers', boxerRouter);
 app.use('/api/contests', contestRoutes);
+app.use('/api/auth', authRoutes);
 
+// ✅ mounts all boxer routes under /api
 const boxerRoutes = require('./routes/boxerRoutes');
-app.use('/api', boxerRoutes); // ✅ mounts all boxer routes under /api
+app.use('/api', boxerRoutes);
 
 // Health check route or default route
 app.get('/', (req, res) => {
