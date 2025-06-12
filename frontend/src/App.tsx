@@ -11,6 +11,7 @@ import EditBoxerPage from './pages/Admin/EditBoxer/EditBoxerPage';
 import AddContestPage from './pages/Admin/AddContest/AddContest';
 import ContactPage from './pages/Contact/ContactPage';
 import RegisterPage from './pages/Register/RegisterPage';
+import LoginPage from './pages/Login/LoginPage';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           {/* <Route path="/boxers/:id/edit" element={<BoxerEdit />} /> */}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<AdminDashboard />}>

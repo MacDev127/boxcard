@@ -1,18 +1,37 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { FaUser } from 'react-icons/fa';
-import './Navbar.css';
-import { useState } from 'react';
 import logo from '../../images/logo.png';
-import { useLocation } from 'react-router-dom';
+import './Navbar.css';
 
 const Navbar = () => {
-  const [toggleMenu, setToggleMenu] = useState<boolean>(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
   const location = useLocation();
+  const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleToggleMenu = () => {
-    setToggleMenu(!toggleMenu);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setUserName(user.name);
+    }
+  }, []);
+
+  const handleToggleMenu = () => setToggleMenu(!toggleMenu);
+
+  const toggleDropdown = () => {
+    setShowDropdown((prev) => !prev);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  };
+
   return (
     <nav>
       <div className="nav-container">
@@ -46,21 +65,50 @@ const Navbar = () => {
               </a>
             </li>
             <div className="nav-admin-sidebar">
-              <a className="admin-sidebar" href="/dashboard/analytics">
-                <p className="login-text">Login</p>
-
-                <FaUser className="admin-icon" />
-              </a>
+              {userName ? (
+                <div className="admin-sidebar">
+                  <p className="login-text">{userName}</p>
+                  <FaUser
+                    className="admin-icon"
+                    onClick={handleLogout}
+                    title="Logout"
+                  />
+                </div>
+              ) : (
+                <a className="admin-sidebar" href="/login">
+                  <p className="login-text">Login</p>
+                  <FaUser className="admin-icon" />
+                </a>
+              )}
             </div>
           </ul>
         </div>
+        <div className="relative nav-admin-desktop">
+          {userName ? (
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={toggleDropdown}
+            >
+              <p className="mt-1 text-white login-text">{userName}</p>
+              <FaUser className="ml-2.5 text-white admin-icon" />
+            </div>
+          ) : (
+            <a className="admin-desktop" href="/login">
+              <p className="login-text">Login</p>
+              <FaUser className="admin-icon" />
+            </a>
+          )}
 
-        <div className="nav-admin-desktop">
-          <a className="admin-desktop" href="/dashboard/analytics">
-            <p className="login-text">Login</p>
-
-            <FaUser className="admin-icon" />
-          </a>
+          {showDropdown && userName && (
+            <div className="absolute right-0 z-10 w-32 mt-2 text-sm text-[#8c8f98] bg-[#272e3c] rounded shadow">
+              <button
+                className="block w-full px-4 py-2 text-left cursor-pointer hover:text-red-400"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="mobile">

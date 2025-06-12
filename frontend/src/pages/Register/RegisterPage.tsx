@@ -8,6 +8,7 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +17,15 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+      Swal.fire({
+        title: 'Passwords Do Not Match',
+        text: 'Please make sure both passwords are the same.',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
 
     try {
       const res = await axios.post(
@@ -23,6 +33,7 @@ const Register = () => {
         form
       );
       console.log('Signup success:', res.data);
+
       Swal.fire({
         title: 'Account Registered',
         icon: 'success',
@@ -32,33 +43,46 @@ const Register = () => {
       });
     } catch (error: any) {
       console.error('Signup error:', error.response?.data || error.message);
+
+      const message =
+        error.response?.data?.message === 'Email already exists'
+          ? 'This email is already in use. Please try logging in or use another email.'
+          : error.response?.data?.message ||
+            'Something went wrong. Please try again.';
+
+      Swal.fire({
+        title: 'Registration Failed',
+        text: message,
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
     }
   };
 
   return (
-    <div className="flex w-screen flex-wrap text-slate-800">
+    <div className="flex flex-wrap w-screen text-slate-800">
       {/* Left Hero Section */}
       <div className="relative hidden h-screen select-none flex-col justify-center bg-[#272E3C] text-center md:flex md:w-1/2">
         <div className="mx-auto py-16 px-8 text-white xl:w-[40rem]">
           <img
             src={hero}
             alt="Hero"
-            className="mx-auto w-9/12 max-w-lg rounded-lg object-cover"
+            className="object-cover w-9/12 max-w-lg mx-auto rounded-lg"
           />
         </div>
       </div>
 
       {/* Form Section */}
-      <div className="flex w-full flex-col  md:w-1/2">
+      <div className="flex flex-col w-full md:w-1/2">
         <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">
-          <p className="text-center text-3xl font-bold md:text-left text-white">
+          <p className="text-3xl font-bold text-center text-white md:text-left">
             Create your free account
           </p>
           <p className="mt-6 text-center font-medium md:text-left text-[#8c8f98]">
             Already Registered
             <a
-              href="#"
-              className="whitespace-nowrap underline decoration-white text-white ml-2 font-semibold"
+              href="/login"
+              className="ml-2 font-semibold text-white underline whitespace-nowrap decoration-white"
             >
               Login here
             </a>
@@ -103,10 +127,21 @@ const Register = () => {
                 required
               />
             </div>
-
-            <div className="block pt-4 flex mt-3 align-">
+            <div className="flex flex-col pt-4">
               <input
-                className="mr-2 h-5 w-5 rounded border border-gray-300 text-blue-600 focus:ring-blue-600"
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                className="w-full bg-[#272e3c] py-3 px-4 text-base text-white placeholder-gray-400 rounded-md focus:outline-none"
+                required
+              />
+            </div>
+
+            <div className="flex block pt-4 mt-3 align-">
+              <input
+                className="w-5 h-5 mr-2 text-blue-600 border border-gray-300 rounded focus:ring-blue-600"
                 type="checkbox"
                 id="terms"
                 defaultChecked
