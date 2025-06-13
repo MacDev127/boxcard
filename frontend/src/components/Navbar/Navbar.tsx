@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { FaUser } from 'react-icons/fa';
+import { MdOutlineLogout } from 'react-icons/md';
+
 import logo from '../../images/logo.png';
 import './Navbar.css';
 
@@ -29,7 +31,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
   return (
@@ -64,21 +66,37 @@ const Navbar = () => {
                 Contact
               </a>
             </li>
-            <div className="nav-admin-sidebar">
+            <div className="relative nav-admin-sidebar">
               {userName ? (
                 <div className="admin-sidebar">
-                  <p className="login-text">{userName}</p>
+                  <p className="pt-1 font-normal text-[#6a9eed] cursor-pointer ">
+                    {userName}
+                  </p>
                   <FaUser
-                    className="admin-icon"
-                    onClick={handleLogout}
+                    className="admin-icon text-[#6a9eed]"
+                    onClick={toggleDropdown}
                     title="Logout"
+                    cursor="pointer"
                   />
                 </div>
               ) : (
                 <a className="admin-sidebar" href="/login">
-                  <p className="login-text">Login</p>
+                  <p className="pt-1 font-normal ">Login</p>
                   <FaUser className="admin-icon" />
                 </a>
+              )}
+
+              {/* ✅ Add this dropdown here too */}
+              {showDropdown && userName && (
+                <div className="absolute left-0 z-10 w-28 mt-10 flex text-sm text-[#8c8f98] bg-[#111928] rounded shadow">
+                  <button
+                    className="flex items-center block w-full gap-2 px-5 py-2 text-left cursor-pointer hover:text-red-400"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                    <MdOutlineLogout />
+                  </button>
+                </div>
               )}
             </div>
           </ul>
@@ -89,23 +107,26 @@ const Navbar = () => {
               className="flex items-center cursor-pointer"
               onClick={toggleDropdown}
             >
-              <p className="mt-1 text-white login-text">{userName}</p>
-              <FaUser className="ml-2.5 text-white admin-icon" />
+              <p className="mt-1 text-[#6a9eed] font-medium tracking-wide login-text">
+                {userName}
+              </p>
+              <FaUser className="ml-2.5 text-[#6a9eed] admin-icon" />
             </div>
           ) : (
             <a className="admin-desktop" href="/login">
-              <p className="login-text">Login</p>
+              <p className="pt-1 font-normal ">Login</p>
               <FaUser className="admin-icon" />
             </a>
           )}
 
           {showDropdown && userName && (
-            <div className="absolute right-0 z-10 w-32 mt-2 text-sm text-[#8c8f98] bg-[#272e3c] rounded shadow">
+            <div className="absolute right-0 z-10 w-28 mt-2 flex text-sm text-[#8c8f98] bg-[#272e3c] rounded shadow">
               <button
-                className="block w-full px-4 py-2 text-left cursor-pointer hover:text-red-400"
+                className="flex items-center block w-full gap-2 px-5 py-2 text-left cursor-pointer hover:text-red-400"
                 onClick={handleLogout}
               >
                 Logout
+                <MdOutlineLogout />
               </button>
             </div>
           )}

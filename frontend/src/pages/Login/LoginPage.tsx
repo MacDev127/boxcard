@@ -28,18 +28,12 @@ const LoginPage = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      Swal.fire({
-        title: 'Login Successful',
-        icon: 'success',
-        confirmButtonText: 'Continue',
-      }).then(() => {
-        // Redirect based on user role
-        if (user.role === 'admin') {
-          window.location.href = '/dashboard';
-        } else {
-          window.location.href = '/';
-        }
-      });
+      // Redirect based on user role
+      if (user.role === 'admin') {
+        window.location.href = '/dashboard/analytics';
+      } else {
+        window.location.href = '/';
+      }
     } catch (error: any) {
       console.error('Login error:', error.response?.data || error.message);
 
@@ -55,7 +49,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-wrap w-screen text-slate-800">
       {/* Left Hero Section */}
-      <div className="relative hidden h-screen select-none flex-col justify-center bg-[#272E3C] text-center md:flex md:w-1/2">
+      <div className="relative hidden  h-screen select-none flex-col justify-center bg-[#272E3C] text-center md:flex md:w-1/2">
         <div className="mx-auto py-16 px-8 text-white xl:w-[40rem]">
           <img
             src={hero}
@@ -66,7 +60,7 @@ const LoginPage = () => {
       </div>
 
       {/* Form Section */}
-      <div className="flex flex-col w-full md:w-1/2">
+      <div className="flex flex-col w-full h-[100vh] md:w-1/2">
         <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-6 md:justify-center lg:w-[28rem]">
           <p className="text-3xl font-bold text-center text-white md:text-center">
             Welcome Back
@@ -101,7 +95,7 @@ const LoginPage = () => {
               <input
                 type="password"
                 name="password"
-                placeholder="Password (min 8 characters)"
+                placeholder="Password"
                 value={form.password}
                 onChange={handleChange}
                 className="w-full bg-[#272e3c] py-3 px-4 text-base text-white placeholder-gray-400 rounded-md focus:outline-none"
@@ -111,7 +105,7 @@ const LoginPage = () => {
 
             <button
               type="submit"
-              className="mt-6 rounded-lg bg-[#6a9eed] px-4 py-2 text-white font-semibold hover:bg-[#90b3f1] transition"
+              className="mt-6 rounded-lg bg-[#6a9eed] px-4 py-2 text-black font-semibold hover:bg-[#90b3f1] transition cursor-pointer"
             >
               Log In
             </button>

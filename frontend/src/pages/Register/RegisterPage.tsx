@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import hero from '../../images/hero.png';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -37,9 +38,9 @@ const Register = () => {
       Swal.fire({
         title: 'Account Registered',
         icon: 'success',
-        confirmButtonText: 'Back',
+        confirmButtonText: 'Login to continue',
       }).then(() => {
-        window.location.href = '/';
+        window.location.href = '/login';
       });
     } catch (error: any) {
       console.error('Signup error:', error.response?.data || error.message);
@@ -73,23 +74,22 @@ const Register = () => {
       </div>
 
       {/* Form Section */}
-      <div className="flex flex-col w-full md:w-1/2">
+      <div className="flex flex-col w-full h-[100vh] md:w-1/2">
         <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">
-          <p className="text-3xl font-bold text-center text-white md:text-left">
+          c{' '}
+          <p className="text-2xl font-bold text-center text-white md:text-3xl md:text-left">
             Create your free account
           </p>
-          <p className="mt-6 text-center font-medium md:text-left text-[#8c8f98]">
-            Already Registered
-            <a
-              href="/login"
-              className="ml-2 font-semibold text-white underline whitespace-nowrap decoration-white"
-            >
+          <div className="mt-6 text-center md:text-left">
+            <p className="inline text-[#8c8f98] font-medium">
+              Already Registered
+            </p>
+            <a href="/login" className="inline ml-2 font-semibold text-white ">
               Login here
             </a>
-          </p>
-
+          </div>
           <form
-            className="flex flex-col items-stretch pt-3 md:pt-8"
+            className="flex flex-col items-stretch pt-3 md:pt-6"
             onSubmit={handleSubmit}
           >
             <div className="flex flex-col pt-4">
@@ -144,8 +144,8 @@ const Register = () => {
                 className="w-5 h-5 mr-2 text-blue-600 border border-gray-300 rounded focus:ring-blue-600"
                 type="checkbox"
                 id="terms"
-                defaultChecked
                 readOnly
+                required
               />
               <label htmlFor="terms" className="text-[#8c8f98]">
                 I agree to the{' '}
@@ -157,7 +157,7 @@ const Register = () => {
 
             <button
               type="submit"
-              className="mt-6 rounded-lg bg-[#6a9eed] px-4 py-2 text-white font-semibold hover:bg-[#90b3f1] transition"
+              className="mt-6 rounded-lg bg-[#6a9eed] px-4 py-2 text-black font-semibold hover:bg-[#90b3f1] cursor-pointer transition"
             >
               Create Account
             </button>
