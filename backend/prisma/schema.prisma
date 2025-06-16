@@ -62,7 +62,19 @@ model User {
   role     String   @default("user") // can be "user" or "admin"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  resetTokens PasswordResetToken[]
+
 }
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
 
 
 

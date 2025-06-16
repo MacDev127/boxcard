@@ -102,6 +102,14 @@ const LoginPage = () => {
                 required
               />
             </div>
+            <p className="mt-4 text-sm text-left text-[#8c8f98]">
+              <a
+                href="/forgot-password"
+                className="underline text-white hover:text-[#6a9eed]"
+              >
+                Forgot your password?
+              </a>
+            </p>
 
             <button
               type="submit"

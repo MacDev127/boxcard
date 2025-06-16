@@ -55,3 +55,38 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: 'Login failed', details: error.message });
   }
 };
+
+const crypto = require('crypto');
+
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user)
+      return res.status(400).json({ message: 'No user found with that email' });
+
+    // Generate token
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
+
+    await prisma.passwordResetToken.create({
+      data: {
+        token,
+        userId: user.id,
+        expiresAt,
+      },
+    });
+
+    const resetLink = `http://localhost:3000/reset-password/${token}`;
+
+    // TODO: Send email using nodemailer or similar
+    console.log('Send this link via email:', resetLink);
+
+    res.json({ message: 'Password reset link has been sent to your email.' });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: 'Something went wrong', error: err.message });
+  }
+};
