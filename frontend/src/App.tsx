@@ -13,6 +13,7 @@ import ContactPage from './pages/Contact/ContactPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import LoginPage from './pages/Login/LoginPage';
 import ForgotPassword from './pages/Password/ForgotPasswordPage';
+import ResetPassword from './pages/Password/ResetPasswordPage';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Dashboard Routes */}
           <Route path="/dashboard" element={<AdminDashboard />}>

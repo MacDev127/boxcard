@@ -19,6 +19,7 @@
   max-height: calc(100vh - 200px) !important;
   overflow-x: hidden !important; /* Prevent horizontal scrolling */
   width: 100%;
+
   max-width: 95%; /* Prevent table from touching edges */
 }
 
@@ -28,6 +29,11 @@
 
 .search-container {
   margin-left: 30px;
+}
+
+.css-1dc80h3-MuiTableCell-root,
+.MuiTableCell-body {
+  border-bottom: none !important;
 }
 
 .css-1pzfmz2-MuiInputBase-input-MuiOutlinedInput-input {
@@ -69,6 +75,29 @@
   background-color: var(--secondarybg) !important;
   color: white !important;
 }
+.css-1ro85z9-MuiTypography-root,
+.css-rizt0-MuiTypography-root,
+.css-1miy0lu-MuiTypography-root,
+.css-rvoa5x-MuiTypography-root-MuiDialogTitle-root {
+  color: white !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.dialog-button {
+  background-color: #6a9eed !important;
+  color: #111928 !important;
+  font-weight: 500 !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.dialog-button:hover {
+  background-color: #90b3f1 !important;
+}
+
+.css-1pup0r6 {
+  border-bottom: 1px solid #8c8f98;
+  padding-bottom: 3px;
+}
 
 .info-box__name {
   font-size: 20px;
@@ -80,6 +109,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 6px;
   border-bottom: 1px solid var(--secondary-font);
 }

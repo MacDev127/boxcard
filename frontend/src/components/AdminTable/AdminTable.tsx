@@ -324,7 +324,12 @@ const BoxersTable: React.FC = () => {
                 );
               })}
               <Box textAlign="right" mt={2}>
-                <Button onClick={() => setDialogOpen(false)}>Close</Button>
+                <Button
+                  className="dialog-button"
+                  onClick={() => setDialogOpen(false)}
+                >
+                  Close
+                </Button>
               </Box>
             </Box>
           )}

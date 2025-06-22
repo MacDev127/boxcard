@@ -91,7 +91,7 @@ table th {
   }
 
   table tr {
-    border-bottom: 2px solid var(--secondary-font);
+    /* border-bottom: 2px solid var(--secondary-font); */
     display: block;
     margin-bottom: 0.625em;
   }
