@@ -47,36 +47,33 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-wrap w-screen text-slate-800">
-      {/* Left Hero Section */}
-      <div className="relative hidden  h-screen select-none flex-col justify-center bg-[#272E3C] text-center md:flex md:w-1/2">
-        <div className="mx-auto py-16 px-8 text-white xl:w-[40rem]">
-          <img
-            src={hero}
-            alt="Hero"
-            className="object-cover w-9/12 max-w-lg mx-auto rounded-lg"
-          />
-        </div>
-      </div>
-
+    <div className="flex flex-wrap justify-center w-screen h-screen align-center text-slate-800">
       {/* Form Section */}
-      <div className="flex flex-col w-full h-[100vh] md:w-1/2">
+
+      <div className="flex flex-col w-full md:w-1/2">
         <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-6 md:justify-center lg:w-[28rem]">
-          <p className="text-3xl font-bold text-center text-white md:text-center">
-            Welcome Back
-          </p>
-          <p className="mt-6 text-center font-medium md:text-center text-[#8c8f98]">
+          <div className="pb-6 text-white">
+            <a href="/">
+              <img
+                src={hero}
+                alt="Hero"
+                className="object-cover w-10/12 max-w-lg mx-auto rounded-lg"
+              />
+            </a>
+          </div>
+          <p className="mt-1 text-left font-medium md:text-center text-[#8c8f98]">
             Dont have an account?
             <a
               href="/register"
-              className="ml-2 font-semibold text-white underline whitespace-nowrap decoration-white"
+              className="ml-2 font-semibold text-[#6a9eed]! underline!
+              whitespace-nowrap "
             >
               Get Started
             </a>
           </p>
 
           <form
-            className="flex flex-col items-stretch pt-3 md:pt-8"
+            className="flex flex-col items-stretch md:pt-2"
             onSubmit={handleSubmit}
           >
             <div className="flex flex-col pt-4">
@@ -102,10 +99,10 @@ const LoginPage = () => {
                 required
               />
             </div>
-            <p className="mt-4 text-sm text-left text-[#8c8f98]">
+            <p className="mt-6 text-sm text-left text-[#8c8f98]">
               <a
                 href="/forgot-password"
-                className="underline text-white hover:text-[#6a9eed]"
+                className="underline! text-white hover:text-[#6a9eed]"
               >
                 Forgot your password?
               </a>
@@ -113,7 +110,7 @@ const LoginPage = () => {
 
             <button
               type="submit"
-              className="mt-6 rounded-lg bg-[#6a9eed] px-4 py-2 text-black font-semibold hover:bg-[#90b3f1] transition cursor-pointer"
+              className="mt-3 rounded-lg bg-[#6a9eed] px-4 py-2 text-black font-semibold hover:bg-[#90b3f1] transition cursor-pointer"
             >
               Log In
             </button>
