@@ -1,4 +1,3 @@
-// src/components/Card/Card.tsx
 import './Card.css';
 import ReactCountryFlag from 'react-country-flag';
 import { getIsoCode } from './countryUtils';
@@ -32,7 +31,6 @@ const Card = ({ boxer }: CardProps) => {
               ? `http://localhost:5002/uploads/${boxer.profileImage}`
               : '../../images/profile.png'
           }
-          // src={boxer.profileImage || '../../images/profile.png'}
           alt={boxer.name || 'Boxer Profile'}
         />
       </div>

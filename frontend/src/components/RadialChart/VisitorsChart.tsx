@@ -55,7 +55,7 @@ export function VisitorsChart() {
               radialLines={false}
               stroke="none"
               style={{
-                fill: 'var(--secondarybg)', // sets the main thick arc fill
+                fill: 'var(--secondarybg)',
               }}
               polarRadius={[86, 74]}
             />
@@ -78,7 +78,7 @@ export function VisitorsChart() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className=" text-4xl  font-bold"
+                          className="text-4xl font-bold "
                         >
                           {chartData[0].visitors.toLocaleString()}
                         </tspan>
@@ -96,7 +96,7 @@ export function VisitorsChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Trending up by 5.2% this month <TrendingUp className="w-4 h-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Showing total visitors for the last 6 months

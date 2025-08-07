@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import BoxerList from './pages/Boxers/BoxerList/BoxerList';
 import BoxerDetail from './pages/Boxers/BoxerDetails/BoxerDetail';
-// import BoxerEdit from './pages/Boxers/BoxerEdit';
 import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard';
 import AddBoxerPage from './pages/Admin/AddBoxer/AddBoxerPage';
 import ManageBoxerPage from './pages/Admin/ManageBoxer/ManageBoxerPage';
@@ -23,7 +22,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/boxers" element={<BoxerList />} />
           <Route path="/boxers/:id" element={<BoxerDetail />} />
-          {/* <Route path="/boxers/:id/edit" element={<BoxerEdit />} /> */}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />

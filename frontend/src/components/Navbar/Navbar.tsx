@@ -86,7 +86,6 @@ const Navbar = () => {
                 </a>
               )}
 
-              {/* ✅ Add this dropdown here too */}
               {showDropdown && userName && (
                 <div className="absolute left-0 z-10 w-28 mt-10 flex text-sm text-[#8c8f98] bg-[#111928] rounded shadow">
                   <button

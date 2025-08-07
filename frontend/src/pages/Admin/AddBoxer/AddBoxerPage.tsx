@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import './AddBoxer.css';
 import BoxerForm, {
@@ -22,7 +21,7 @@ const defaultData: BoxerFormData = {
   profileImage: '',
 };
 
-const AdminAddBoxer: React.FC = () => {
+const AdminAddBoxer = () => {
   const handleSubmit = async (data: BoxerFormData, file?: File) => {
     const formData = new FormData();
     formData.append('name', data.name);

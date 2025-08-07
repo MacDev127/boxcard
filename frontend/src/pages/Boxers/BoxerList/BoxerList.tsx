@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from '../../../components/Card/Card';
 import Navbar from '../../../components/Navbar/Navbar';
-import Footer from '../../../components/footer/Footer';
+import Footer from '../../../components/Footer/Footer';
 import AOS from 'aos';
 import { RiResetLeftFill } from 'react-icons/ri';
 import { FaFilter } from 'react-icons/fa';

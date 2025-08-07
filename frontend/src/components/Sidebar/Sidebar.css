@@ -23,9 +23,7 @@
 #logo img {
   width: 150px;
 }
-/* #drawer {
-  font-family: 'Poppins', sans-serif;
-} */
+
 #button {
   background-color: var(--secondarybg);
   border: none;
@@ -36,9 +34,6 @@
   justify-content: center;
   align-items: center;
 }
-/* span {
-  font-family: 'Poppins', sans-serif !important;
-} */
 
 #button-icon {
   min-width: 40px;
@@ -47,14 +42,9 @@
   font-size: 15px !important;
 }
 
-/* #button:hover {
-  background-color: var(--btn-hover);
-} */
-
 .css-1lwhjos-MuiPaper-root-MuiDrawer-paper {
   background-color: var(--secondarybg) !important;
   padding: 0 20px;
-  /* position: relative !important; */
 }
 .css-176wsp5-MuiListItemIcon-root {
   min-width: 40px !important;

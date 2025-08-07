@@ -4,12 +4,9 @@ const app = require('../app'); // The Express app
 const prisma = require('../config/db');
 
 describe('Boxer API', () => {
-  beforeAll(async () => {
-    // Optionally set up test data or migrations
-  });
+  beforeAll(async () => {});
 
   afterAll(async () => {
-    // Clean up or close DB connection
     await prisma.$disconnect();
   });
 

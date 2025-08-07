@@ -1,15 +1,13 @@
 // DashboardPage.tsx
-import React from 'react';
+
 import Analytic from '../../../components/Analytic/Analytic';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import TimerIcon from '@mui/icons-material/Timer';
 import LogoutIcon from '@mui/icons-material/Logout';
 import './Analytic.css';
-import { VisitorsChart } from '@/components/RadialChart/VisitorsChart';
-import { ChartContainer } from '@/components/ui/chart';
 
-const AnalyticsPage: React.FC = () => {
+const AnalyticsPage = () => {
   return (
     <div className="analytic-page">
       <div className="analytic-page__container">
@@ -34,12 +32,6 @@ const AnalyticsPage: React.FC = () => {
           data="48%"
         />
       </div>
-      {/* <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 ">
-        <VisitorsChart />
-        <VisitorsChart />
-        <VisitorsChart />
-        <VisitorsChart />
-      </div> */}
     </div>
   );
 };

@@ -24,29 +24,24 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Custom media query for screens ≤768px
   const isMobile = useMediaQuery('(max-width:768px)');
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Determine if a route is currently active
   const isActive = (path: string) => location.pathname.startsWith(path);
 
-  // Toggle the mobile drawer open/close
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  // Shared drawer paper styling
   const drawerPaperSx = {
     boxSizing: 'border-box',
     width: drawerWidth,
-    backgroundColor: '#272e3c', // Example background color; adjust as needed
+    backgroundColor: '#272e3c',
   };
 
-  // Sidebar content (common to both permanent & temporary)
+  // Sidebar content
   const drawerContent = (
     <List sx={{ padding: 0, marginLeft: '10px' }}>
-      {/* Logo area (not clickable by default) */}
       <div id="logo">
         <Link href="/">
           <img src={logo} alt="Logo" />
@@ -74,7 +69,6 @@ const Sidebar: React.FC = () => {
           '&.Mui-selected:hover': {
             backgroundColor: 'rgba(106, 158, 237, 0.2)',
           },
-          // Optional: If you also want a custom hover for non-selected
           '&:hover': {
             backgroundColor: 'rgba(255,255,255,0.06)',
           },
@@ -179,7 +173,6 @@ const Sidebar: React.FC = () => {
           '&.Mui-selected:hover': {
             backgroundColor: 'rgba(106, 158, 237, 0.2)',
           },
-          // Optional: If you also want a custom hover for non-selected
           '&:hover': {
             backgroundColor: 'rgba(255,255,255,0.06)',
           },
@@ -200,7 +193,6 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      {/* Hamburger menu icon (top-right) for ≤768px */}
       {isMobile && (
         <IconButton
           onClick={handleDrawerToggle}
@@ -208,8 +200,8 @@ const Sidebar: React.FC = () => {
             position: 'fixed',
             top: '16px',
             right: '16px',
-            color: '#ffffff', // Icon color
-            zIndex: 1300, // Ensure the icon is on top
+            color: '#ffffff',
+            zIndex: 1300,
           }}
         >
           <MenuIcon />

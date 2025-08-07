@@ -55,7 +55,7 @@ const BoxerForm: React.FC<BoxerFormProps> = ({
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [bioError, setBioError] = useState<string | null>(null);
 
-  // Update the form data if the initial data changes (useful for edit page)
+  // Update the form data if the initial data changes
   useEffect(() => {
     setFormData(initialData);
   }, [initialData]);

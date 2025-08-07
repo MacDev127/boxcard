@@ -26,8 +26,6 @@ exports.getContestsForBoxer = async (req, res) => {
   }
 };
 
-// in the same file…
-
 // POST /api/contests
 exports.createContest = async (req, res) => {
   const { date, result, boxer1Id, boxer2Id, winnerId, competition } = req.body;

@@ -78,7 +78,7 @@ exports.forgotPassword = async (req, res) => {
       },
     });
 
-    const resetLink = `http://localhost:3000/reset-password/${token}`; // Adjust frontend port if needed
+    const resetLink = `http://localhost:3000/reset-password/${token}`;
 
     // Setup email transport
     const transporter = nodemailer.createTransport({

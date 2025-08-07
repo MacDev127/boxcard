@@ -1,7 +1,3 @@
-// src/utils/mockStats.ts
-
-// import type { ContestResults } from '../components/Table/Table';
-
 // Radar chart metrics
 export const radarData = [
   { metric: 'Punches Thrown', value: 120 },
@@ -28,8 +24,6 @@ export const punchBreakdown = [
   { type: 'Upper', count: 15 },
 ];
 
-// Later on, when you have real contestData you can map this dynamically:
-// Here we just export an empty placeholder for type safety:
 export const emptyRecord = [
   { label: 'Wins', value: 0 },
   { label: 'Losses', value: 0 },

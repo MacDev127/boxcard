@@ -1,5 +1,4 @@
 // src/components/Table/Table.tsx
-import React from 'react';
 import './Table.css';
 
 export interface ContestResults {
@@ -19,7 +18,7 @@ interface TableProps {
   boxerId: number;
 }
 
-const Table: React.FC<TableProps> = ({ bouts, boxerId }) => {
+const Table = ({ bouts, boxerId }: TableProps) => {
   return (
     <table className="results-table">
       <thead>

@@ -2,7 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const {
-  createContest /*, updateContest, deleteContest…*/,
+  createContest,
+  updateContest,
+  deleteContest,
 } = require('../controllers/contestController');
 
 router.post('/', createContest);

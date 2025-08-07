@@ -8,8 +8,7 @@ export function getIsoCode(countryName: string): string {
       return 'US';
     case 'united kingdom':
       return 'GB';
-    // Add as many cases as you need
     default:
-      return 'UN'; // 'UN' is a fallback if no match
+      return 'UN';
   }
 }

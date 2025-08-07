@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import Profile from '../../../components/Profile/Profile';
 import Navbar from '../../../components/Navbar/Navbar';
-import Footer from '../../../components/footer/Footer';
+import Footer from '../../../components/Footer/Footer';
 import './BoxerDetails.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';

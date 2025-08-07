@@ -1,11 +1,9 @@
-import React from 'react';
-
 const UserForm = () => {
   return (
-    <div className="bg-white w-screen font-sans text-gray-900">
-      <div className=" ">
-        <div className="mx-auto w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
-          <div className="mx-2 py-12 text-center md:mx-auto md:w-2/3 md:py-20">
+    <div className="w-screen font-sans text-gray-900 bg-white">
+      <div className="">
+        <div className="w-full mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
+          <div className="py-12 mx-2 text-center md:mx-auto md:w-2/3 md:py-20">
             <h1 className="mb-4 text-3xl font-black leading-4 sm:text-5xl xl:text-6xl">
               Sign up
             </h1>
@@ -20,41 +18,41 @@ const UserForm = () => {
           </div>
         </div>
       </div>
-      <div className="md:w-2/3 mx-auto w-full pb-16 sm:max-w-screen-sm md:max-w-screen-md lg:w-1/3 lg:max-w-screen-lg xl:max-w-screen-xl">
-        <form className="shadow-lg mb-4 rounded-lg border border-gray-100 py-10 px-8">
+      <div className="w-full pb-16 mx-auto md:w-2/3 sm:max-w-screen-sm md:max-w-screen-md lg:w-1/3 lg:max-w-screen-lg xl:max-w-screen-xl">
+        <form className="px-8 py-10 mb-4 border border-gray-100 rounded-lg shadow-lg">
           <div className="mb-4">
-            <label className="mb-2 block text-sm font-bold" htmlFor="name">
+            <label className="block mb-2 text-sm font-bold" htmlFor="name">
               Full Name
             </label>
             <input
-              className="shadow-sm w-full cursor-text appearance-none rounded border border-gray-300 py-2 px-3 leading-tight outline-none ring-blue-500 focus:ring"
+              className="w-full px-3 py-2 leading-tight border border-gray-300 rounded shadow-sm outline-none appearance-none cursor-text ring-blue-500 focus:ring"
               id="name"
               type="name"
               placeholder="Full Name"
               required
             />
-            <span className="my-2 block"></span>
+            <span className="block my-2"></span>
           </div>
           <div className="mb-4">
-            <label className="mb-2 block text-sm font-bold" htmlFor="email">
+            <label className="block mb-2 text-sm font-bold" htmlFor="email">
               E-mail
             </label>
             <input
-              className="shadow-sm w-full cursor-text appearance-none rounded border border-gray-300 py-2 px-3 leading-tight outline-none ring-blue-500 focus:ring"
+              className="w-full px-3 py-2 leading-tight border border-gray-300 rounded shadow-sm outline-none appearance-none cursor-text ring-blue-500 focus:ring"
               id="email"
               type="email"
               placeholder="email"
               required
             />
-            <span className="my-2 block"></span>
+            <span className="block my-2"></span>
           </div>
 
           <div className="mb-4">
-            <label className="mb-2 block text-sm font-bold" htmlFor="password">
+            <label className="block mb-2 text-sm font-bold" htmlFor="password">
               Password
             </label>
             <input
-              className="shadow-sm w-full cursor-text appearance-none rounded border border-gray-300 py-2 px-3 leading-tight outline-none ring-blue-500 focus:ring"
+              className="w-full px-3 py-2 leading-tight border border-gray-300 rounded shadow-sm outline-none appearance-none cursor-text ring-blue-500 focus:ring"
               id="password"
               type="password"
               placeholder="******************"
@@ -65,7 +63,7 @@ const UserForm = () => {
           <div className="flex items-center">
             <div className="flex-1"></div>
             <button
-              className="cursor-pointer rounded bg-blue-600 py-2 px-8 text-center text-lg font-bold  text-white"
+              className="px-8 py-2 text-lg font-bold text-center text-white bg-blue-600 rounded cursor-pointer"
               type="submit"
             >
               Create account

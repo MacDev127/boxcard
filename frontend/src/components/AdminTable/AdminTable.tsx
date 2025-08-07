@@ -41,7 +41,7 @@ interface Boxer {
 
 type Order = 'asc' | 'desc';
 
-const BoxersTable: React.FC = () => {
+const BoxersTable = () => {
   const navigate = useNavigate();
 
   const [boxers, setBoxers] = useState<Boxer[]>([]);

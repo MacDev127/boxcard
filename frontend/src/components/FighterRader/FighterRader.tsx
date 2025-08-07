@@ -1,6 +1,5 @@
 // src/components/FighterRadar.tsx
 
-import React from 'react';
 import {
   ResponsiveContainer,
   BarChart,
@@ -50,14 +49,14 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const FighterRadar: React.FC = () => {
+const FighterRadar = () => {
   return (
     <Card className="bg-transparent border-none shadow-none">
       <CardHeader className="pb-2">
-        <CardTitle className="text-white text-center text-base">
+        <CardTitle className="text-base text-center text-white">
           Average per-fight metrics
         </CardTitle>
-        <CardTitle className="text-white text-center text-base">
+        <CardTitle className="text-base text-center text-white">
           for previous 5 bouts
         </CardTitle>
       </CardHeader>
@@ -124,8 +123,8 @@ const FighterRadar: React.FC = () => {
       </CardContent>
 
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center justify-center gap-2 text-white font-medium">
-          Trending up from last 5 fights <TrendingUp className="h-4 w-4" />
+        <div className="flex items-center justify-center gap-2 font-medium text-white">
+          Trending up from last 5 fights <TrendingUp className="w-4 h-4" />
         </div>
       </CardFooter>
     </Card>

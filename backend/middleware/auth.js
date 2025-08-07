@@ -17,7 +17,6 @@ exports.verifyToken = (req, res, next) => {
   }
 };
 
-// If you have admin logic:
 exports.verifyAdmin = (req, res, next) => {
   // After verifying token, check if user has admin role
   if (req.user && req.user.isAdmin) {

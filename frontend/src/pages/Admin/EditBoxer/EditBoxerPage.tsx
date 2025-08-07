@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography } from '@mui/material';
 import BoxerForm, {
@@ -8,9 +8,8 @@ import BoxerForm, {
 import './EditBoxerPage.css';
 import Swal from 'sweetalert2';
 
-const EditBoxerPage: React.FC = () => {
+const EditBoxerPage = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [initialData, setInitialData] = useState<BoxerFormData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,8 +53,6 @@ const EditBoxerPage: React.FC = () => {
         window.location.href = '/dashboard/manage-boxer';
       });
     }
-
-    // navigate('/dashboard/manage-boxer', { state: { reload: true } });
   };
 
   if (!initialData) {

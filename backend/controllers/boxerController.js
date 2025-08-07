@@ -4,7 +4,7 @@ const prisma = require('../config/db');
 exports.createBoxer = async (req, res) => {
   try {
     // Store ONLY the filename (no "uploads/" prefix)
-    const profileImage = req.file ? req.file.filename : null; // ⚠️ Critical change
+    const profileImage = req.file ? req.file.filename : null;
 
     const data = {
       name: req.body.name,
@@ -47,7 +47,6 @@ exports.getAllBoxers = async (req, res) => {
       filters.country = country;
     }
     if (weight) {
-      // If weight is stored as a number in the database, you might want to convert it
       filters.weight = parseInt(weight);
     }
     if (level) {
@@ -154,7 +153,6 @@ exports.deleteBoxer = async (req, res) => {
 // GET distinct weights
 exports.getDistinctWeights = async (req, res) => {
   try {
-    // Using Prisma's groupBy to get unique weights
     const weights = await prisma.boxer.groupBy({
       by: ['weight'],
       orderBy: { weight: 'asc' },
