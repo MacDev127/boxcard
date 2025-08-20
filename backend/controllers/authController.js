@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
 const SECRET = process.env.JWT_SECRET || 'your-secret-key'; // store this in .env
 
+//Signup: Creates a new user after checking the email doesn’t exist. It hashes the password with bcrypt and returns a JWT.
 exports.signup = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -29,6 +30,7 @@ exports.signup = async (req, res) => {
   }
 };
 
+//Login: Checks if the user exists and if the password matches. If valid, returns a JWT and basic user info.
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -58,6 +60,8 @@ exports.login = async (req, res) => {
 
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+
+//Forgot Password: When a user requests a reset, it generates a secure token, stores it in the database, and sends a reset email with a link.
 
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -109,6 +113,7 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
+// Reset Password: When the user submits a new password and valid token, it hashes the new password, updates the user record, and deletes the used token.
 exports.resetPassword = async (req, res) => {
   const { token, password } = req.body;
 

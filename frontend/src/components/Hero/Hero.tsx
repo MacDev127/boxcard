@@ -19,25 +19,23 @@ const Hero = () => {
   const [filteredBoxers, setFilteredBoxers] = useState<Boxer[]>([]);
 
   useEffect(() => {
+    const fetchBoxers = async () => {
+      try {
+        const response = await axios.get('http://localhost:5002/api/boxers');
+        setBoxerList(response.data);
+        setFilteredBoxers(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchBoxers();
   }, []);
 
-  const fetchBoxers = async () => {
-    try {
-      const response = await axios.get('http://localhost:5002/api/boxers');
-      setBoxerList(response.data);
-      setFilteredBoxers(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    setSearchBoxer(inputValue);
+    setSearchBoxer(e.target.value);
 
     const filtered = boxerList.filter((boxer) =>
-      boxer.name.toLowerCase().includes(inputValue.toLowerCase())
+      boxer.name.toLowerCase().includes(searchBoxer.toLowerCase())
     );
     setFilteredBoxers(filtered);
   };

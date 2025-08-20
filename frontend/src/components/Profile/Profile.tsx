@@ -32,7 +32,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!id) return;
-    (async () => {
+    const boxerDetails = async () => {
       try {
         // fetch boxer
         const { data: boxer } = await axios.get<BoxerProfile>(
@@ -49,7 +49,8 @@ const Profile = () => {
         console.error(err);
         setError('Failed to load profile or contests');
       }
-    })();
+    };
+    boxerDetails();
   }, [id]);
 
   if (!boxer) return <div>Loading…</div>;
